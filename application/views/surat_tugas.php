@@ -56,7 +56,6 @@
 										$no=1;
 										$temp_idPerjalananDinas='';
 										$temp_idPegawaiTugas='';
-										$temp_idPegawaiPengikut=[];
 
 										foreach ($surat_tugas as $data_surat_tugas) {
 											?>
@@ -71,17 +70,14 @@
 															$temp_idPerjalananDinas=$data_surat_tugas->idPerjalananDinas;
 															$temp_idPegawaiTugas=$data_perjalanan_dinas->idPegawaiTugas;
 															echo $data_perjalanan_dinas->nama_pegawai . '<br>';
-															$temp_pegawaiTugasPengikut[0]=$data_perjalanan_dinas->nama_pegawai;
 															foreach($pegawai_pengikut as $data_pegawai_pengikut){
 																if ( $data_pegawai_pengikut->idPerjalananDinas == $data_perjalanan_dinas->idPerjalananDinas){
 																	echo $data_pegawai_pengikut->nama_pegawai . "<br>";
 																	if (!isset($temp_idPegawaiPengikut)) {
 																		$temp_idPegawaiPengikut[0]=$data_pegawai_pengikut->idPegawaiPengikut;
-																		array_push($temp_pegawaiTugasPengikut,$data_pegawai_pengikut->nama_pegawai);
 																	}
 																	else {
 																		array_push($temp_idPegawaiPengikut, $data_pegawai_pengikut->idPegawaiPengikut);
-																		array_push($temp_pegawaiTugasPengikut,$data_pegawai_pengikut->nama_pegawai);
 																	}
 																}
 															}
@@ -127,134 +123,168 @@
 												</td>
 												<td>
 													<div class="btn-group">
-														<button type="button" class="btn btn-primary"> <?php echo $data_surat_tugas->status_cetak;?> 
-													</button>
-												</div> &nbsp;&nbsp;
-											</td>
-											<td> 
-												<div class="btn-group">
-													<button type="button" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i> View </button>
-												</div> &nbsp;&nbsp;
-												<div class="btn-group">
-													<a href="#modalEditData<?php echo $data_surat_tugas->idSPT?>" data-toggle="modal" class="btn btn-warning btn-sm">
-														<i class="fa fa-edit"></i> Edit
-													</a>
-												</div>&nbsp;&nbsp;
-												<div class="btn-group">
-													<button type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Delete </button> 
-												</div>&nbsp;&nbsp;
-											</td>
-										</tr>
-										<?php 
-										$no++;
-										$temp_idPerjalananDinas='';
-									} ?>
-								</tbody>
-							</table>
+														<?php 
 
-							<?php
-							foreach ($surat_tugas as $data_surat_tugas) {
-								?>
-								<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="modalEditData<?php echo $data_surat_tugas->idSPT?>" class="modal fade">
-									<div class="modal-dialog">
-										<div class="modal-content">
-											<div class="modal-header">
-												<button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-												<h4 class="modal-title">Edit Data Surat Tugas</h4>
-											</div>
-											<div class="modal-body">
-												<form class="form-horizontal" role="form" method="post" action="<?=base_url('surat_tugas/updateDataSuratTugas/'.$data_surat_tugas->idSPT)?>">
+														if ($data_surat_tugas->status_cetak=="sudah") {
+															?>
+															<button type="button" class="btn btn-success"> <?php echo $data_surat_tugas->status_cetak;?> </button>
+															<?php
+														}
+														else{
+															?>
+															<button type="button" class="btn btn"> <?php echo $data_surat_tugas->status_cetak;?></button> 
+															<?php
+														}
 
-													<div class="form-group">
-														<label class="col-lg-3 col-sm-3 control-label">Nama Pegawai Tugas</label>
-														<div class="col-lg-9">
-															
-															<div class="col-lg-12">
-																<select name="pegawai_tugas[]" id="pegawai_tugas" class="form-control select2 select2-hidden-accessible" multiple="" disabled data-placeholder="" style="width: 100%;" tabindex="-1" aria-hidden="true">
-																	<?php
-																	foreach ($perjalanan_dinas as $data_perjalanan_dinas) {
-																		if ($data_surat_tugas->idPerjalananDinas == $data_perjalanan_dinas->idPerjalananDinas){ 
-																			echo "<option selected> $data_perjalanan_dinas->nama_pegawai</option>";
-																			foreach($pegawai_pengikut as $data_pegawai_pengikut){
-																				if ( $data_pegawai_pengikut->idPerjalananDinas == $data_perjalanan_dinas->idPerjalananDinas){
-																					echo "<option selected> $data_pegawai_pengikut->nama_pegawai</option>";
+														?>
+														
+
+													</div> &nbsp;&nbsp;
+												</td>
+												<td> 
+													<div class="btn-group">
+														<button type="button" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i> View </button>
+													</div> &nbsp;&nbsp;
+													<div class="btn-group">
+														<a href="#modalEditData<?php echo $data_surat_tugas->idSPT?>" data-toggle="modal" class="btn btn-warning btn-sm">
+															<i class="fa fa-edit"></i> Edit
+														</a>
+													</div>&nbsp;&nbsp;
+													<div class="btn-group">
+														<button type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Delete </button> 
+													</div>&nbsp;&nbsp;
+												</td>
+											</tr>
+											<?php 
+											$no++;
+											$temp_idPerjalananDinas='';
+										} ?>
+									</tbody>
+								</table>
+
+								<?php
+								foreach ($surat_tugas as $data_surat_tugas) {
+									?>
+									<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="modalEditData<?php echo $data_surat_tugas->idSPT?>" class="modal fade">
+										<div class="modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header">
+													<button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+													<h4 class="modal-title">Edit Data Surat Tugas</h4>
+												</div>
+												<div class="modal-body">
+													<form class="form-horizontal" role="form" method="post" action="<?=base_url('surat_tugas/updateDataSuratTugas/'.$data_surat_tugas->idSPT)?>">
+
+														<div class="form-group">
+															<label class="col-lg-3 col-sm-3 control-label">Nama Pegawai Tugas</label>
+															<div class="col-lg-9">
+
+																<div class="col-lg-12">
+																	<select name="pegawai_tugas[]" id="pegawai_tugas" class="form-control select2 select2-hidden-accessible" multiple="" disabled data-placeholder="" style="width: 100%;" tabindex="-1" aria-hidden="true">
+																		<?php
+																		foreach ($perjalanan_dinas as $data_perjalanan_dinas) {
+																			if ($data_surat_tugas->idPerjalananDinas == $data_perjalanan_dinas->idPerjalananDinas){ 
+																				echo "<option selected> $data_perjalanan_dinas->nama_pegawai</option>";
+																				foreach($pegawai_pengikut as $data_pegawai_pengikut){
+																					if ( $data_pegawai_pengikut->idPerjalananDinas == $data_perjalanan_dinas->idPerjalananDinas){
+																						echo "<option selected> $data_pegawai_pengikut->nama_pegawai</option>";
+																					}
 																				}
+																				break;
 																			}
-																			break;
-																		}
-																	};
+																		};
+																		?>
+																	</select>
+																</div>
+
+															</div>
+														</div>
+														<div class="form-group">
+															<label class="col-lg-3 col-sm-3 control-label">Nomor SPT </label>
+															<div class="col-lg-9">
+																<input type="text" name="nomor_spt" id="nomor_spt" class="form-control" placeholder="Nomor SPT" value="<?php echo $data_surat_tugas->nomor_spt?>" required>
+															</div>
+														</div>
+														<div class="form-group">
+															<label class="col-lg-3 col-sm-3 control-label"> Status Cetak</label>
+															<div class="col-lg-9 col-sm-9">
+																<!-- Group of default radios - option 1 -->
+
+																<?php 
+																if ($data_surat_tugas->status_cetak=="belum") {
 																	?>
-																</select>
-															</div>
+																	<div class="custom-control custom-radio">
+																		<input type="radio" class="custom-control-input" id="defaultGroupExample1" name="status_cetak" value="sudah">
+																		<label class="custom-control-label">Sudah</label>
+																	</div>
 
-														</div>
-													</div>
-													<div class="form-group">
-														<label class="col-lg-3 col-sm-3 control-label">Nomor SPT </label>
-														<div class="col-lg-9">
-															<input type="text" name="nomor_spt" id="nomor_spt" class="form-control" placeholder="Nomor SPT" value="<?php echo $data_surat_tugas->nomor_spt?>" required>
-														</div>
-													</div>
-													<div class="form-group">
-														<label class="col-lg-3 col-sm-3 control-label"> Status Cetak</label>
-														<div class="col-lg-9 col-sm-9">
-															<!-- Group of default radios - option 1 -->
-															<div class="custom-control custom-radio">
-																<input type="radio" class="custom-control-input" id="defaultGroupExample1" name="status_cetak" value="sudah">
-																<label class="custom-control-label">Sudah</label>
-															</div>
+																	<div class="custom-control custom-radio">
+																		<input type="radio" class="custom-control-input" id="defaultGroupExample2" checked name="status_cetak" value="belum">
+																		<label class="custom-control-label">Belum</label>
+																	</div>
+																	<?php
+																} else {
+																	?>
+																	<div class="custom-control custom-radio">
+																		<input type="radio" class="custom-control-input" id="defaultGroupExample1" name="status_cetak" checked value="sudah">
+																		<label class="custom-control-label">Sudah</label>
+																	</div>
 
-															<div class="custom-control custom-radio">
-																<input type="radio" class="custom-control-input" id="defaultGroupExample2" name="status_cetak" value="belum">
-																<label class="custom-control-label">Belum</label>
+																	<div class="custom-control custom-radio">
+																		<input type="radio" class="custom-control-input" id="defaultGroupExample2" name="status_cetak" value="belum">
+																		<label class="custom-control-label">Belum</label>
+																	</div>
+																	<?php
+																}
+																?>
+
 															</div>
 														</div>
-													</div>
-													<div class="form-group">
-														<div style="padding-left: 60%" class="col-lg-offset-3 col-lg-9">
-															<button type="submit" class="btn btn-primary" name="edit" value="edit">Update</button>
+														<div class="form-group">
+															<div style="padding-left: 60%" class="col-lg-offset-3 col-lg-9">
+																<button type="submit" class="btn btn-primary" name="edit" value="edit">Update</button>
+															</div>
 														</div>
-													</div>
-												</form>
+													</form>
 
+												</div>
 											</div>
 										</div>
 									</div>
-								</div>
-								<?php
-							}
-							?>
+									<?php
+								}
+								?>
 
+							</div>
+							<!-- /.box-body -->
 						</div>
-						<!-- /.box-body -->
+						<!-- /.box -->
 					</div>
-					<!-- /.box -->
+					<!-- /.col -->
 				</div>
-				<!-- /.col -->
-			</div>
 
-		</section>
+			</section>
 
-		<!-- /.content -->
-	</div>
-	<!-- /.content-wrapper -->
-
-
-
-	<!-- dashboard hightlight information SPPD -->
-
-
-	<!-- /.content-wrapper -->
-
-	<footer class="main-footer">
-		<div class="pull-right hidden-xs">  
+			<!-- /.content -->
 		</div>
-		<strong>Copyright &copy; Kuliah Magang Mahasiswa S1 Informatika UNS  KOMINFO Kebumen 2019</strong>
-	</footer>
-</div>
-<!-- Control Sidebar -->
+		<!-- /.content-wrapper -->
 
-<!-- /.control-sidebar -->
+
+
+		<!-- dashboard hightlight information SPPD -->
+
+
+		<!-- /.content-wrapper -->
+
+		<footer class="main-footer">
+			<div class="pull-right hidden-xs">  
+			</div>
+			<strong>Copyright &copy; Kuliah Magang Mahasiswa S1 Informatika UNS  KOMINFO Kebumen 2019</strong>
+		</footer>
+	</div>
+	<!-- Control Sidebar -->
+
+	<!-- /.control-sidebar -->
   <!-- Add the sidebar's background. This div must be placed
   	immediately after the control sidebar -->
 

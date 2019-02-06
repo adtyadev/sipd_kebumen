@@ -21,16 +21,16 @@ class perjalanan_dinas_model extends CI_Model{
     }
 
     function getAllPerjalananDinas(){
-     $this->db->select('pegawai.nama_pegawai, lokasi_kelurahan.nama_kelurahan, perjalanan_dinas.kegiatan, transportasi.nama_transportasi, perjalanan_dinas.tanggal_berangkat, perjalanan_dinas.tanggal_kembali, perjalanan_dinas.lama_perjalanan, perjalanan_dinas.idPerjalananDinas');
-     $this->db->FROM('perjalanan_dinas');
-     $this->db->join('pegawai','perjalanan_dinas.idPegawaiTugas=pegawai.NIP');
-     $this->db->join('lokasi_kelurahan','perjalanan_dinas.idLokasi = lokasi_kelurahan.idKelurahan');
-     $this->db->join('transportasi','perjalanan_dinas.idTransportasi = transportasi.idTransportasi');
-     return $this->db->get();
+       $this->db->select('pegawai.nama_pegawai, lokasi_kelurahan.nama_kelurahan, perjalanan_dinas.kegiatan, transportasi.nama_transportasi, perjalanan_dinas.tanggal_berangkat, perjalanan_dinas.tanggal_kembali, perjalanan_dinas.lama_perjalanan, perjalanan_dinas.idPerjalananDinas');
+       $this->db->FROM('perjalanan_dinas');
+       $this->db->join('pegawai','perjalanan_dinas.idPegawaiTugas=pegawai.NIP');
+       $this->db->join('lokasi_kelurahan','perjalanan_dinas.idLokasi = lokasi_kelurahan.idKelurahan');
+       $this->db->join('transportasi','perjalanan_dinas.idTransportasi = transportasi.idTransportasi');
+       return $this->db->get();
 
- }
+   }
 
- function getPegawaiPengikut(){
+   function getPegawaiPengikut(){
     $this->db->select('pegawai.nama_pegawai, punya_pegawai_pengikut.idPerjalananDinas');
     $this->db->FROM('punya_pegawai_pengikut');
     $this->db->join('pegawai','pegawai.NIP=punya_pegawai_pengikut.idPegawaiPengikut');
@@ -94,12 +94,12 @@ function addDataPunyaPegawaiPengikut($input){
     $this->db->insert($this->_tablePunyaPegawaiPengikut, $input);
 }
 
-function addDataSPT($input){
-    $this->db->insert($this->_tableSPT,$input);
+function addDataSPT($inputSPT){
+    $this->db->insert($this->_tableSPT,$inputSPT);
 }
 
-function addDataSPPD($input){
-    $this->db->insert($this->_tableSPPD,$input);
+function addDataSPPD($inputSPPD){
+    $this->db->insert($this->_tableSPPD,$inputSPPD);
 }
 
 function updateDataPerjalananDinas( $input, $columnWhere, $valueWhere){
@@ -146,9 +146,9 @@ function getBiayaTransportasiLain($idTransportasi,$idGolongan){
 function getBiayaHarian($idGolongan,$idLokasiProvinsi,$jarak_perjalanan,$jenis_kegiatan){
 
     if ((int)$jarak_perjalanan<2) {
-       $jarak_perjalanan=1;   
-   }
-   elseif (2<=(int)$jarak_perjalanan AND (int)$jarak_perjalanan<=10) {
+     $jarak_perjalanan=1;   
+ }
+ elseif (2<=(int)$jarak_perjalanan AND (int)$jarak_perjalanan<=10) {
     $jarak_perjalanan=10;  
 }
 elseif (11<=(int)$jarak_perjalanan AND (int)$jarak_perjalanan<=20) {
@@ -160,7 +160,7 @@ elseif ((int)$jarak_perjalanan>20) {
 
 if ((int)$jarak_perjalanan==30) {
 
- if((int)$idLokasiProvinsi==34 ){
+   if((int)$idLokasiProvinsi==34 ){
     $wilayah="jogja";
 } 
 elseif((int)$idLokasiProvinsi==33){
@@ -176,7 +176,7 @@ else{
     $wilayah="luar_jawa";
 }
 
-$this->db->select('biaya_harian.nominal_biaya_perjalanan, biaya_harian.idBiayaHarian');
+$this->db->select('biaya_harian.nominal_biaya_harian, biaya_harian.idBiayaHarian');
 $this->db->from('biaya_harian');
 $this->db->where('biaya_harian.idGolongan',$idGolongan);
 $this->db->where('biaya_harian.wilayah',$wilayah);
@@ -186,7 +186,7 @@ $this->db->where('biaya_harian.jenis_kegiatan',$jenis_kegiatan);
 return $this->db->get();  
 }
 else{
-    $this->db->select('biaya_harian.nominal_biaya_perjalanan, biaya_harian.idBiayaHarian');
+    $this->db->select('biaya_harian.nominal_biaya_harian, biaya_harian.idBiayaHarian');
     $this->db->from('biaya_harian');
     $this->db->where('biaya_harian.idGolongan',$idGolongan);
     $this->db->where('biaya_harian.wilayah',"kebumen");

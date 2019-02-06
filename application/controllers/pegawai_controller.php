@@ -52,8 +52,8 @@ class pegawai_controller extends CI_Controller{
 			'idGolongan'=>$idGolongan,
 			'idUnitKerja'=>$idUnitKerja
 		);
-		//$this->pegawai_model->updateDataPegawai($input,'NIP', $NIP);
-		$this->session->set_flashdata('message', $NIP);
+		$this->pegawai_model->updateDataPegawai($input,'NIP', $NIP);
+		//$this->session->set_flashdata('message', $NIP);
 		$this->session->set_flashdata('message', 'Data Sukses Dirubah');
 		redirect(base_url('pegawai/index'));
 	}

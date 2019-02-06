@@ -86,8 +86,8 @@ class perjalanan_dinas_controller extends CI_Controller{
 		);
 		$this->perjalanan_dinas_model->addDataPerjalananDinas($input);
 		
-		print_r($NIP_pegawai_pengikut);
-		echo count($NIP_pegawai_pengikut);
+		// print_r($NIP_pegawai_pengikut);
+		// echo count($NIP_pegawai_pengikut);
 		$i=0;
 		foreach ($NIP_pegawai_pengikut as $data_NIP_pegawai_pengikut) {
 
@@ -99,8 +99,8 @@ class perjalanan_dinas_controller extends CI_Controller{
 			}
 			
 			$idBiayaHarianPengikut=$this->perjalanan_dinas_model->getBiayaHarian($idGolonganPengikut,$idLokasiProvinsi,$jarak_perjalanan,$jenis_kegiatan)->row()->idBiayaHarian;
-			if (isset($idBiayaHarian)) {
-				if(empty($idBiayaHarian))$idBiayaHarianPengikut=NULL;
+			if (isset($idBiayaHarianPengikut)) {
+				if(empty($idBiayaHarianPengikut))$idBiayaHarianPengikut=NULL;
 			}
 
 			$idBiayaTransportasiMobilPengikut=$this->perjalanan_dinas_model->getBiayaTransportasiMobil($idTransportasi)->row()->idBiayaTransportasiMobil;
@@ -110,8 +110,8 @@ class perjalanan_dinas_controller extends CI_Controller{
 
 
 			$idBiayaPenginapanPengikut=$this->perjalanan_dinas_model->getBiayaPenginapan($idGolonganPengikut,$idLokasiProvinsi)->row()->idBiayaPenginapan;
-			if (isset($idBiayaPenginapan)) {
-				if(empty($idBiayaPenginapan))$idBiayaPenginapanPengikut=NULL;
+			if (isset($idBiayaPenginapanPengikut)) {
+				if(empty($idBiayaPenginapanPengikut))$idBiayaPenginapanPengikut=NULL;
 			}
 
 			$idBiayaTambahanPengikut=NULL;
@@ -130,37 +130,38 @@ class perjalanan_dinas_controller extends CI_Controller{
 		}
 
 
-		$idSPT = uniqid();
-		$nomer_spt=NULL;
-		$status_cetak="belum";
-		$input = array(
+		$idSPT=uniqid();
+		$nomor_spt=NULL;
+		$status_cetak_spt="belum";
+
+
+		$inputSPT = array(
 			'idPerjalananDinas'=>$idPerjalananDinas,
 			'idSPT'=>$idSPT,
-			'nomor_spt'=>$nomer_spt,
-			'status_cetak'=>$status_cetak 
+			'nomor_spt'=>$nomor_spt,
+			'status_cetak'=>$status_cetak_spt
 		);
-		$this->perjalanan_dinas_model->addDataSPT($input);
-
-		$idSPPD = uniqid();
-		$nomer_sppd=NULL;
+		$this->perjalanan_dinas_model->addDataSPT($inputSPT);
+		$idSPPD=uniqid();
+		$nomor_sppd=NULL;
 		$mata_anggaran=NULL;
-		$keterangan_lain_lain=NULL;
-		$status_cetak="belum";
-		$input = array(
+		$keterangan_lain_lain="-";
+		$status_cetak_sppd="belum";
+		$status_cetak_anggaran="belum";
+		$inputSPPD = array(
 			'idPerjalananDinas'=>$idPerjalananDinas,
 			'idSPPD'=>$idSPPD,
-			'nomor_sppd'=>$nomer_sppd,
+			'nomor_sppd'=>$nomor_sppd,
 			'mata_anggaran'=>$mata_anggaran,
 			'keterangan_lain_lain'=>$keterangan_lain_lain,
-			'status_cetak'=>$status_cetak 
+			'status_cetak'=>$status_cetak_sppd,
+			'status_cetak_anggaran'=>$status_cetak_anggaran
 		);
-		$this->perjalanan_dinas_model->addDataSPPD($input);
+		$this->perjalanan_dinas_model->addDataSPPD($inputSPPD);
 
 		$this->session->set_flashdata('message', 'Data Sukses Ditambahkan');
 		redirect(base_url('perjalanan_dinas/index'));
 	}
-
-
 
 	function updateDataPerjalananDinas($idPerjalananDinas){
 		$NIP_pegawai_tugas=$this->input->post('pegawai_tugas');
@@ -242,5 +243,4 @@ class perjalanan_dinas_controller extends CI_Controller{
 	}
 
 }
-
 ?>

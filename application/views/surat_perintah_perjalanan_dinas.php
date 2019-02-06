@@ -39,7 +39,7 @@
               </div>
               <!-- /.box-header -->
               <div class="box-body">
-                <table id="exampler" class="table table-bordered table-striped">
+                <table id="exampler" class="table table-bordered table-striped ">
                   <thead>
                     <tr>
                       <th>No</th>
@@ -126,7 +126,20 @@
                         </td>
                         <td>
                           <div class="btn-group">
-                            <button type="button" class="btn btn-primary"> <?php echo $data_surat_perintah_perjalanan_dinas->status_cetak;?> 
+                            <?php 
+
+                            if ($data_surat_perintah_perjalanan_dinas->status_cetak=="sudah") {
+                              ?>
+                              <button type="button" class="btn btn-success"> <?php echo $data_surat_perintah_perjalanan_dinas->status_cetak;?> </button>
+                              <?php
+                            }
+                            else{
+                              ?>
+                              <button type="button" class="btn btn"> <?php echo $data_surat_perintah_perjalanan_dinas->status_cetak;?></button> 
+                              <?php
+                            }
+
+                            ?>
                           </button>
                         </div> &nbsp;&nbsp;
                       </td>
@@ -167,7 +180,7 @@
                           <div class="form-group">
                             <label class="col-lg-3 col-sm-3 control-label">Nama Pegawai Tugas</label>
                             <div class="col-lg-9">
-                              
+
                               <div class="col-lg-12">
                                 <select name="pegawai_tugas[]" id="pegawai_tugas" class="form-control select2 select2-hidden-accessible" multiple="" disabled data-placeholder="" style="width: 100%;" tabindex="-1" aria-hidden="true">
                                   <?php
@@ -210,15 +223,34 @@
                             <label class="col-lg-3 col-sm-3 control-label"> Status Cetak</label>
                             <div class="col-lg-9 col-sm-9">
                               <!-- Group of default radios - option 1 -->
-                              <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input" id="defaultGroupExample1" name="status_cetak" value="sudah">
-                                <label class="custom-control-label">Sudah</label>
-                              </div>
+                              <?php 
+                              if ($data_surat_perintah_perjalanan_dinas->status_cetak=="belum") {
+                                ?>
+                                <div class="custom-control custom-radio">
+                                  <input type="radio" class="custom-control-input" id="defaultGroupExample1" name="status_cetak" value="sudah">
+                                  <label class="custom-control-label">Sudah</label>
+                                </div>
 
-                              <div class="custom-control custom-radio">
-                                <input type="radio" class="custom-control-input" id="defaultGroupExample2" name="status_cetak" value="belum">
-                                <label class="custom-control-label">Belum</label>
-                              </div>
+                                <div class="custom-control custom-radio">
+                                  <input type="radio" class="custom-control-input" id="defaultGroupExample2" checked name="status_cetak" value="belum">
+                                  <label class="custom-control-label">Belum</label>
+                                </div>
+                                <?php
+                              } else {
+                                ?>
+                                <div class="custom-control custom-radio">
+                                  <input type="radio" class="custom-control-input" id="defaultGroupExample1" name="status_cetak" checked value="sudah">
+                                  <label class="custom-control-label">Sudah</label>
+                                </div>
+
+                                <div class="custom-control custom-radio">
+                                  <input type="radio" class="custom-control-input" id="defaultGroupExample2" name="status_cetak" value="belum">
+                                  <label class="custom-control-label">Belum</label>
+                                </div>
+                                <?php
+                              }
+                              ?>
+
                             </div>
                           </div>
                           <div class="form-group">

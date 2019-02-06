@@ -66,12 +66,9 @@
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Dinas ( SPPD )</a></li>
         </ul>
       </li>
-
-      
-      <li class="treeview menu">
-        <a href="">
-          <i class="fa fa-exchange"></i> <span> Biaya Perjalanan Pegawai</span>
-        </a>
+      <li>
+        <a href="<?php echo base_url('biaya_perjalanan_pegawai/index')?>">
+          <i class="fa fa-exchange"></i>Biaya Perjalanan pegawai</a>
       </li>
         <!-- <li><a href="https://adminlte.io/docs"><i class="fa fa-book"></i> <span>Documentation</span></a></li>
         <li class="header">LABELS</li>
