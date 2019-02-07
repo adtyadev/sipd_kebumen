@@ -1,15 +1,15 @@
 <!-- Logo -->
-<a href="<?php echo base_url('dashboard/index')?>" class="logo">
+<a href="<?php echo base_url('dashboard/index')?>" class="logo" style="background-color:#2C5364 ">
   <!-- mini logo for sidebar mini 50x50 pixels -->
   <span class="logo-mini"><b>SIPD</b></span>
   <!-- logo for regular state and mobile devices -->
-  <span class="logo-lg">
+  <span class="logo-lg" style="background: linear-gradient(to left, #6a9113, #2C5364);">
     <b>SIPD</b> Kab KEBUMEN<br>
   </span>
 </a>
 
 <!-- Header Navbar: style can be found in header.less -->
-<nav class="navbar navbar-static-top">
+<nav class="navbar navbar-static-top" style="background: linear-gradient(to left, #6a9113, #2C5364);">
   <!-- Sidebar toggle button-->
   <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
     <span class="sr-only">Toggle navigation</span>

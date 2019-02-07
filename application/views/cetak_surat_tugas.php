@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,13 +13,18 @@
 </head>
 
 <body style="font-size: 15px" >
+    <?php 
+    $no=1;
+    $temp_idPerjalananDinas='';
+    $temp_idPegawaiTugas='';
+    ?>
     <page size="A4">
         <div class="padding-10mm">
             <table class="align-center" border="0px" width="100%">
                 <td width="20%">
-                 <img style="max-width:50%;height:auto;" src="<?php echo base_url('assets')?>/bower_components/surat_sipd/img/logoKebumen.jpg"> 
-             </td>
-             <td>
+                   <img style="max-width:50%;height:auto;" src="<?php echo base_url('assets')?>/bower_components/surat_sipd/img/logoKebumen.jpg"> 
+               </td>
+               <td>
                 <table class="align-center" border="0" width="100%">
                     <tr>
                         <td class="bold f20">PEMERINTAH KABUPATEN KEBUMEN</td>
@@ -51,109 +55,183 @@
                 </tr>
                 <tr>
                     <td>
-                     Nomor : 094/125/SPT/12/2019
-                 </span>
-             </td>
-         </tr>
-     </table>
-     <br>
+                        <span>
+                            <?php 
+                            foreach ($surat_tugas as $data_surat_tugas) {
+                                if ($data_surat_tugas->idSPT==$idSPT) {
+                                    echo "Nomor :  $data_surat_tugas->nomor_spt";
+                                    ?>
+                                </span>
+                            </td>
+                        </tr>
+                    </table>
+                    <br>
 
-     <table width="100%">
-        <tr>
-            <td>
-             <table width="100%" border="0">
+                    <table width="100%">
+                        <tr>
+                            <td>
+                               <table width="100%" border="0">
+                                <tr>
+                                    <td width="15%">Dasar</td>
+                                    <td width="1%">:</td>
+                                    <td> Kegiatan Dinas Kominfo Kabupaten Kebumen Tahun 2019 </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>    
+                <!-- isi -->
+                <table width="100%">
+                    <tr>
+                        <td>
+                            <table width="100%" border="0">
+                                <tr>
+                                    <td colspan="5" style="text-align: center; font-weight: bold; text-decoration: underline; font-size: 16px" class="ind">
+                                      MENUGASKAN
+                                  </td>
+                              </tr>
+
+                              <tr>
+                                <td width="15%">Kepada </td>
+                                <td width="1%">:</td>
+                                <?php
+                                foreach ($perjalanan_dinas as $data_perjalanan_dinas) {
+                                    if ($data_surat_tugas->idPerjalananDinas == $data_perjalanan_dinas->idPerjalananDinas){ 
+                                        ?>
+                                        <td width="15%"> Nama </td>
+                                        <td width="1%"> : </td>
+                                        <td> 
+                                            <?php 
+                                            $temp_idPerjalananDinas=$data_surat_tugas->idPerjalananDinas;
+                                            $temp_idPegawaiTugas=$data_perjalanan_dinas->idPegawaiTugas;
+                                            echo $data_perjalanan_dinas->nama_pegawai . '<br>';
+                                            ?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="15%"></td>
+                                        <td width="1%"></td>
+                                        <td width="15%"> NIP </td>
+                                        <td width="1%"> : </td>
+                                        <td> 
+                                            <?php 
+                                            echo $data_perjalanan_dinas->idPegawaiTugas . '<br>';
+                                            ?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="15%"></td>
+                                        <td width="1%"></td>
+                                        <td width="15%"> Pangkat/Gol </td>
+                                        <td width="1%"> : </td>
+                                        <td> 
+                                            <?php foreach ($pegawai as $data_pegawai) {
+                                                if ($data_pegawai->NIP == $temp_idPegawaiTugas) {
+                                                    echo $data_pegawai->nama_pangkat."/".$data_pegawai->nama_golongan . '<br>';
+                                                            //echo count($temp_idPegawaiPengikut);
+                                                    break;
+                                                }
+
+                                            }
+                                            ?>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="15%"></td>
+                                        <td width="1%"></td>
+                                        <td width="15%"> Jabatan  </td>
+                                        <td width="1%"> : </td>
+                                        <td> < Kasi Infastek Bidang PDE ></td>
+                                    </tr>
+                                    <?php
+                                    foreach($pegawai_pengikut as $data_pegawai_pengikut){
+                                        if ( $data_pegawai_pengikut->idPerjalananDinas == $data_perjalanan_dinas->idPerjalananDinas){
+                                            ?>
+                                            <tr>
+                                                <td colspan="5" style="text-align: justify;" class="ind">
+                                                   <br>
+                                               </td>
+                                           </tr>
+                                           <tr>
+                                            <td width="15%"></td>
+                                            <td width="1%"></td>
+                                            <td width="15%"> Nama </td>
+                                            <td width="1%"> : </td>
+                                            <td> 
+                                                <?php 
+                                                echo $data_pegawai_pengikut->nama_pegawai . "<br>";
+                                                if (!isset($temp_idPegawaiPengikut)) {
+                                                    $temp_idPegawaiPengikut[0]=$data_pegawai_pengikut->idPegawaiPengikut;
+                                                }
+                                                else {
+                                                    array_push($temp_idPegawaiPengikut, $data_pegawai_pengikut->idPegawaiPengikut);
+                                                }
+                                                ?>
+                                                <tr>
+                                                    <td width="15%"></td>
+                                                    <td width="1%"></td>
+                                                    <td width="15%"> NIP </td>
+                                                    <td width="1%"> : </td>
+                                                    <td> 
+                                                        <?php
+                                                        echo $data_pegawai_pengikut->idPegawaiPengikut . "<br>";
+                                                        ?>
+
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="15%"></td>
+                                                    <td width="1%"></td>
+                                                    <td width="15%"> Pangkat/Gol </td>
+                                                    <td width="1%"> : </td>
+                                                    <td> 
+                                                        <?php 
+                                                        $cek_loop=0;
+                                                        $count_temp_idPegawaiPengikut=count($temp_idPegawaiPengikut);
+                                                        foreach ($pegawai as $data_pegawai) {
+                                                            if ($cek_loop==$count_temp_idPegawaiPengikut) {
+                                                                break;
+                                                            }
+                                                            for ($temp=0; $temp < $count_temp_idPegawaiPengikut ; $temp++) { 
+                                                                if ($data_pegawai->NIP == $temp_idPegawaiPengikut[$temp]) {
+                                                                    echo $data_pegawai->nama_pangkat ."/". $data_pegawai->nama_golongan . '<br>';
+                                                                    $cek_loop++;;
+                                                                }
+                                                            }
+                                                        }
+                                                        unset($temp_idPegawaiPengikut)
+                                                        ?>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="15%"></td>
+                                                    <td width="1%"></td>
+                                                    <td width="15%"> Jabatan  </td>
+                                                    <td width="1%"> : </td>
+                                                    <td> < Staf Bidang PDE > </td>
+                                                </tr>
+                                            </td>
+                                        </tr>
+
+                                        <?php
+                                    }
+                                }
+                                break;
+                            }
+                        }
+                    }
+                }
+                ?>
                 <tr>
-                    <td width="15%">Dasar</td>
-                    <td width="1%">:</td>
-                    <td>< Kegiatan Dinas Kominfo Kabupaten Kebumen Tahun 2019 ></td>
+                    <td width="15%"></td>
+                    <td width="1%"></td>
+                    <td width="15%"> </td>
+                    <td width="1%"> </td>
+                    <td> < Pada Dinas Kominfo Kabupaten Kebmen > </td>
                 </tr>
             </table>
         </td>
     </tr>
-</table>    
-<!-- isi -->
-<table width="100%">
-    <tr>
-        <td>
-            <table width="100%" border="0">
-                <tr>
-                    <td colspan="5" style="text-align: center; font-weight: bold; text-decoration: underline; font-size: 16px" class="ind">
-                      MENUGASKAN
-                  </td>
-              </tr>
-
-              <tr>
-                <td width="15%">Kepada </td>
-                <td width="1%">:</td>
-                <td width="15%"> Nama </td>
-                <td width="1%"> : </td>
-                <td> Moch. Nasir, SH.M.Eng </td>
-            </tr>
-            <tr>
-                <td width="15%"></td>
-                <td width="1%"></td>
-                <td width="15%"> NIP </td>
-                <td width="1%"> : </td>
-                <td> < 19730524 199903 2 004 ></td>
-            </tr>
-            <tr>
-                <td width="15%"></td>
-                <td width="1%"></td>
-                <td width="15%"> Pangkat/Gol </td>
-                <td width="1%"> : </td>
-                <td> < Penata Tk I - III/d > </td>
-            </tr>
-            <tr>
-                <td width="15%"></td>
-                <td width="1%"></td>
-                <td width="15%"> Jabatan  </td>
-                <td width="1%"> : </td>
-                <td> < Kasi Infastek Bidang PDE ></td>
-            </tr>
-
-            <tr>
-                <td colspan="5" style="text-align: justify;" class="ind">
-                 <br>
-             </td>
-         </tr>
-         <tr>
-            <td width="15%"></td>
-            <td width="1%"></td>
-            <td width="15%"> Nama </td>
-            <td width="1%"> : </td>
-            <td> < BAWONO > </td>
-        </tr>
-        <tr>
-            <td width="15%"></td>
-            <td width="1%"></td>
-            <td width="15%"> NIP </td>
-            <td width="1%"> : </td>
-            <td> < 19670515 198602 1 002 ></td>
-        </tr>
-        <tr>
-            <td width="15%"></td>
-            <td width="1%"></td>
-            <td width="15%"> Pangkat/Gol </td>
-            <td width="1%"> : </td>
-            <td> < Penata Muda - III/a > </td>
-        </tr>
-        <tr>
-            <td width="15%"></td>
-            <td width="1%"></td>
-            <td width="15%"> Jabatan  </td>
-            <td width="1%"> : </td>
-            <td> < Staf Bidang PDE > </td>
-        </tr>
-        <tr>
-            <td width="15%"></td>
-            <td width="1%"></td>
-            <td width="15%"> Nama </td>
-            <td width="1%"> : </td>
-            <td> < Pada Dinas Kominfo Kabupaten Kebmen > </td>
-        </tr>
-    </table>
-</td>
-</tr>
 </table>
 <!-- Footer  -->
 <table width="100%"" border="0" >

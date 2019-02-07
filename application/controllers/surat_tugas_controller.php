@@ -16,8 +16,13 @@ class surat_tugas_controller extends CI_Controller{
         $this->load->view('surat_tugas',$data);
     }
 
-    function cetakSuratTugas(){
-        $this->load->view('cetak_surat_tugas');
+    function cetakSuratTugas($idSPT){
+        $data['pegawai']=$this->surat_tugas_model->getAllPegawai()->result();
+        $data['perjalanan_dinas']=$this->surat_tugas_model->getAllPerjalananDinas()->result();
+        $data['pegawai_pengikut']=$this->surat_tugas_model->getPegawaiPengikut()->result();
+        $data['surat_tugas']=$this->surat_tugas_model->getAllSuratTugas()->result();
+        $data['idSPT']=$idSPT;
+        $this->load->view('cetak_surat_tugas',$data);
     }
 
     function updateDataSuratTugas($idSPT){

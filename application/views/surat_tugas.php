@@ -143,7 +143,7 @@
 												</td>
 												<td> 
 													<div class="btn-group">
-														<a href="<?php echo base_url('surat_tugas/cetakSuratTugas')?>">
+														<a href="<?php echo base_url('surat_tugas/cetakSuratTugas/'.$data_surat_tugas->idSPT)?>">
 															<button type="button" class="btn btn-primary btn-sm" ><i class="fa fa-eye"></i> View </button>
 														</a>
 													</div> &nbsp;&nbsp;
