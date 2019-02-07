@@ -10,7 +10,7 @@
       <?php $this->load->view("/_partials/header.php") ?>
     </header>
     <!-- Left side column. contains the logo and sidebar -->
-    <aside class="main-sidebar">
+    <aside class="main-sidebar" >
       <!-- sidebar: style can be found in sidebar.less -->
       <?php $this->load->view("/_partials/sidebar.php") ?>
     </aside>

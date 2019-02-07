@@ -16,6 +16,10 @@ class surat_perintah_perjalanan_dinas_controller extends CI_Controller{
         $this->load->view('surat_perintah_perjalanan_dinas',$data);
     }
 
+    function cetakSuratPerintahPerjalananDinas(){
+        $this->load->view('cetak_surat_perintah_perjalanan_dinas');
+    }
+
     function updateDataSuratPerintahPerjalananDinas($idSPPD){
         $nomor_sppd = $this->input->post('nomor_sppd');
         $mata_anggaran=$this->input->post('mata_anggaran');

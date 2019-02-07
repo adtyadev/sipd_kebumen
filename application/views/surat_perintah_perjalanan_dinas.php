@@ -145,7 +145,9 @@
                       </td>
                       <td> 
                         <div class="btn-group">
-                          <button type="button" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i> View </button>
+                          <a href="<?php echo base_url('surat_perintah_perjalanan_dinas/cetakSuratPerintahPerjalananDinas')?>">
+                            <button type="button" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i> View </button>
+                          </a>
                         </div> &nbsp;&nbsp;
                         <div class="btn-group">
                           <a href="#modalEditData<?php echo $data_surat_perintah_perjalanan_dinas->idSPPD?>" data-toggle="modal" class="btn btn-warning btn-sm">

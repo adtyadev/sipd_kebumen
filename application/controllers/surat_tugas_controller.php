@@ -16,6 +16,10 @@ class surat_tugas_controller extends CI_Controller{
         $this->load->view('surat_tugas',$data);
     }
 
+    function cetakSuratTugas(){
+        $this->load->view('cetak_surat_tugas');
+    }
+
     function updateDataSuratTugas($idSPT){
         $nomor_spt = $this->input->post('nomor_spt');
         $status_cetak=$this->input->post('status_cetak');

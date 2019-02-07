@@ -161,7 +161,7 @@ elseif ((int)$jarak_perjalanan>20) {
 if ((int)$jarak_perjalanan==30) {
 
    if((int)$idLokasiProvinsi==34 ){
-    $wilayah="jogja";
+    $wilayah="yogyakarta";
 } 
 elseif((int)$idLokasiProvinsi==33){
     $wilayah="jawa_tengah";

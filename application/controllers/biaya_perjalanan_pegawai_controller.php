@@ -19,6 +19,11 @@ class biaya_perjalanan_pegawai_controller extends CI_Controller{
         $data['biaya_transportasi_lain']=$this->biaya_perjalanan_pegawai_model->getAllBiayaTransportasiLain()->result();
         $data['biaya_trasnportasi_mobil_motor']=$this->biaya_perjalanan_pegawai_model->getAllBiayaTransportasiMobilMotor()->result();
         $this->load->view('biaya_perjalanan_pegawai',$data);
+        
+    }
+
+    function cetakAnggaran(){
+        $this->load->view('');
     }
 
     function updateDataSuratPerintahPerjalananDinas($idSPPD){

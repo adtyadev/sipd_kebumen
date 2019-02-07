@@ -149,10 +149,10 @@
 
                           $noPengikut=1;
                           foreach($pegawai_pengikut as $data_pegawai_pengikut){
-                              
+
                             if ( $data_pegawai_pengikut->idPerjalananDinas == $data_perjalanan_dinas->idPerjalananDinas){
                               echo "<br>Biaya Anggaran Pegawai Pengikut : <br>";
-                             if ($data_pegawai_pengikut->nominal_biaya_harian == NULL ) {
+                              if ($data_pegawai_pengikut->nominal_biaya_harian == NULL ) {
                                echo "Biaya Harian : Rp 0,- <br>";
                                $total_anggaran+=0;
                              }
@@ -236,7 +236,9 @@
               </td>
               <td> 
                 <div class="btn-group">
-                  <button type="button" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i> View </button>
+                  <a href="#">
+                    <button type="button" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i> View </button>
+                  </a>
                 </div> &nbsp;&nbsp;
                 <div class="btn-group">
                   <a href="#modalEditData<?php echo $data_surat_perintah_perjalanan_dinas->idSPPD?>" data-toggle="modal" class="btn btn-warning btn-sm">
@@ -259,7 +261,7 @@
       foreach ($surat_perintah_perjalanan_dinas as $data_surat_perintah_perjalanan_dinas) {
         ?>
         <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="modalEditData<?php echo $data_surat_perintah_perjalanan_dinas->idSPPD?>" class="modal fade">
-          <div class="modal-dialog">
+          <div class="modal-dialog" style="width: 60%">
             <div class="modal-content">
               <div class="modal-header">
                 <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
@@ -269,8 +271,7 @@
                 <form class="form-horizontal" role="form" method="post" action="<?=base_url('surat_perintah_perjalanan_dinas/updateDataSuratPerintahPerjalananDinas/'.$data_surat_perintah_perjalanan_dinas->idSPPD)?>">
 
                   <div class="form-group">
-                    <label class="col-lg-3 col-sm-3 control-label">Nama Pegawai Tugas</label>
-                    <div class="col-lg-9">
+                    <label class="col-lg-2 col-sm-2 control-label">Nama Pegawai Tugas</label>
 
                       <div class="col-lg-12">
                         <select name="pegawai_tugas[]" id="pegawai_tugas" class="form-control select2 select2-hidden-accessible" multiple="" disabled data-placeholder="" style="width: 100%;" tabindex="-1" aria-hidden="true">
@@ -289,79 +290,168 @@
                           ?>
                         </select>
                       </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-lg-2 col-sm-2 control-label">Nomor SPPD </label>
+                    <div class="col-lg-12">
+                      <input type="text" name="nomor_sppd" id="nomor_sppd" class="form-control" placeholder="Nomor SPPD" disabled value="<?php echo $data_surat_perintah_perjalanan_dinas->nomor_sppd?>" required>
+                    </div>
+                  </div>
+                  <h4 class="modal-title">Detail Anggaran Pegawai Petugas</h4>
 
-                    </div>
+                  <div class="modal-header">
+                    <br>
                   </div>
-                  <div class="form-group">
-                    <label class="col-lg-3 col-sm-3 control-label">Nomor SPPD </label>
-                    <div class="col-lg-9">
-                      <input type="text" name="nomor_sppd" id="nomor_sppd" class="form-control" placeholder="Nomor SPPD" value="<?php echo $data_surat_perintah_perjalanan_dinas->nomor_sppd?>" required>
+                  <div class="modal-body">
+                    <label class="col-lg-12 col-sm-12">Aditya Kharisma Wicaksana</label>
+                    <div class="form-group">
+                      <div class="col-lg-6 col-sm-6">
+                        <label>Biaya Harian</label>
+                        <input type="text" name="idBiayaHarian" id="idBiayaHarian" class="form-control" placeholder="Mata Anggran" disabled value="<?php echo $data_surat_perintah_perjalanan_dinas->mata_anggaran?>" required>
+                      </div>
+                      <div class="col-lg-6 col-sm-6">
+                        <label>Biaya Penginapan</label>
+                        <input type="text" name="idBiayaPenginapan" id="idBiayaPenginapan" class="form-control" placeholder="Mata Anggran" disabled value="<?php echo $data_surat_perintah_perjalanan_dinas->mata_anggaran?>" required>
+                      </div>
                     </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="col-lg-3 col-sm-3 control-label">Mata Anggaran </label>
-                    <div class="col-lg-9">
-                      <input type="text" name="mata_anggaran" id="mata_anggaran" class="form-control" placeholder="Mata Anggran" value="<?php echo $data_surat_perintah_perjalanan_dinas->mata_anggaran?>" required>
+                    <div class="form-group">
+                      <div class="col-lg-6 col-sm-6">
+                        <label>Biaya Transportasi Mobil </label>
+                        <input type="text" name="idTransportasiMobil" id="idTransportasiMobil" class="form-control" placeholder="Mata Anggran" disabled value="<?php echo $data_surat_perintah_perjalanan_dinas->mata_anggaran?>" required>
+                      </div>
+                      <div class="col-lg-6 col-sm-6">
+                        <label>Biaya Transportasi Bukan Mobil </label>
+                        <input type="text" name="idTransportasiLain" id="idTransportasiLain" class="form-control" placeholder="Mata Anggran" disabled value="<?php echo $data_surat_perintah_perjalanan_dinas->mata_anggaran?>" required>
+                      </div>
                     </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="col-lg-3 col-sm-3 control-label">Keterangan Lain Lain</label>
-                    <div class="col-lg-9">
-                      <input type="text" name="keterangan_lain_lain" id="keterangan_lain_lain" class="form-control" placeholder="Keterangan Lain Lain" value="<?php echo $data_surat_perintah_perjalanan_dinas->keterangan_lain_lain?>" required>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label class="col-lg-3 col-sm-3 control-label"> Status Cetak</label>
-                    <div class="col-lg-9 col-sm-9">
-                      <!-- Group of default radios - option 1 -->
-                      <?php 
-                      if ($data_surat_perintah_perjalanan_dinas->status_cetak=="belum") {
-                        ?>
-                        <div class="custom-control custom-radio">
-                          <input type="radio" class="custom-control-input" id="defaultGroupExample1" name="status_cetak" value="sudah">
-                          <label class="custom-control-label">Sudah</label>
-                        </div>
+                    <div class="form-group">
+                      <div class="col-lg-12 col-sm-12">
+                       <label>Biaya Tambahan Lain </label>
+                       <input type="text" name="idTransportasiLain" id="idTransportasiLain" class="form-control" placeholder="Mata Anggran" disabled value="<?php echo $data_surat_perintah_perjalanan_dinas->mata_anggaran?>" required>
+                     </div>
+                   </div>
+                 </div>
 
-                        <div class="custom-control custom-radio">
-                          <input type="radio" class="custom-control-input" id="defaultGroupExample2" checked name="status_cetak" value="belum">
-                          <label class="custom-control-label">Belum</label>
-                        </div>
-                        <?php
-                      } else {
-                        ?>
-                        <div class="custom-control custom-radio">
-                          <input type="radio" class="custom-control-input" id="defaultGroupExample1" name="status_cetak" checked value="sudah">
-                          <label class="custom-control-label">Sudah</label>
-                        </div>
 
-                        <div class="custom-control custom-radio">
-                          <input type="radio" class="custom-control-input" id="defaultGroupExample2" name="status_cetak" value="belum">
-                          <label class="custom-control-label">Belum</label>
-                        </div>
-                        <?php
-                      }
-                      ?>
+                 <div class="modal-header">
+                  <br>
+                </div>
+                <div class="modal-body">
+                  <label class="col-lg-12 col-sm-12">Aditya Kharisma Wicaksana</label>
+                  <div class="form-group">
+                    <div class="col-lg-6 col-sm-6">
+                      <label>Biaya Harian</label>
+                      <input type="text" name="idBiayaHarian" id="idBiayaHarian" class="form-control" placeholder="Mata Anggran" disabled value="<?php echo $data_surat_perintah_perjalanan_dinas->mata_anggaran?>" required>
+                    </div>
+                    <div class="col-lg-6 col-sm-6">
+                      <label>Biaya Penginapan</label>
+                      <input type="text" name="idBiayaPenginapan" id="idBiayaPenginapan" class="form-control" placeholder="Mata Anggran" disabled value="<?php echo $data_surat_perintah_perjalanan_dinas->mata_anggaran?>" required>
                     </div>
                   </div>
                   <div class="form-group">
-                    <div style="padding-left: 60%" class="col-lg-offset-3 col-lg-9">
-                      <button type="submit" class="btn btn-primary" name="edit" value="edit">Update</button>
+                    <div class="col-lg-6 col-sm-6">
+                      <label>Biaya Transportasi Mobil </label>
+                      <input type="text" name="idTransportasiMobil" id="idTransportasiMobil" class="form-control" placeholder="Mata Anggran" disabled value="<?php echo $data_surat_perintah_perjalanan_dinas->mata_anggaran?>" required>
+                    </div>
+                    <div class="col-lg-6 col-sm-6">
+                      <label>Biaya Transportasi Bukan Mobil </label>
+                      <input type="text" name="idTransportasiLain" id="idTransportasiLain" class="form-control" placeholder="Mata Anggran" disabled value="<?php echo $data_surat_perintah_perjalanan_dinas->mata_anggaran?>" required>
                     </div>
                   </div>
-                </form>
+                  <div class="form-group">
+                    <div class="col-lg-12 col-sm-12">
+                     <label>Biaya Tambahan Lain </label>
+                     <input type="text" name="idTransportasiLain" id="idTransportasiLain" class="form-control" placeholder="Mata Anggran" disabled value="<?php echo $data_surat_perintah_perjalanan_dinas->mata_anggaran?>" required>
+                   </div>
+                 </div>
+               </div>
 
+
+               <div class="modal-header">
+                <br>
+              </div>
+              <div class="modal-body">
+                <label class="col-lg-12 col-sm-12">Aditya Kharisma Wicaksana</label>
+                <div class="form-group">
+                  <div class="col-lg-6 col-sm-6">
+                    <label>Biaya Harian</label>
+                    <input type="text" name="idBiayaHarian" id="idBiayaHarian" class="form-control" placeholder="Mata Anggran" disabled value="<?php echo $data_surat_perintah_perjalanan_dinas->mata_anggaran?>" required>
+                  </div>
+                  <div class="col-lg-6 col-sm-6">
+                    <label>Biaya Penginapan</label>
+                    <input type="text" name="idBiayaPenginapan" id="idBiayaPenginapan" class="form-control" placeholder="Mata Anggran" disabled value="<?php echo $data_surat_perintah_perjalanan_dinas->mata_anggaran?>" required>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="col-lg-6 col-sm-6">
+                    <label>Biaya Transportasi Mobil </label>
+                    <input type="text" name="idTransportasiMobil" id="idTransportasiMobil" class="form-control" placeholder="Mata Anggran" disabled value="<?php echo $data_surat_perintah_perjalanan_dinas->mata_anggaran?>" required>
+                  </div>
+                  <div class="col-lg-6 col-sm-6">
+                    <label>Biaya Transportasi Bukan Mobil </label>
+                    <input type="text" name="idTransportasiLain" id="idTransportasiLain" class="form-control" placeholder="Mata Anggran" disabled value="<?php echo $data_surat_perintah_perjalanan_dinas->mata_anggaran?>" required>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="col-lg-12 col-sm-12">
+                   <label>Biaya Tambahan Lain </label>
+                   <input type="text" name="idTransportasiLain" id="idTransportasiLain" class="form-control" placeholder="Mata Anggran" disabled value="<?php echo $data_surat_perintah_perjalanan_dinas->mata_anggaran?>" required>
+                 </div>
+               </div>
+             </div>
+
+             <div class="form-group">
+              <label class="col-lg-3 col-sm-3 control-label"> Status Cetak</label>
+              <div class="col-lg-9 col-sm-9">
+                <!-- Group of default radios - option 1 -->
+                <?php 
+                if ($data_surat_perintah_perjalanan_dinas->status_cetak=="belum") {
+                  ?>
+                  <div class="custom-control custom-radio">
+                    <input type="radio" class="custom-control-input" id="defaultGroupExample1" name="status_cetak" value="sudah">
+                    <label class="custom-control-label">Sudah</label>
+                  </div>
+
+                  <div class="custom-control custom-radio">
+                    <input type="radio" class="custom-control-input" id="defaultGroupExample2" checked name="status_cetak" value="belum">
+                    <label class="custom-control-label">Belum</label>
+                  </div>
+                  <?php
+                } else {
+                  ?>
+                  <div class="custom-control custom-radio">
+                    <input type="radio" class="custom-control-input" id="defaultGroupExample1" name="status_cetak" checked value="sudah">
+                    <label class="custom-control-label">Sudah</label>
+                  </div>
+
+                  <div class="custom-control custom-radio">
+                    <input type="radio" class="custom-control-input" id="defaultGroupExample2" name="status_cetak" value="belum">
+                    <label class="custom-control-label">Belum</label>
+                  </div>
+                  <?php
+                }
+                ?>
               </div>
             </div>
-          </div>
-        </div>
-        <?php
-      }
-      ?>
+            <div class="form-group">
+              <div style="padding-left: 60%" class="col-lg-offset-3 col-lg-9">
+                <button type="submit" class="btn btn-primary" name="edit" value="edit">Update</button>
+              </div>
+            </div>
+          </form>
 
+        </div>
+      </div>
     </div>
-    <!-- /.box-body -->
   </div>
-  <!-- /.box -->
+  <?php
+}
+?>
+
+</div>
+<!-- /.box-body -->
+</div>
+<!-- /.box -->
 </div>
 <!-- /.col -->
 </div>

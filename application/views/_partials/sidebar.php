@@ -41,10 +41,10 @@
               </span>
             </a>
             <ul class="treeview-menu">
-              <li><a href="#"><i class="fa fa-circle-o"></i> Biaya harian </a></li>
-              <li><a href="#"><i class="fa fa-circle-o"></i> Biaya penginapan </a></li>
-              <li><a href="#"><i class="fa fa-circle-o"></i> Biaya transportasi mobil </a></li>
-              <li><a href="#"><i class="fa fa-circle-o"></i> Biaya transportasi lain </a></li>
+              <li><a href="<?php echo base_url('biaya_harian/index')?>"><i class="fa fa-circle-o"></i> Biaya harian </a></li>
+              <li><a href="<?php echo base_url('biaya_penginapan/index')?>"><i class="fa fa-circle-o"></i> Biaya penginapan </a></li>
+              <li><a href="<?php echo base_url('biaya_transportasi_mobil/index')?>"><i class="fa fa-circle-o"></i> Biaya transportasi mobil </a></li>
+              <li><a href="<?php echo base_url('biaya_transportasi_lain/index')?>"><i class="fa fa-circle-o"></i> Biaya transportasi lain </a></li>
 
             </ul>
           </li>
@@ -69,7 +69,7 @@
       <li>
         <a href="<?php echo base_url('biaya_perjalanan_pegawai/index')?>">
           <i class="fa fa-exchange"></i>Biaya Perjalanan pegawai</a>
-      </li>
+        </li>
         <!-- <li><a href="https://adminlte.io/docs"><i class="fa fa-book"></i> <span>Documentation</span></a></li>
         <li class="header">LABELS</li>
         <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
