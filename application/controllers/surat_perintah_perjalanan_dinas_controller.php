@@ -5,6 +5,9 @@ class surat_perintah_perjalanan_dinas_controller extends CI_Controller{
     function __construct() {
         parent::__construct();
         $this->load->model("surat_perintah_perjalanan_dinas_model");
+        if ($this->session->userdata('login') != 'yes') {
+            redirect(base_url());
+        }
     }
 
     function index(){

@@ -14,7 +14,7 @@ class biaya_transportasi_mobil_model extends CI_Model{
 	}
 
 	function getAllTransportasiMobil() {
-		$this->db->select('transportasi.nama_transportasi, transportasi.idTransportasi');
+		$this->db->select('transportasi.nama_transportasi, transportasi.idTransportasi, transportasi.jenis_transportasi');
 		$this->db->from('transportasi');
 		$this->db->order_by('transportasi.nama_transportasi', 'ASC');
 		return $this->db->get();

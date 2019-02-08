@@ -56,9 +56,12 @@
                             <?php 
 
                             foreach ($transportasi as $data_transportasi) {
-                              ?>
-                              <option value="<?php echo $data_transportasi->idTransportasi ?>"> <?php echo $data_transportasi->nama_transportasi ?></option>
-                              <?php 
+                              if ($data_transportasi->jenis_transportasi=="Darat") {
+                                ?>
+                                <option value="<?php echo $data_transportasi->idTransportasi ?>"> <?php echo $data_transportasi->nama_transportasi ?></option>
+                                <?php
+                                continue;
+                              }
                             }
                             ?>
 
@@ -86,6 +89,7 @@
                           <option value="1000"> Mesin 1000 CC</option>
                           <option value="1500"> Mesin 1500 CC</option>
                           <option value="2000"> Mesin 2000 CC</option>
+                          <option value="150"> Mesin 150 CC</option>
                         </select>
                       </div>
                     </div>
@@ -196,13 +200,15 @@
                                 <?php 
 
                                 foreach ($transportasi as $data_transportasi) {
-                                  if ($data_biaya_transportasi_mobil->idTransportasi==$data_transportasi->idTransportasi) {
-                                    echo " <option selected value='$data_transportasi->idTransportasi'>$data_transportasi->nama_transportasi</option>";
-                                    continue;
+                                  if ($data_transportasi->jenis_transportasi=="Darat") {
+                                    if ($data_biaya_transportasi_mobil->idTransportasi==$data_transportasi->idTransportasi) {
+                                      echo " <option selected value='$data_transportasi->idTransportasi'>$data_transportasi->nama_transportasi</option>";
+                                      continue;
+                                    }
+                                    ?>
+                                    <option value="<?php echo $data_transportasi->idTransportasi ?>"> <?php echo $data_transportasi->nama_transportasi ?></option>
+                                    <?php 
                                   }
-                                  ?>
-                                  <option value="<?php echo $data_transportasi->idTransportasi ?>"> <?php echo $data_transportasi->nama_transportasi ?></option>
-                                  <?php 
                                 }
                                 ?>
 

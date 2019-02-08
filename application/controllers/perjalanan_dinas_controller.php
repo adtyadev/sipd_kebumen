@@ -6,6 +6,9 @@ class perjalanan_dinas_controller extends CI_Controller{
 		parent::__construct();
 		$this->load->model("perjalanan_dinas_model");
 		$this->load->helper(array('url'));
+		if ($this->session->userdata('login') != 'yes') {
+			redirect(base_url());
+		}
 	}
 
 	function index(){

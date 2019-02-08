@@ -9,6 +9,9 @@ class biaya_transportasi_mobil_controller extends CI_Controller{
 	function __construct(){
 		parent::__construct();	
 		$this->load->model("biaya_transportasi_mobil_model");
+		if ($this->session->userdata('login') != 'yes') {
+			redirect(base_url());
+		}
 	}
 
 	function index(){

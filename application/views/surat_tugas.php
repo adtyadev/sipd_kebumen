@@ -15,7 +15,6 @@
 			<!-- sidebar: style can be found in sidebar.less -->
 			<?php $this->load->view("_partials/sidebar.php") ?>
 		</aside>
-
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->

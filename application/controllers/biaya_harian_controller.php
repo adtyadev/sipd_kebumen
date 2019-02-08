@@ -9,6 +9,15 @@ class biaya_harian_controller extends CI_Controller{
 	function __construct(){
 		parent::__construct();	
 		$this->load->model("biaya_harian_model");
+		if ($this->session->userdata('login') != 'yes') {
+			?>
+			<script>
+				alert("Anda Belum Login, Silahkan Login Terlebih dahulu ! ");
+			</script>
+
+			<?php
+			redirect(base_url());
+		}
 	}
 
 	function index(){

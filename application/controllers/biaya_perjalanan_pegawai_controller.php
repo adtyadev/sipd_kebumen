@@ -5,6 +5,9 @@ class biaya_perjalanan_pegawai_controller extends CI_Controller{
     function __construct() {
         parent::__construct();
         $this->load->model("biaya_perjalanan_pegawai_model");
+        if ($this->session->userdata('login') != 'yes') {
+            redirect(base_url());
+        }
     }
 
     function index(){

@@ -9,6 +9,9 @@ class golongan_controller extends CI_Controller{
 	function __construct(){
 		parent::__construct();	
 		$this->load->model("golongan_model");
+		if ($this->session->userdata('login') != 'yes') {
+			redirect(base_url());
+		}
 	}
 
 	function index(){
@@ -22,7 +25,7 @@ class golongan_controller extends CI_Controller{
 		$input = array(
 			'idGolongan'=>$idGolongan,
 			'nama_golongan'=>$nama_golongan
-			);
+		);
 		$this->golongan_model->addDataGolongan($input);
 		$this->session->set_flashdata('message', 'Data Sukses Ditambahkan');
 		redirect(base_url('golongan/index'));

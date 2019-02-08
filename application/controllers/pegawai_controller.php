@@ -5,6 +5,9 @@ class pegawai_controller extends CI_Controller{
 	function __construct() {
 		parent::__construct();
 		$this->load->model("pegawai_model");
+		if ($this->session->userdata('login') != 'yes') {
+			redirect(base_url());
+		}
 	}
 
 	function index(){
