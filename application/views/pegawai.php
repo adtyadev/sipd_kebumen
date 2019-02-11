@@ -213,7 +213,7 @@
            <?php
            foreach ($pegawai as $data_pegawai) {
             ?>
-            <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="modalEditData<?php echo $data_pegawai->NIP?>" class="modal fade">
+            <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="modalEditData<?php echo $data_pegawai->NIP?>" class="modal fade edit">
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">
@@ -221,26 +221,26 @@
                     <h4 class="modal-title">Edit Data Pegawai</h4>
                   </div>
                   <div class="modal-body">
-                    <form class="form-horizontal" role="form" method="post" action="<?=base_url('pegawai/updateDataPegawai/'.$data_pegawai->NIP)?>">
+                    <form class="form-horizontal edit" role="form" id="urlEdit<?=$data_pegawai->NIP?>" method="post" action="<?=base_url('pegawai/updateDataPegawai/'.$data_pegawai->NIP)?>">
 
                       <div class="form-group">
 
                         <div class="col-lg-12">
                          <label >NIP</label>
-                         <input type="text" name="NIP" id="NIP" class="form-control" placeholder="NIP" value="<?php echo $data_pegawai->NIP ?>" disabled required>
+                         <input type="text" name="NIP<?= $data_pegawai->NIP ?>" id="NIP<?= $data_pegawai->NIP ?>" class="form-control NIP" placeholder="NIP" value="<?php echo $data_pegawai->NIP ?>" disabled required>
                        </div>
                      </div>
                      <div class="form-group">
                       <div class="col-lg-12">
                         <label> Nama Pegawai</label>
-                        <input type="text" name="nama_pegawai" id="nama_pegawai" class="form-control" placeholder="Nama Pegawai" value="<?php echo $data_pegawai->nama_pegawai ?>" required>
+                        <input type="text" name="nama_pegawai<?= $data_pegawai->NIP ?>" id="nama_pegawai<?= $data_pegawai->NIP ?>" class="form-control nama_pegawai" placeholder="Nama Pegawai" value="<?php echo $data_pegawai->nama_pegawai ?>" required>
                       </div>
                     </div>
 
                     <div class="form-group">
                       <div class="col-lg-6 col-sm-6"> 
                         <label>Tempat Lahir</label>
-                        <input type="text" name="tempat_lahir" id="tempat_lahir" class="form-control" placeholder="tempat_lahir" value="<?php echo $data_pegawai->tempat_lahir ?>" required>
+                        <input type="text" name="tempat_lahir<?= $data_pegawai->NIP ?>" id="tempat_lahir<?= $data_pegawai->NIP ?>" class="form-control tempat_lahir" placeholder="Tempat Lahir" value="<?php echo $data_pegawai->tempat_lahir ?>" required>
                       </div>
                       <div class="col-lg-6 col-sm-6">
                         <label>Tanggal Lahir</label>
@@ -248,7 +248,7 @@
                           <div class="input-group-addon">
                             <i class="fa fa-calendar"></i>
                           </div>
-                          <input type="text" name="tanggal_lahir" class="form-control pull-right" id="datepicker" value="<?php echo $data_pegawai->tanggal_lahir ?>" placeholder="yyyy/mm/dd">
+                          <input type="text" name="tanggal_lahir<?= $data_pegawai->NIP ?>" id="tanggal_lahir<?= $data_pegawai->NIP ?>" class="form-control tanggal_lahir" placeholder="yyyy/mm/dd" value="<?php echo $data_pegawai->tanggal_lahir ?>" required>
                         </div>
                       </div>
                     </div>
@@ -256,7 +256,7 @@
                     <div class="form-group">
                       <div class="col-lg-4 col-sm-4"> 
                         <label>Pangkat</label>
-                        <select name="idPangkat" id="idPangkat" class="form-control" value="<?php echo $data_pegawai->nama_pangkat ?>" required>
+                        <select name="idPangkat<?= $data_pegawai->NIP ?>" id="idPangkat<?= $data_pegawai->NIP ?>" class="form-control idPangkat" value="<?php echo $data_pegawai->nama_pangkat ?>" required>
 
                           <option disabled="">-- PILIH PANGKAT --</option>
                           <?php 
@@ -278,7 +278,7 @@
                       </div>
                       <div class="col-lg-4 col-sm-4">
                         <label>Golongan</label>
-                        <select name="idGolongan" id="idGolongan" class="form-control" value="<?php echo $data_pegawai->nama_golongan ?>" required>
+                        <select name="idGolongan<?= $data_pegawai->NIP ?>" id="idGolongan<?= $data_pegawai->NIP ?>" class="form-control idGolongan" value="<?php echo $data_pegawai->nama_golongan ?>" required>
 
                           <option disabled="">-- PILIH GOLONGAN --</option>
                           <?php 
@@ -300,7 +300,7 @@
                       </div>
                       <div class="col-lg-4 col-sm-4">
                         <label>Unit Kerja</label>
-                        <select name="idUnitKerja" id="idUnitKerja" class="form-control" value="<?php echo $data_pegawai->nama_unit_kerja ?>" required>
+                        <select name="idUnitKerja<?= $data_pegawai->NIP ?>" id="idUnitKerja<?= $data_pegawai->NIP ?>" class="form-control idUnitKerja" value="<?php echo $data_pegawai->nama_unit_kerja ?>" required>
                           <option disabled="">-- PILIH UNIT KERJA --</option>
                           <?php 
 
@@ -320,10 +320,10 @@
                       </div>
                     </div>
                     <!--    <div id="alert-msg"> </div> -->
-
+                    <div class="alert-msg-edit"></div>
                     <div class="form-group">
                       <div class="col-lg-offset-10 col-lg-offset-10">
-                        <button type="submit" class="btn btn-primary" name="edit" value="edit">Update</button>
+                        <button type="submit" class="btn btn-primary edit" name="edit" id="editButton<?= $data_pegawai->NIP ?>" value="edit">Update</button>
                       </div>
                     </div>
                   </form>
@@ -557,6 +557,66 @@
   return false;
 });
 </script>
+
+<script type="text/javascript">
+
+  var editButton = document.getElementsByClassName("btn btn-primary edit");
+
+  $('.btn.btn-primary.edit').each(function(index) {
+
+    $(this).on("click", function(){
+      //alert("message?: DOMString");
+      var cek = document.getElementsByClassName("btn btn-primary edit");
+      console.log(cek);
+          // console.log(cek);
+          var NIP_edit = document.getElementsByClassName("form-control NIP")[index].id;
+          var nama_pegawai_edit = document.getElementsByClassName("form-control nama_pegawai")[index].id;
+          var tempat_lahir_edit = document.getElementsByClassName("form-control tempat_lahir")[index].id;
+          var tanggal_lahir_edit =document.getElementsByClassName("form-control tanggal_lahir")[index].id;
+          var idPangkat_edit = document.getElementsByClassName("form-control idPangkat")[index].id;
+          var idGolongan_edit = document.getElementsByClassName("form-control idGolongan")[index].id;
+          var idUnitKerja_edit = document.getElementsByClassName("form-control idUnitKerja")[index].id;
+          console.log(tanggal_lahir_edit);
+          var b = document.getElementsByClassName("form-horizontal edit")[index].id;
+          var url_edit = document.getElementById(b).action;
+          console.log(url_edit);
+          console.log(nama_pegawai_edit);
+          var form_data = {
+            NIP: $('#'+NIP_edit).val(),
+          //  nama_pegawai: $('#nama_pegawai1232131221').val(),
+          nama_pegawai: $('#'+nama_pegawai_edit).val(),
+          tempat_lahir: $('#'+tempat_lahir_edit).val(),
+          tanggal_lahir: $('#'+tanggal_lahir_edit).val(),
+          idPangkat: $('#'+idPangkat_edit).val(),
+          idGolongan: $('#'+idGolongan_edit).val(),
+          idUnitKerja: $('#'+idUnitKerja_edit).val(),
+        };
+        console.log(form_data);
+        $.ajax({
+          url: url_edit,
+          type: 'POST',
+          data: form_data,
+          dataType: "JSON",
+          success: function(message) {
+            if (message.status == 1){
+             $('.alert-msg-edit').html('<div class="alert alert-success">' + message.message + '</div>');
+             location.reload();
+           }
+           else{
+            $('.alert-msg-edit').html('<div class="alert alert-danger">' + message.message + '</div>');
+          }
+        }
+      });
+        return false;
+
+      });
+  });
+  $('.modal.fade.edit').on('hidden.bs.modal', function () {
+    $('input[name=checkListItem').val('');
+    $( ".alert.alert-danger" ).remove();
+  })
+</script>
+
 <script> // buat sidebar active 
 var url = window.location;
     // Will only work if string in href matches with location
