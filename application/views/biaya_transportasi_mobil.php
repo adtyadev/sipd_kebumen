@@ -450,26 +450,25 @@
 <script type="text/javascript">
   $('#addButton').click(function() {
 
- // var urlTambah = document.getElementById("urlTambah").action;
- // console.log(urlTambah);
- var form_data = {
-  nominal_biaya_mobil:$('#nominal_biaya_mobil').val()
-};
-$.ajax({
-  url: "<?php echo base_url('biaya_transportasi_mobil/addDataBiayaTransportasiMobil'); ?>",
-  type: 'POST',
-  data: form_data,
-  success: function(message) {
-    if (message == "Sukses"){
-      $('#alert-msg').html('<div class="alert alert-success">' + "Data Berhasil Ditambahkan" + '</div>');
-             //window.location.reload();
-           }
-           else{
-            $('#alert-msg').html('<div class="alert alert-danger">' + message + '</div>');
-          }
-        }
-      });
-return false;
+   var form_data = {
+    nominal_biaya_mobil:$('#nominal_biaya_mobil').val()
+  };
+  $.ajax({
+    url: "<?php echo base_url('biaya_transportasi_mobil/addDataBiayaTransportasiMobil'); ?>",
+    type: 'POST',
+    data: form_data,
+    dataType: "JSON",
+    success: function(message) {
+      if (message.status == 1){
+       $('#alert-msg').html('<div class="alert alert-success">' + message.message + '</div>');
+       location.reload();
+     }
+     else{
+      $('#alert-msg').html('<div class="alert alert-danger">' + message.message + '</div>');
+    }
+  }
+});
+  return false;
 });
 </script>
 <script>

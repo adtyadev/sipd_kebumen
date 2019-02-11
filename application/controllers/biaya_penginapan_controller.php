@@ -25,9 +25,10 @@ class biaya_penginapan_controller extends CI_Controller{
 	function addDataBiayaPenginapan(){
 		$this->form_validation->set_rules('nominal_biaya_penginapan','Nominal Biaya Penginapan','required|numeric');
 		if ($this->form_validation->run()==FALSE) {
-			echo validation_errors();
+			echo json_encode(array('status'=>0, 'message' => validation_errors()));
 		}
 		else{
+			echo json_encode(array('status'=>1, 'message' => 'Successfully Submiited'));
 			$idGolongan=$this->input->post('idGolongan');
 			$idProvinsi=$this->input->post('idProvinsi');
 			$nominal_biaya_penginapan=$this->input->post('nominal_biaya_penginapan');

@@ -28,12 +28,10 @@ class pegawai_controller extends CI_Controller{
 		$this->form_validation->set_rules('tanggal_lahir', 'Tanggal Lahir', 'required|regex_match[/-/]');
 
 		if ($this->form_validation->run()==FALSE) {
-			//echo $this->input->post('tempat_lahir');
-			echo validation_errors();
-
+			echo json_encode(array('status'=>0, 'message' => validation_errors()));
 		}
 		else{
-			echo "Sukses";
+			echo json_encode(array('status'=>1, 'message' => 'Successfully Submiited'));
 			$NIP=$this->input->post('NIP');
 			$nama_pegawai=$this->input->post('nama_pegawai');
 			$tempat_lahir=$this->input->post('tempat_lahir');
@@ -52,7 +50,7 @@ class pegawai_controller extends CI_Controller{
 			);
 			$this->pegawai_model->addDataPegawai($input);
 			$this->session->set_flashdata('message', 'Data Sukses Ditambahkan');
-			redirect(base_url('pegawai/index'));	
+			//redirect(base_url('pegawai/index'));	
 		}
 		
 	}

@@ -115,7 +115,7 @@
                   </div>
                 </div>
 
-                    <div id="alert-msg"> </div>
+                <div id="alert-msg"> </div>
                 <div class="form-group">
                   <div style="padding-left: 60%" class="col-lg-offset-3 col-lg-9">
                     <button type="submit" id="addButton" class="btn btn-primary" name="tambah" value="tambah">Kirim</button>
@@ -521,26 +521,25 @@
 <script type="text/javascript">
   $('#addButton').click(function() {
 
- // var urlTambah = document.getElementById("urlTambah").action;
- // console.log(urlTambah);
- var form_data = {
-  nominal_biaya_harian:$('#nominal_biaya_harian').val()
-};
-$.ajax({
-  url: "<?php echo base_url('biaya_harian/addDataBiayaHarian'); ?>",
-  type: 'POST',
-  data: form_data,
-  success: function(message) {
-    if (message == "Sukses"){
-      $('#alert-msg').html('<div class="alert alert-success">' + "Data Berhasil Ditambahkan" + '</div>');
-             //window.location.reload();
-           }
-           else{
-            $('#alert-msg').html('<div class="alert alert-danger">' + message + '</div>');
-          }
-        }
-      });
-return false;
+   var form_data = {
+    nominal_biaya_harian:$('#nominal_biaya_harian').val()
+  };
+  $.ajax({
+    url: "<?php echo base_url('biaya_harian/addDataBiayaHarian'); ?>",
+    type: 'POST',
+    data: form_data,
+    dataType: "JSON",
+    success: function(message) {
+      if (message.status == 1){
+       $('#alert-msg').html('<div class="alert alert-success">' + message.message + '</div>');
+       location.reload();
+     }
+     else{
+      $('#alert-msg').html('<div class="alert alert-danger">' + message.message + '</div>');
+    }
+  }
+});
+  return false;
 });
 </script>
 <script>

@@ -24,10 +24,10 @@ class golongan_controller extends CI_Controller{
 	function addDataGolongan(){
 		$this->form_validation->set_rules('nama_golongan', 'Nama Golongan', 'required');
 		if ($this->form_validation->run()==FALSE) {
-			echo validation_errors();
+			echo json_encode(array('status'=>0, 'message' => validation_errors()));
 		}
 		else{
-			echo "Sukses";
+			echo json_encode(array('status'=>1, 'message' => 'Successfully Submiited'));
 			$nama_golongan=$this->input->post('nama_golongan');
 			$idGolongan=uniqid();
 			$input = array(

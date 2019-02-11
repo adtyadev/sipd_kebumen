@@ -239,7 +239,7 @@
               <div id="alert-msg"></div>
               <div class="form-group">
                 <div class="col-lg-offset-11 col-lg-offset-11">
-                  <button type="submit" id="addButton" class="btn btn-primary" name="tambah" onclick="form_validation()" value="tambah">Kirim</button>
+                  <button type="submit" id="addButton" class="btn btn-primary" name="tambah" value="tambah">Kirim</button>
                 </div>
               </div>
             </form>
@@ -443,7 +443,7 @@
                 <div class="input-group-addon">
                   <i class="fa fa-calendar"></i>
                 </div>
-                <input type="text" class="form-control pull-right" id="datepicker" name="tanggal_berangkat" placeholder="yyyy-mm-dd" value="<?= $data_perjalanan_dinas->tanggal_berangkat?>">
+                <input type="text" class="form-control pull-right" id="tanggal_berangkat" name="tanggal_berangkat" placeholder="yyyy-mm-dd" value="<?= $data_perjalanan_dinas->tanggal_berangkat?>">
               </div>
             </div>
 
@@ -453,7 +453,7 @@
                 <div class="input-group-addon">
                   <i class="fa fa-calendar"></i>
                 </div>
-                <input type="text" class="form-control pull-right" id="datepicker" name="tanggal_kembali" placeholder="yyyy-mm-dd" value="<?= $data_perjalanan_dinas->tanggal_kembali?>">
+                <input type="text" class="form-control pull-right" id="tanggal_kembali" name="tanggal_kembali" placeholder="yyyy-mm-dd" value="<?= $data_perjalanan_dinas->tanggal_kembali?>">
               </div>
             </div>
           </div>
@@ -777,7 +777,6 @@ foreach ($perjalanan_dinas as $data_perjalanan_dinas) {
   <!-- Add the sidebar's background. This div must be placed
    immediately after the control sidebar -->
 
-
    <!-- ./wrapper -->
 
    
@@ -878,6 +877,8 @@ foreach ($perjalanan_dinas as $data_perjalanan_dinas) {
     })
   })
 </script>
+
+
 
 <script>
   $(function (){
@@ -1005,41 +1006,40 @@ foreach ($perjalanan_dinas as $data_perjalanan_dinas) {
 </body>
 </html>
 
-<script>
-  function form_validation(){
-
-/*     var form_data = {
-      pegawai_tugas:$('#pegawai_tugas').val(),
-      pegawai_pengikut:$('#pegawai_pengikut').val(),
-      kegiatan_perjalanan:$('#kegiatan_perjalanan').val(),
-      jenis_kegiatan:$('#jenis_kegiatan').val(),
-      jarak_perjalanan:$('#jarak_perjalanan').val(),
-      idProvinsi:$('#idProvinsi').val(),
-      idKabupaten:$('#idKabupaten').val(),
-      idKecamatan:$('#idKecamatan').val(),
-      idKelurahan:$('#idKelurahan').val(),
-      alamat_lokasi:$('#alamat_lokasi').val(),
-      tanggal_berangkat:$('#tanggal_berangkat').val(),
-      tanggal_kembali:$('#tanggal_kembali').val(),
-      lama_perjalanan:$('#lama_perjalanan').val(),
-      transportasi:$('#transportasi').val(),
-      pejabat_penanda_tangan:$('#pejabat_penanda_tangan').val(),
-    };
-    $.ajax({
-      url: "<?php echo base_url('perjalanan_dinas/addDataPerjalananDinas'); ?>",
-      type: 'POST',
-      data: form_data,
-      success: function(message) {
-        if (message == "Sukses"){
-          $('#alert-msg').html('<div class="alert alert-success">' + "Data Berhasil Ditambahkan" + '</div>');
-             //window.location.reload();
-           }
-           else{
-            $('#alert-msg').html('<div class="alert alert-danger">' + message + '</div>');
-          }
-        }
-      });
-      alert("message?: DOMString")*/
-   // return false;
- }
+<script type="text/javascript">
+  $('#addButton').click(function() {
+   var form_data = {
+    pegawai_tugas:$('#pegawai_tugas').val(),
+    pegawai_pengikut:$('#pegawai_pengikut').val(),
+    kegiatan_perjalanan:$('#kegiatan_perjalanan').val(),
+    jenis_kegiatan:$('#jenis_kegiatan').val(),
+    jarak_perjalanan:$('#jarak_perjalanan').val(),
+    idProvinsi:$('#idProvinsi').val(),
+    idKabupaten:$('#idKabupaten').val(),
+    idKecamatan:$('#idKecamatan').val(),
+    idKelurahan:$('#idKelurahan').val(),
+    alamat_lokasi:$('#alamat_lokasi').val(),
+    tanggal_berangkat:$('#tanggal_berangkat').val(),
+    tanggal_kembali:$('#tanggal_kembali').val(),
+    lama_perjalanan:$('#lama_perjalanan').val(),
+    idTransportasi:$('#idTransportasi').val(),
+    idPejabatPenandaTangan:$('#idPejabatPenandaTangan').val(),
+  };
+  $.ajax({
+    url: "<?php echo base_url('perjalanan_dinas/addDataPerjalananDinas'); ?>",
+    type: 'POST',
+    data: form_data,
+    dataType: "JSON",
+    success: function(message) {
+      if (message.status == 1){
+       $('#alert-msg').html('<div class="alert alert-success">' + message.message + '</div>');
+       location.reload();
+     }
+     else{
+      $('#alert-msg').html('<div class="alert alert-danger">' + message.message + '</div>');
+    }
+  }
+});
+  return false;
+});
 </script>

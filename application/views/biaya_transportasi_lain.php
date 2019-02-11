@@ -94,14 +94,14 @@
                   <div class="form-group">
                     <label class="col-lg-3 col-sm-3 control-label">Kelas Transportasi</label>
                     <div class="col-lg-9 col-sm-9">
-                      <input type="text" name="kelas_transportasi" id="kelas_transportasi" class="form-control" placeholder="Masukan Kelas Transportasi" required>
+                      <input type="text" name="kelas_transportasi" id="kelas_transportasi" class="form-control" placeholder="Kelas II-A" required>
                     </div>
                   </div>
 
                   <div id="alert-msg"> </div>
                   <div class="form-group">
                     <div style="padding-left: 60%" class="col-lg-offset-3 col-lg-9">
-                      <button type="submit" id="addButton" class="btn btn-primary" name="tambah" onclick="form_validation()" value="tambah">Kirim</button>
+                      <button type="submit" id="addButton" class="btn btn-primary" name="tambah" value="tambah">Kirim</button>
                     </div>
                   </div>
                 </form>
@@ -226,7 +226,7 @@
                       <div class="form-group">
                         <label class="col-lg-3 col-sm-3 control-label">Kelas Transportasi</label>
                         <div class="col-lg-9 col-sm-9">
-                          <input type="text" name="kelas_transportasi" id="kelas_transportasi" class="form-control" placeholder="Masukan Kelas Transportasi" value="<?php echo $data_biaya_transportasi_lain->kelas_transportasi?>" required>
+                          <input type="text" name="kelas_transportasi" id="kelas_transportasi" class="form-control" placeholder="Kelas II-A" value="<?php echo $data_biaya_transportasi_lain->kelas_transportasi?>" required>
                         </div>
                       </div>
 
@@ -280,68 +280,39 @@
   <!-- Add the sidebar's background. This div must be placed
    immediately after the control sidebar -->
 
-
    <!-- ./wrapper -->
 
-   <script type="text/javascript">
-    function form_validation(){
-      //alert("message?: DOMString");
- //  var urlTambah = document.getElementById("urlTambah").action;
- // console.log(urlTambah);
- var form_data = {
-  kelas_transportasi:$('#kelas_transportasi').val()
-};
-$.ajax({
-  url: "<?php echo base_url('biaya_transportasi_lain/addDataBiayaTransportasiLain'); ?>",
-  type: 'POST',
-  data: form_data,
-  success: function(message) {
-    if (message == "Sukses"){
-      $('#alert-msg').html('<div class="alert alert-success">' + "Data Berhasil Ditambahkan" + '</div>');
-     //location.reload();
-   }
-   else{
-        //    alert(message)
-       $('#alert-msg').html('<div class="alert alert-danger">' + message + '</div>');
-      }
-    }
-  });
-//return false;
 
 
-}
-
-</script>
-
-<!-- jQuery 3 -->
-<script src="<?php echo base_url('assets/')?>bower_components/jquery/dist/jquery.min.js"></script>
-<!-- Bootstrap 3.3.7 -->
-<script src="<?php echo base_url('assets/')?>bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- FastClick -->
-<script src="<?php echo base_url('assets/')?>bower_components/fastclick/lib/fastclick.js"></script>
-<!-- AdminLTE App -->
-<script src="<?php echo base_url('assets/')?>dist/js/adminlte.min.js"></script>
-<!-- Select2 -->
-<script src="<?php echo base_url('assets/')?>bower_components/select2/dist/js/select2.full.min.js"></script>
-<!-- Sparkline -->
-<script src="<?php echo base_url('assets/')?>bower_components/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
-<!-- jvectormap  -->
-<script src="<?php echo base_url('assets/')?>plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
-<script src="<?php echo base_url('assets/')?>plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
-<!-- SlimScroll -->
-<script src="<?php echo base_url('assets/')?>bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-<!-- ChartJS -->
-<script src="<?php echo base_url('assets/')?>bower_components/chart.js/Chart.js"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="<?php echo base_url('assets/')?>dist/js/pages/dashboard2.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="<?php echo base_url('assets/')?>dist/js/demo.js"></script>
-<!-- DataTables -->
-<script src="<?php echo base_url('assets/')?>bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="<?php echo base_url('assets/')?>bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-<script src="<?php echo base_url('assets/')?>bower_components/sweetalert/js/sweetalert/sweetalert.min.js"></script>
-<script >
-  $(function () {
+   <!-- jQuery 3 -->
+   <script src="<?php echo base_url('assets/')?>bower_components/jquery/dist/jquery.min.js"></script>
+   <!-- Bootstrap 3.3.7 -->
+   <script src="<?php echo base_url('assets/')?>bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+   <!-- FastClick -->
+   <script src="<?php echo base_url('assets/')?>bower_components/fastclick/lib/fastclick.js"></script>
+   <!-- AdminLTE App -->
+   <script src="<?php echo base_url('assets/')?>dist/js/adminlte.min.js"></script>
+   <!-- Select2 -->
+   <script src="<?php echo base_url('assets/')?>bower_components/select2/dist/js/select2.full.min.js"></script>
+   <!-- Sparkline -->
+   <script src="<?php echo base_url('assets/')?>bower_components/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
+   <!-- jvectormap  -->
+   <script src="<?php echo base_url('assets/')?>plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
+   <script src="<?php echo base_url('assets/')?>plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+   <!-- SlimScroll -->
+   <script src="<?php echo base_url('assets/')?>bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+   <!-- ChartJS -->
+   <script src="<?php echo base_url('assets/')?>bower_components/chart.js/Chart.js"></script>
+   <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+   <script src="<?php echo base_url('assets/')?>dist/js/pages/dashboard2.js"></script>
+   <!-- AdminLTE for demo purposes -->
+   <script src="<?php echo base_url('assets/')?>dist/js/demo.js"></script>
+   <!-- DataTables -->
+   <script src="<?php echo base_url('assets/')?>bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+   <script src="<?php echo base_url('assets/')?>bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+   <script src="<?php echo base_url('assets/')?>bower_components/sweetalert/js/sweetalert/sweetalert.min.js"></script>
+   <script >
+    $(function () {
     //Initialize Select2 Elements
     $('.select2').select2()
 
@@ -418,9 +389,33 @@ $.ajax({
   }, 2000);
 
 </script>
+
+<script type="text/javascript">
+ $('#addButton').click(function() {
+  var form_data = {
+    kelas_transportasi:$('#kelas_transportasi').val(),
+  };
+  $.ajax({
+    url: "<?php echo base_url('biaya_transportasi_lain/addDataBiayaTransportasiLain'); ?>",
+    type: 'POST',
+    data: form_data,
+    dataType: "JSON",
+    success: function(message) {
+      if (message.status == 1){
+       $('#alert-msg').html('<div class="alert alert-success">' + message.message + '</div>');
+       location.reload();
+     }
+     else{
+      $('#alert-msg').html('<div class="alert alert-danger">' + message.message + '</div>');
+    }
+  }
+});
+  return false;
+});
+</script>
+
 <script>
  function hapusData(id) {
-   // alert(id);
    $.ajax({
     url     : "<?php echo base_url()?>biaya_transportasi_lain/ajaxDataBiayaTransportasiLain",
     method  : "post",

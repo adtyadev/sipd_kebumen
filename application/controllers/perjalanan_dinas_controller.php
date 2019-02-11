@@ -29,156 +29,168 @@ class perjalanan_dinas_controller extends CI_Controller{
 	
 	function addDataPerjalananDinas(){
 
-		// $this->form_validation->set_rules('pegawai_tugas', 'Pegawai Tugas', 'required');
-		// $this->form_validation->set_rules('pegawai_pengikut[]', 'Pegawai Pengikut', 'required|differs[pegawai_tugas]');
+		$this->form_validation->set_rules('pegawai_tugas', 'Pegawai Tugas', 'required');
+		$this->form_validation->set_rules('pegawai_pengikut[]', 'Pegawai Pengikut', 'required|differs[pegawai_tugas]');
+		$this->form_validation->set_rules('kegiatan_perjalanan','Kegiatan Perjalanan', 'required|max_length[100]');
+		$this->form_validation->set_rules('jenis_kegiatan', 'Jenis Kegiatan', 'required|max_length[25]');
+		$this->form_validation->set_rules('jarak_perjalanan', 'Jarak Perjalanan', 'required|numeric');
+		$this->form_validation->set_rules('idProvinsi', 'Provinsi', 'required|max_length[2]');
+		$this->form_validation->set_rules('idKabupaten', 'Kabupaten', 'required|max_length[4]');
+		$this->form_validation->set_rules('idKecamatan', 'Kecamatan','required|max_length[6]');
+		$this->form_validation->set_rules('idKelurahan','Kelurahan','required|max_length[8]');
+		$this->form_validation->set_rules('tanggal_berangkat', 'Tanggal Berangkat','required|regex_match[/-/]');
+		$this->form_validation->set_rules('tanggal_kembali', 'Tanggal Kembali', 'required|regex_match[/-/]');
+		$this->form_validation->set_rules('lama_perjalanan', 'Lama Perjalanan', 'required|numeric');
+		$this->form_validation->set_rules('idTransportasi', 'Transportasi', 'required');
+		$this->form_validation->set_rules('idPejabatPenandaTangan', 'Pejabat Penanda Tangan', 'required');
 
-		// if ($this->form_validation->run()==FALSE) {
-		// 	echo validation_errors();
-		// }
-		// else{
-		// 	echo "Sukses";
-		$idTransportasi=$this->input->post('idTransportasi');
-		$NIP_pegawai_tugas=$this->input->post('pegawai_tugas');
-		$idPejabatPenandaTangan=$this->input->post('idPejabatPenandaTangan');
-		$idLokasi= $this->input->post('idKelurahan');
-		$idLokasiProvinsi=$this->input->post('idProvinsi');
-
-		$idGolongan=$this->perjalanan_dinas_model->getGolonganPegawai($NIP_pegawai_tugas)->row()->idGolongan;
-		$idBiayaPenginapan=$this->perjalanan_dinas_model->getBiayaPenginapan($idGolongan,$idLokasiProvinsi)->row()->idBiayaPenginapan;
-		if (isset($idBiayaPenginapan)) {
-			if(empty($idBiayaPenginapan))$idBiayaPenginapan=NULL;
+		if ($this->form_validation->run()==FALSE) {
+			echo json_encode(array('status'=>0, 'message' => validation_errors()));
 		}
+		else{
+			echo json_encode(array('status'=>1, 'message' => 'Successfully Submiited'));
+			$idTransportasi=$this->input->post('idTransportasi');
+			$NIP_pegawai_tugas=$this->input->post('pegawai_tugas');
+			$idPejabatPenandaTangan=$this->input->post('idPejabatPenandaTangan');
+			$idLokasi= $this->input->post('idKelurahan');
+			$idLokasiProvinsi=$this->input->post('idProvinsi');
+
+			$idGolongan=$this->perjalanan_dinas_model->getGolonganPegawai($NIP_pegawai_tugas)->row()->idGolongan;
+			$idBiayaPenginapan=$this->perjalanan_dinas_model->getBiayaPenginapan($idGolongan,$idLokasiProvinsi)->row()->idBiayaPenginapan;
+			if (isset($idBiayaPenginapan)) {
+				if(empty($idBiayaPenginapan))$idBiayaPenginapan=NULL;
+			}
 
 
-		$idBiayaTransportasiMobil=$this->perjalanan_dinas_model->getBiayaTransportasiMobil($idTransportasi)->row()->idBiayaTransportasiMobil;
-		if (isset($idBiayaTransportasiMobil)) {
-			if (empty($idBiayaTransportasiMobil))$idBiayaTransportasiMobil=NULL;
-		}
+			$idBiayaTransportasiMobil=$this->perjalanan_dinas_model->getBiayaTransportasiMobil($idTransportasi)->row()->idBiayaTransportasiMobil;
+			if (isset($idBiayaTransportasiMobil)) {
+				if (empty($idBiayaTransportasiMobil))$idBiayaTransportasiMobil=NULL;
+			}
 
-		$idBiayaTransportasiLain=$this->perjalanan_dinas_model->getBiayaTransportasiLain($idTransportasi,$idGolongan)->row()->idBiayaTransportasiLain;
-		if (isset($idBiayaTransportasiLain)) {
-			if (empty($idBiayaTransportasiLain))$idBiayaTransportasiLain=NULL;
-		}
+			$idBiayaTransportasiLain=$this->perjalanan_dinas_model->getBiayaTransportasiLain($idTransportasi,$idGolongan)->row()->idBiayaTransportasiLain;
+			if (isset($idBiayaTransportasiLain)) {
+				if (empty($idBiayaTransportasiLain))$idBiayaTransportasiLain=NULL;
+			}
 
-		$jenis_kegiatan=$this->input->post('jenis_kegiatan');
-		$idGolongan=$this->perjalanan_dinas_model->getGolonganPegawai($NIP_pegawai_tugas)->row()->idGolongan;
-		$jenis_kegiatan=$this->input->post('jenis_kegiatan');
-		$idLokasiProvinsi=$this->input->post('idProvinsi');
-		$jarak_perjalanan=$this->input->post('jarak_perjalanan');
-		$idBiayaHarian=$this->perjalanan_dinas_model->getBiayaHarian($idGolongan,$idLokasiProvinsi,$jarak_perjalanan,$jenis_kegiatan)->row()->idBiayaHarian;
-		if (isset($idBiayaHarian)) {
-			if(empty($idBiayaHarian))$idBiayaHarian=NULL;
-		}
-
-
-		$idBiayaTambahan=NULL;
-		$idPerjalananDinas=uniqid();
-		$NIP_pegawai_pengikut=$this->input->post('pegawai_pengikut[]');
-		$kegiatan_perjalanan=$this->input->post('kegiatan_perjalanan');
-		$alamat_spesifik_tujuan=$this->input->post('alamat_lokasi');
-		$tanggal_berangkat=$this->input->post('tanggal_berangkat');
-		$tanggal_kembali=$this->input->post('tanggal_kembali');
-		$lama_perjalanan=$this->input->post('lama_perjalanan');
-
-		$input = array(
-			'idTransportasi'=>$idTransportasi,
-			'idPegawaiTugas'=>$NIP_pegawai_tugas,
-			'idPejabatPenandaTangan'=>$idPejabatPenandaTangan,
-			'idLokasi'=>$idLokasi,
-			'idBiayaPenginapan'=>$idBiayaPenginapan,
-			'idBiayaTransportasiMobil'=>$idBiayaTransportasiMobil,
-			'idBiayaTransportasiLain'=>$idBiayaTransportasiLain,
-			'idBiayaHarian'=>$idBiayaHarian,
-			'jarak_perjalanan'=>$jarak_perjalanan,
-			'idBiayaTambahan'=>$idBiayaTambahan,
-			'idPerjalananDinas'=>$idPerjalananDinas,
-			'tanggal_berangkat'=>$tanggal_berangkat,
-			'tanggal_kembali'=>$tanggal_kembali,
-			'lama_perjalanan'=>$lama_perjalanan,
-			'kegiatan'=>$kegiatan_perjalanan,
-			'jenis_kegiatan'=>$jenis_kegiatan,
-			'alamat_spesifik_tujuan'=>$alamat_spesifik_tujuan,
+			$jenis_kegiatan=$this->input->post('jenis_kegiatan');
+			$idGolongan=$this->perjalanan_dinas_model->getGolonganPegawai($NIP_pegawai_tugas)->row()->idGolongan;
+			$jenis_kegiatan=$this->input->post('jenis_kegiatan');
+			$idLokasiProvinsi=$this->input->post('idProvinsi');
+			$jarak_perjalanan=$this->input->post('jarak_perjalanan');
+			$idBiayaHarian=$this->perjalanan_dinas_model->getBiayaHarian($idGolongan,$idLokasiProvinsi,$jarak_perjalanan,$jenis_kegiatan)->row()->idBiayaHarian;
+			if (isset($idBiayaHarian)) {
+				if(empty($idBiayaHarian))$idBiayaHarian=NULL;
+			}
 
 
-		);
-		$this->perjalanan_dinas_model->addDataPerjalananDinas($input);
+			$idBiayaTambahan=NULL;
+			$idPerjalananDinas=uniqid();
+			$NIP_pegawai_pengikut=$this->input->post('pegawai_pengikut[]');
+			$kegiatan_perjalanan=$this->input->post('kegiatan_perjalanan');
+			$alamat_spesifik_tujuan=$this->input->post('alamat_lokasi');
+			$tanggal_berangkat=$this->input->post('tanggal_berangkat');
+			$tanggal_kembali=$this->input->post('tanggal_kembali');
+			$lama_perjalanan=$this->input->post('lama_perjalanan');
+
+			$input = array(
+				'idTransportasi'=>$idTransportasi,
+				'idPegawaiTugas'=>$NIP_pegawai_tugas,
+				'idPejabatPenandaTangan'=>$idPejabatPenandaTangan,
+				'idLokasi'=>$idLokasi,
+				'idBiayaPenginapan'=>$idBiayaPenginapan,
+				'idBiayaTransportasiMobil'=>$idBiayaTransportasiMobil,
+				'idBiayaTransportasiLain'=>$idBiayaTransportasiLain,
+				'idBiayaHarian'=>$idBiayaHarian,
+				'jarak_perjalanan'=>$jarak_perjalanan,
+				'idBiayaTambahan'=>$idBiayaTambahan,
+				'idPerjalananDinas'=>$idPerjalananDinas,
+				'tanggal_berangkat'=>$tanggal_berangkat,
+				'tanggal_kembali'=>$tanggal_kembali,
+				'lama_perjalanan'=>$lama_perjalanan,
+				'kegiatan'=>$kegiatan_perjalanan,
+				'jenis_kegiatan'=>$jenis_kegiatan,
+				'alamat_spesifik_tujuan'=>$alamat_spesifik_tujuan,
+
+
+			);
+			$this->perjalanan_dinas_model->addDataPerjalananDinas($input);
 
 		// print_r($NIP_pegawai_pengikut);
 		// echo count($NIP_pegawai_pengikut);
-		$i=0;
-		foreach ($NIP_pegawai_pengikut as $data_NIP_pegawai_pengikut) {
+			$i=0;
+			foreach ($NIP_pegawai_pengikut as $data_NIP_pegawai_pengikut) {
 
-			$idGolonganPengikut=$this->perjalanan_dinas_model->getGolonganPegawai($NIP_pegawai_pengikut[$i])->row()->idGolongan;
-			$idBiayaTransportasiLainPengikut=$this->perjalanan_dinas_model->getBiayaTransportasiLain($idTransportasi,$idGolonganPengikut)->row()->idBiayaTransportasiLain;
+				$idGolonganPengikut=$this->perjalanan_dinas_model->getGolonganPegawai($NIP_pegawai_pengikut[$i])->row()->idGolongan;
+				$idBiayaTransportasiLainPengikut=$this->perjalanan_dinas_model->getBiayaTransportasiLain($idTransportasi,$idGolonganPengikut)->row()->idBiayaTransportasiLain;
 
-			if (isset($idBiayaTransportasiLain)) {
-				if (empty($idBiayaTransportasiLain))$idBiayaTransportasiLainPengikut=NULL;
+				if (isset($idBiayaTransportasiLain)) {
+					if (empty($idBiayaTransportasiLain))$idBiayaTransportasiLainPengikut=NULL;
+				}
+
+				$idBiayaHarianPengikut=$this->perjalanan_dinas_model->getBiayaHarian($idGolonganPengikut,$idLokasiProvinsi,$jarak_perjalanan,$jenis_kegiatan)->row()->idBiayaHarian;
+				if (isset($idBiayaHarianPengikut)) {
+					if(empty($idBiayaHarianPengikut))$idBiayaHarianPengikut=NULL;
+				}
+
+				$idBiayaTransportasiMobilPengikut=$this->perjalanan_dinas_model->getBiayaTransportasiMobil($idTransportasi)->row()->idBiayaTransportasiMobil;
+				if (isset($idBiayaTransportasiMobil)) {
+					if (empty($idBiayaTransportasiMobil))$idBiayaTransportasiMobilPengikut=NULL;
+				}
+
+
+				$idBiayaPenginapanPengikut=$this->perjalanan_dinas_model->getBiayaPenginapan($idGolonganPengikut,$idLokasiProvinsi)->row()->idBiayaPenginapan;
+				if (isset($idBiayaPenginapanPengikut)) {
+					if(empty($idBiayaPenginapanPengikut))$idBiayaPenginapanPengikut=NULL;
+				}
+
+				$idBiayaTambahanPengikut=NULL;
+
+				$input = array(
+					'idBiayaTransportasiLain'=>$idBiayaTransportasiLainPengikut,
+					'idBiayaHarian'=>$idBiayaHarianPengikut,
+					'idBiayaTransportasiMobil'=>$idBiayaTransportasiMobilPengikut,
+					'idBiayaPenginapan'=>$idBiayaPenginapanPengikut,
+					'idBiayaTambahan'=>$idBiayaTambahanPengikut,
+					'idPegawaiPengikut'=>$NIP_pegawai_pengikut[$i],
+					'idPerjalananDinas'=>$idPerjalananDinas
+				);
+				$this->perjalanan_dinas_model->addDataPunyaPegawaiPengikut($input);
+				$i++;
 			}
 
-			$idBiayaHarianPengikut=$this->perjalanan_dinas_model->getBiayaHarian($idGolonganPengikut,$idLokasiProvinsi,$jarak_perjalanan,$jenis_kegiatan)->row()->idBiayaHarian;
-			if (isset($idBiayaHarianPengikut)) {
-				if(empty($idBiayaHarianPengikut))$idBiayaHarianPengikut=NULL;
-			}
 
-			$idBiayaTransportasiMobilPengikut=$this->perjalanan_dinas_model->getBiayaTransportasiMobil($idTransportasi)->row()->idBiayaTransportasiMobil;
-			if (isset($idBiayaTransportasiMobil)) {
-				if (empty($idBiayaTransportasiMobil))$idBiayaTransportasiMobilPengikut=NULL;
-			}
+			$idSPT=uniqid();
+			$nomor_spt=NULL;
+			$status_cetak_spt="belum";
 
 
-			$idBiayaPenginapanPengikut=$this->perjalanan_dinas_model->getBiayaPenginapan($idGolonganPengikut,$idLokasiProvinsi)->row()->idBiayaPenginapan;
-			if (isset($idBiayaPenginapanPengikut)) {
-				if(empty($idBiayaPenginapanPengikut))$idBiayaPenginapanPengikut=NULL;
-			}
-
-			$idBiayaTambahanPengikut=NULL;
-
-			$input = array(
-				'idBiayaTransportasiLain'=>$idBiayaTransportasiLainPengikut,
-				'idBiayaHarian'=>$idBiayaHarianPengikut,
-				'idBiayaTransportasiMobil'=>$idBiayaTransportasiMobilPengikut,
-				'idBiayaPenginapan'=>$idBiayaPenginapanPengikut,
-				'idBiayaTambahan'=>$idBiayaTambahanPengikut,
-				'idPegawaiPengikut'=>$NIP_pegawai_pengikut[$i],
-				'idPerjalananDinas'=>$idPerjalananDinas
+			$inputSPT = array(
+				'idPerjalananDinas'=>$idPerjalananDinas,
+				'idSPT'=>$idSPT,
+				'nomor_spt'=>$nomor_spt,
+				'status_cetak'=>$status_cetak_spt
 			);
-			$this->perjalanan_dinas_model->addDataPunyaPegawaiPengikut($input);
-			$i++;
+			$this->perjalanan_dinas_model->addDataSPT($inputSPT);
+			$idSPPD=uniqid();
+			$nomor_sppd=NULL;
+			$mata_anggaran=NULL;
+			$keterangan_lain_lain="-";
+			$status_cetak_sppd="belum";
+			$status_cetak_anggaran="belum";
+			$inputSPPD = array(
+				'idPerjalananDinas'=>$idPerjalananDinas,
+				'idSPPD'=>$idSPPD,
+				'nomor_sppd'=>$nomor_sppd,
+				'mata_anggaran'=>$mata_anggaran,
+				'keterangan_lain_lain'=>$keterangan_lain_lain,
+				'status_cetak'=>$status_cetak_sppd,
+				'status_cetak_anggaran'=>$status_cetak_anggaran
+			);
+			$this->perjalanan_dinas_model->addDataSPPD($inputSPPD);
+
+			$this->session->set_flashdata('message', 'Data Sukses Ditambahkan');
+		//redirect(base_url('perjalanan_dinas/index'));
 		}
-
-
-		$idSPT=uniqid();
-		$nomor_spt=NULL;
-		$status_cetak_spt="belum";
-
-
-		$inputSPT = array(
-			'idPerjalananDinas'=>$idPerjalananDinas,
-			'idSPT'=>$idSPT,
-			'nomor_spt'=>$nomor_spt,
-			'status_cetak'=>$status_cetak_spt
-		);
-		$this->perjalanan_dinas_model->addDataSPT($inputSPT);
-		$idSPPD=uniqid();
-		$nomor_sppd=NULL;
-		$mata_anggaran=NULL;
-		$keterangan_lain_lain="-";
-		$status_cetak_sppd="belum";
-		$status_cetak_anggaran="belum";
-		$inputSPPD = array(
-			'idPerjalananDinas'=>$idPerjalananDinas,
-			'idSPPD'=>$idSPPD,
-			'nomor_sppd'=>$nomor_sppd,
-			'mata_anggaran'=>$mata_anggaran,
-			'keterangan_lain_lain'=>$keterangan_lain_lain,
-			'status_cetak'=>$status_cetak_sppd,
-			'status_cetak_anggaran'=>$status_cetak_anggaran
-		);
-		$this->perjalanan_dinas_model->addDataSPPD($inputSPPD);
-
-		$this->session->set_flashdata('message', 'Data Sukses Ditambahkan');
-		redirect(base_url('perjalanan_dinas/index'));
-//		}
 		
 	}
 

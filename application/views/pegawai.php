@@ -140,7 +140,7 @@
                       </select>
                     </div>
                   </div>
-                  <div id="alert-msg">pusing</div>
+                  <div id="alert-msg"></div>
                   <div class="form-group">
                     <div class="col-lg-offset-10 col-lg-offset-10">
                       <button type="submit" id="addButton" class="btn btn-primary" name="tambah" value="tambah">Kirim</button>
@@ -526,39 +526,36 @@
 
 
 <script type="text/javascript">
+
   $('#addButton').click(function() {
-   // alert("message?: DOMString");
-    var form_data = {
-      NIP:$('#NIP').val(),
-      nama_pegawai:$('#nama_pegawai').val(),
-      tempat_lahir:$('#tempat_lahir').val(),
-      tanggal_lahir:$('#tanggal_lahir').val(),
-      idPangkat:$('#idPangkat').val(),
-      idGolongan:$('#idGolongan').val(),
-      idUnitKerja:$('#idUnitKerja').val()
 
+   var form_data = {
+    NIP:$('#NIP').val(),
+    nama_pegawai:$('#nama_pegawai').val(),
+    tempat_lahir:$('#tempat_lahir').val(),
+    tanggal_lahir:$('#tanggal_lahir').val(),
+    idPangkat:$('#idPangkat').val(),
+    idGolongan:$('#idGolongan').val(),
+    idUnitKerja:$('#idUnitKerja').val()
+  };
 
-    };
-    console.log(form_data);
-    $.ajax({
-      url: "<?php echo base_url('pegawai/addDataPegawai'); ?>",
-      type: 'POST',
-      data: form_data,
-      success: function(message) {
-
-        if (message == "Sukses"){
-           $('#alert-msg').html('<div class="alert alert-success">' + "Data Berhasil Ditambahkan" + '</div>');
-             //window.location.reload();
-           }
-           else{
-            $('#alert-msg').html('<div class="alert alert-danger">' + message + '</div>');
-            //alert(message);
-          }
-
-        }
-      });
-    return false;
-  });
+  $.ajax({
+    url: "<?php echo base_url('pegawai/addDataPegawai'); ?>",
+    type: 'POST',
+    data: form_data,
+    dataType: "JSON",
+    success: function(message) {
+      if (message.status == 1){
+       $('#alert-msg').html('<div class="alert alert-success">' + message.message + '</div>');
+       location.reload();
+     }
+     else{
+      $('#alert-msg').html('<div class="alert alert-danger">' + message.message + '</div>');
+    }
+  }
+});
+  return false;
+});
 </script>
 
 <script>

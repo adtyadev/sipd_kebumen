@@ -262,27 +262,26 @@
 
 <script type="text/javascript">
   $('#addButton').click(function() {
-//alert("haloo")
-var form_data = {
-  nama_golongan:$('#nama_golongan').val()
-};
-$.ajax({
-  url: "<?php echo base_url('golongan/addDataGolongan'); ?>",
-  type: 'POST',
-  data: form_data,
-  success: function(message) {
-    if (message == "Sukses"){
-     // $('#alert-msg').html('<div class="alert alert-success">' + "Data Berhasil Ditambahkan" + '</div>');
-     location.reload();
-   }
-   else{
-            //alert(message);
-            $('#alert-msg').html('<div class="alert alert-danger">' + message + '</div>');
-          }
-        }
-      });
-return false;
-});
+    var form_data = {
+      nama_golongan:$('#nama_golongan').val()
+    };
+    $.ajax({
+      url: "<?php echo base_url('golongan/addDataGolongan'); ?>",
+      type: 'POST',
+      data: form_data,
+      dataType: "JSON",
+      success: function(message) {
+        if (message.status == 1){
+         $('#alert-msg').html('<div class="alert alert-success">' + message.message + '</div>');
+         location.reload();
+       }
+       else{
+        $('#alert-msg').html('<div class="alert alert-danger">' + message.message + '</div>');
+      }
+    }
+  });
+    return false;
+  });
 </script>
 
 <script>

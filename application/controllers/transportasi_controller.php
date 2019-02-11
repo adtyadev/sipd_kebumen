@@ -25,10 +25,10 @@ class transportasi_controller extends CI_Controller{
 		$this->form_validation->set_rules('jenis_transportasi', 'Jenis Transportasi','required|alpha|max_length[15]');
 
 		if ($this->form_validation->run()==FALSE) {
-			echo validation_errors();
+			echo json_encode(array('status'=>0, 'message' => validation_errors()));
 		}
 		else{
-			//echo "Sukses";
+			echo json_encode(array('status'=>1, 'message' => 'Successfully Submiited'));
 			$nama_transportasi=$this->input->post('nama_transportasi');
 			$jenis_transportasi=$this->input->post('jenis_transportasi');
 			$idTransportasi=uniqid();
@@ -40,7 +40,7 @@ class transportasi_controller extends CI_Controller{
 			$this->transportasi_model->addDataTransportasi($input);
 			$this->session->set_flashdata('message', 'Data Sukses Ditambahkan');
 
-			redirect(base_url('transportasi/index'));
+			//redirect(base_url('transportasi/index'));
 		}
 
 		

@@ -9,6 +9,7 @@ class biaya_transportasi_lain_controller extends CI_Controller{
 	function __construct(){
 		parent::__construct();	
 		$this->load->library('form_validation');
+		$this->load->helper('security');
 		$this->load->model("biaya_transportasi_lain_model");
 		if ($this->session->userdata('login') != 'yes') {
 			redirect(base_url());
@@ -25,22 +26,23 @@ class biaya_transportasi_lain_controller extends CI_Controller{
 	function addDataBiayaTransportasiLain(){
 		$this->form_validation->set_rules('kelas_transportasi','kelas Transportasi','required|regex_match[/-/]');
 		if ($this->form_validation->run()==FALSE) {
-			echo validation_errors();
+			echo json_encode(array('status'=>0, 'message' => validation_errors()));
 		}
 		else{
+			echo json_encode(array('status'=>1, 'message' => 'Successfully Submiited'));
 			$idGolongan=$this->input->post('idGolongan');
-		$idTransportasi=$this->input->post('idTransportasi');
-		$kelas_transportasi=$this->input->post('kelas_transportasi');
-		$idBiayaTransportasiLain=uniqid();
-		$input = array(
-			'idBiayaTransportasiLain'=>$idBiayaTransportasiLain,
-			'idGolongan'=>$idGolongan,
-			'idTransportasi'=>$idTransportasi,
-			'kelas_transportasi'=>$kelas_transportasi
-		);
-		$this->biaya_transportasi_lain_model->addDataBiayaTransportasiLain($input);
-		$this->session->set_flashdata('message', 'Data Sukses Ditambahkan');
-		redirect(base_url('biaya_transportasi_lain/index'));
+			$idTransportasi=$this->input->post('idTransportasi');
+			$kelas_transportasi=$this->input->post('kelas_transportasi');
+			$idBiayaTransportasiLain=uniqid();
+			$input = array(
+				'idBiayaTransportasiLain'=>$idBiayaTransportasiLain,
+				'idGolongan'=>$idGolongan,
+				'idTransportasi'=>$idTransportasi,
+				'kelas_transportasi'=>$kelas_transportasi
+			);
+			$this->biaya_transportasi_lain_model->addDataBiayaTransportasiLain($input);
+			$this->session->set_flashdata('message', 'Data Sukses Ditambahkan');
+			//redirect(base_url('biaya_transportasi_lain/index'));
 		}
 		
 	}
