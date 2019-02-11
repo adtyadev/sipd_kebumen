@@ -155,9 +155,9 @@
                             <i class="fa fa-edit"></i> Edit
                           </a>
                         </div>&nbsp;&nbsp;
-                        <div class="btn-group">
+<!--                         <div class="btn-group">
                           <button type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Delete </button> 
-                        </div>&nbsp;&nbsp;
+                        </div>&nbsp;&nbsp; -->
                       </td>
                     </tr>
                     <?php 

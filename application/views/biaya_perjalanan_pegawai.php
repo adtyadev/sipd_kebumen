@@ -112,109 +112,109 @@
              $total_anggaran+=0;
            }
            else {
-             echo "Biaya Harian : Rp " . $data_perjalanan_dinas->nominal_biaya_harian* (INT)$data_perjalanan_dinas->lama_perjalanan . ',-<br>';
-             $total_anggaran+=( (INT)$data_perjalanan_dinas->nominal_biaya_harian * (INT)$data_perjalanan_dinas->lama_perjalanan);
-           }
-
-           if ($data_perjalanan_dinas->nominal_biaya_penginapan==NULL) {
-             echo "Biaya Penginapan : Rp 0,- <br>";
-             $total_anggaran+=0;
-           }
-           else{
-            echo "Biaya Penginapan : Rp " . $data_perjalanan_dinas->nominal_biaya_penginapan . ',-<br>';
-            $total_anggaran+=(INT)$data_perjalanan_dinas->nominal_biaya_penginapan;
+            echo "Biaya Harian : Rp " . number_format($data_perjalanan_dinas->nominal_biaya_harian* (INT)$data_perjalanan_dinas->lama_perjalanan, 0, '', '.')  . ',-<br>';
+            $total_anggaran+=( (INT)$data_perjalanan_dinas->nominal_biaya_harian * (INT)$data_perjalanan_dinas->lama_perjalanan);
           }
 
-          if ($data_perjalanan_dinas->nominal_biaya_mobil==NULL) {
-            echo "Biaya Transportasi Mobil : Rp 0,-  <br>";
-            $total_anggaran+=0;
-          }
-          else{
-            echo "Biaya Transportasi Mobil : Rp " . (INT)$data_perjalanan_dinas->nominal_biaya_mobil*(INT)$data_perjalanan_dinas->jarak_perjalanan . ',-<br>';
-            $total_anggaran+=( (INT)$data_perjalanan_dinas->nominal_biaya_mobil*(INT)$data_perjalanan_dinas->jarak_perjalanan );
-          }
-
-          if ($data_perjalanan_dinas->kelas_transportasi==NULL) {
-            echo "Biaya Transportasi Bukan Mobil : -  <br>" ;
-          }
-          else {
-           echo "Biaya Transportasi Bukan Mobil : Rp " . $data_perjalanan_dinas->kelas_transportasi . ',-<br>';
+          if ($data_perjalanan_dinas->nominal_biaya_penginapan==NULL) {
+           echo "Biaya Penginapan : Rp 0,- <br>";
+           $total_anggaran+=0;
          }
+         else{
+          echo "Biaya Penginapan : Rp " . number_format($data_perjalanan_dinas->nominal_biaya_penginapan, 0, '', '.')  . ',-<br>';
+          $total_anggaran+=(INT)$data_perjalanan_dinas->nominal_biaya_penginapan;
+        }
 
-         if ( $data_perjalanan_dinas->nominal_biaya_tambahan == NULL) {
-          echo "Biaya Tambahan lain : Rp 0,- <br>";
+        if ($data_perjalanan_dinas->nominal_biaya_mobil==NULL) {
+          echo "Biaya Transportasi Mobil : Rp 0,-  <br>";
           $total_anggaran+=0;
-        } 
-        else {
-          echo "Biaya Tambahan lain : Rp " . $data_perjalanan_dinas->nominal_biaya_tambahan . ',-<br>';
-          $total_anggaran+=(INT)$data_perjalanan_dinas->nominal_biaya_tambahan;
-        } 
+        }
+        else{
+          echo "Biaya Transportasi Mobil : Rp " . number_format((INT)$data_perjalanan_dinas->nominal_biaya_mobil*(INT)$data_perjalanan_dinas->jarak_perjalanan, 0, '', '.')  . ',-<br>';
+          $total_anggaran+=( (INT)$data_perjalanan_dinas->nominal_biaya_mobil*(INT)$data_perjalanan_dinas->jarak_perjalanan );
+        }
 
-        $noPengikut=1;
-        foreach($pegawai_pengikut as $data_pegawai_pengikut){
-
-          if ( $data_pegawai_pengikut->idPerjalananDinas == $data_perjalanan_dinas->idPerjalananDinas){
-            echo "<br>Biaya Anggaran Pegawai Pengikut : <br>";
-            if ($data_pegawai_pengikut->nominal_biaya_harian == NULL ) {
-             echo "Biaya Harian : Rp 0,- <br>";
-             $total_anggaran+=0;
-           }
-           else {
-             echo "Biaya Harian : Rp " . $data_pegawai_pengikut->nominal_biaya_harian . ',-<br>';
-             $total_anggaran+=(INT)$data_pegawai_pengikut->nominal_biaya_harian;
-           }
-
-           if ($data_pegawai_pengikut->nominal_biaya_penginapan==NULL) {
-             echo "Biaya Penginapan : Rp 0,- <br>";
-             $total_anggaran+=0;
-           }
-           else{
-            echo "Biaya Penginapan : Rp " . $data_pegawai_pengikut->nominal_biaya_penginapan . ',-<br>';
-            $total_anggaran+=(INT)$data_pegawai_pengikut->nominal_biaya_penginapan;
-          }
-
-          if ($data_pegawai_pengikut->nominal_biaya_mobil==NULL) {
-            echo "Biaya Transportasi Mobil : Rp 0,-  <br>";
-            $total_anggaran+=0;
-          }
-          else{
-            echo "Biaya Transportasi Mobil : Rp " . (INT)$data_pegawai_pengikut->nominal_biaya_mobil*(INT)$data_perjalanan_dinas->jarak_perjalanan . ',-<br>';
-            $total_anggaran+=(INT)$data_pegawai_pengikut->nominal_biaya_mobil*(INT)$data_perjalanan_dinas->jarak_perjalanan;
-          }
-
-          if ($data_pegawai_pengikut->kelas_transportasi==NULL) {
-            echo "Biaya Transportasi Bukan Mobil : -  <br>" ;
-          }
-          else {
-           echo "Biaya Transportasi Bukan Mobil : " . $data_pegawai_pengikut->kelas_transportasi . '<br>';
-         }
-
-         if ( $data_pegawai_pengikut->nominal_biaya_tambahan == NULL) {
-          echo "Biaya Tambahan lain : Rp 0,- <br>";
-          $total_anggaran+=0;
-        } 
-        else {
-          echo "Biaya Tambahan lain : Rp " . $data_pegawai_pengikut->nominal_biaya_tambahan . ',-<br>';
-          $total_anggaran+=(INT)$data_pegawai_pengikut->nominal_biaya_tambahan;
-        } 
-
-        $noPengikut++;
-        if (!isset($temp_idPegawaiPengikut)) {
-          $temp_idPegawaiPengikut[0]=$data_pegawai_pengikut->idPegawaiPengikut;
+        if ($data_perjalanan_dinas->kelas_transportasi==NULL) {
+          echo "Biaya Transportasi Bukan Mobil : -  <br>" ;
         }
         else {
-          array_push($temp_idPegawaiPengikut, $data_pegawai_pengikut->idPegawaiPengikut);
+         echo "Biaya Transportasi Bukan Mobil : " . $data_perjalanan_dinas->kelas_transportasi . ',-<br>';
+       }
+
+       if ( $data_perjalanan_dinas->nominal_biaya_tambahan == NULL) {
+        echo "Biaya Tambahan lain : Rp 0,- <br>";
+        $total_anggaran+=0;
+      } 
+      else {
+        echo "Biaya Tambahan lain : Rp " . number_format($data_perjalanan_dinas->nominal_biaya_tambahan, 0, '', '.')  . ',-<br>';
+        $total_anggaran+=(INT)$data_perjalanan_dinas->nominal_biaya_tambahan;
+      } 
+
+      $noPengikut=1;
+      foreach($pegawai_pengikut as $data_pegawai_pengikut){
+
+        if ( $data_pegawai_pengikut->idPerjalananDinas == $data_perjalanan_dinas->idPerjalananDinas){
+          echo "<br>Biaya Anggaran Pegawai Pengikut : <br>";
+          if ($data_pegawai_pengikut->nominal_biaya_harian == NULL ) {
+           echo "Biaya Harian : Rp 0,- <br>";
+           $total_anggaran+=0;
+         }
+         else {
+           echo "Biaya Harian : Rp " . number_format($data_pegawai_pengikut->nominal_biaya_harian, 0, '', '.')  . ',-<br>';
+           $total_anggaran+=(INT)$data_pegawai_pengikut->nominal_biaya_harian;
+         }
+
+         if ($data_pegawai_pengikut->nominal_biaya_penginapan==NULL) {
+           echo "Biaya Penginapan : Rp 0,- <br>";
+           $total_anggaran+=0;
+         }
+         else{
+          echo "Biaya Penginapan : Rp " . number_format($data_pegawai_pengikut->nominal_biaya_penginapan, 0, '', '.')  . ',-<br>';
+          $total_anggaran+=(INT)$data_pegawai_pengikut->nominal_biaya_penginapan;
         }
+
+        if ($data_pegawai_pengikut->nominal_biaya_mobil==NULL) {
+          echo "Biaya Transportasi Mobil : Rp 0,-  <br>";
+          $total_anggaran+=0;
+        }
+        else{
+          echo "Biaya Transportasi Mobil : Rp " . number_format((INT)$data_pegawai_pengikut->nominal_biaya_mobil*(INT)$data_perjalanan_dinas->jarak_perjalanan, 0, '', '.')  . ',-<br>';
+          $total_anggaran+=(INT)$data_pegawai_pengikut->nominal_biaya_mobil*(INT)$data_perjalanan_dinas->jarak_perjalanan;
+        }
+
+        if ($data_pegawai_pengikut->kelas_transportasi==NULL) {
+          echo "Biaya Transportasi Bukan Mobil : -  <br>" ;
+        }
+        else {
+         echo "Biaya Transportasi Bukan Mobil : " . number_format($data_pegawai_pengikut->kelas_transportasi, 0, '', '.')  . '<br>';
+       }
+
+       if ( $data_pegawai_pengikut->nominal_biaya_tambahan == NULL) {
+        echo "Biaya Tambahan lain : Rp 0,- <br>";
+        $total_anggaran+=0;
+      } 
+      else {
+        echo "Biaya Tambahan lain : Rp " . number_format($data_pegawai_pengikut->nominal_biaya_tambahan, 0, '', '.')  . ',-<br>';
+        $total_anggaran+=(INT)$data_pegawai_pengikut->nominal_biaya_tambahan;
+      } 
+
+      $noPengikut++;
+      if (!isset($temp_idPegawaiPengikut)) {
+        $temp_idPegawaiPengikut[0]=$data_pegawai_pengikut->idPegawaiPengikut;
       }
-
+      else {
+        array_push($temp_idPegawaiPengikut, $data_pegawai_pengikut->idPegawaiPengikut);
+      }
     }
-    break;
+
   }
+  break;
+}
 };
 ?> 
 
 </td>
-<td> Rp <?php echo $total_anggaran; ?>,-</td>
+<td> Rp <?php echo number_format($total_anggaran, 0, '', '.') ; ?>,-</td>
 <!--               <td> 
                 <button type="button" class="btn btn-group">Belum</button>
               </td>
@@ -248,9 +248,9 @@
                   <i class="fa fa-edit"></i> Edit
                 </a>
               </div>&nbsp;&nbsp;
-              <div class="btn-group">
+<!--               <div class="btn-group">
                 <button type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Delete </button> 
-              </div>&nbsp;&nbsp;
+              </div>&nbsp;&nbsp; -->
             </td>
           </tr>
           <?php 
@@ -328,7 +328,7 @@
                            }
                            else {
                              echo "<option value=NULL>Null</option><br>";
-                             echo "<option selected value='$data_perjalanan_dinas->idBiayaHarian'>$data_perjalanan_dinas->nominal_biaya_harian</option><br>";
+                             echo "<option selected value='$data_perjalanan_dinas->idBiayaHarian'> $data_perjalanan_dinas->nominal_biaya_harian</option><br>";
                            }
                            ?>
                          </select>

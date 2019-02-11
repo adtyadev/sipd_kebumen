@@ -303,9 +303,9 @@
                   <button type="button" class="btn btn-warning btn-sm"><i class="fa  fa-pencil-square"></i> Edit </button> 
                 </a>
               </div>&nbsp;&nbsp;
-              <div class="btn-group">
+<!--               <div class="btn-group">
                 <button type="button" class="btn btn-danger btn-sm" onclick="hapusData('<?php echo $data_perjalanan_dinas->idPerjalananDinas?>')"><i class="fa fa-trash"></i> Delete </button> 
-              </div>&nbsp;&nbsp;
+              </div>&nbsp;&nbsp; -->
             </td>
           </div>
         </tr>
