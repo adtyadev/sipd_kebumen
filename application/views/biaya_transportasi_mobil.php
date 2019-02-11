@@ -164,7 +164,7 @@
                       <td><?php echo $data_biaya_transportasi_mobil->kilometer?></td>
                       <td><?php echo $data_biaya_transportasi_mobil->mesin_cc?></td>
                       <td><?php echo $data_biaya_transportasi_mobil->jenis_bbm?></td>
-                      <td><?php echo "Rp ". $data_biaya_transportasi_mobil->nominal_biaya_mobil.",-"?></td>
+                      <td><?php echo "Rp ". number_format($data_biaya_transportasi_mobil->nominal_biaya_mobil, 0, '', '.') .",-"?></td>
                       <td style="text-align: center">
                         <a href="#modalEditData<?php echo $data_biaya_transportasi_mobil->idBiayaTransportasiMobil?>" data-toggle="modal" class="btn btn-warning btn-sm">
                           <i class="fa fa-edit"></i> Edit

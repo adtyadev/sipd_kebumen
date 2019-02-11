@@ -167,7 +167,7 @@
                       <td><?php echo $data_biaya_harian->jarak_perjalanan?></td>
                       <td><?php echo $data_biaya_harian->wilayah?></td>
                       <td><?php echo $data_biaya_harian->jenis_kegiatan?></td>
-                      <td><?php echo "Rp ". $data_biaya_harian->nominal_biaya_harian.",-"?></td>
+                      <td><?php echo "Rp ". number_format($data_biaya_harian->nominal_biaya_harian, 0, '', '.')  .",-"?></td>
                       <td style="text-align: center">
                         <a href="#modalEditData<?php echo $data_biaya_harian->idBiayaHarian?>" data-toggle="modal" class="btn btn-warning btn-sm">
                           <i class="fa fa-edit"></i> Edit

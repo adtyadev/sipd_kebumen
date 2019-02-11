@@ -141,7 +141,7 @@
                           <td><?php echo $no ?></td>
                           <td><?php echo $data_biaya_penginapan->nama_golongan?></td>
                           <td><?php echo $data_biaya_penginapan->nama_provinsi?></td>
-                          <td><?php echo "Rp ". $data_biaya_penginapan->nominal_biaya_penginapan.",-"?></td>
+                          <td><?php echo "Rp ". number_format($data_biaya_penginapan->nominal_biaya_penginapan, 0, '', '.')  .",-"?></td>
                           <td style="text-align: center">
                             <a href="#modalEditData<?php echo $data_biaya_penginapan->idBiayaPenginapan?>" data-toggle="modal" class="btn btn-warning btn-sm">
                               <i class="fa fa-edit"></i> Edit

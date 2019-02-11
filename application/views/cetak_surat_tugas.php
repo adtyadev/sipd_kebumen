@@ -144,7 +144,7 @@
                                         <td> < Kasi Infastek Bidang PDE ></td>
                                     </tr>
                                     <?php
-                                    foreach($pegawai_pengikut as $data_pegawai_pengikut){+
+                                    foreach($pegawai_pengikut as $data_pegawai_pengikut){
                                         if ( $data_pegawai_pengikut->idPerjalananDinas == $data_perjalanan_dinas->idPerjalananDinas){
                                             ?>
                                             <tr>

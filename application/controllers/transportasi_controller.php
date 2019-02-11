@@ -23,6 +23,7 @@ class transportasi_controller extends CI_Controller{
 	function addDataTransportasi(){
 		$this->form_validation->set_rules('nama_transportasi', 'Nama Transportasi', 'required|max_length[15]');
 		$this->form_validation->set_rules('jenis_transportasi', 'Jenis Transportasi','required|alpha|max_length[15]');
+		$this->form_validation->set_rules('keterangan','Keterangan Transportasi', 'required');
 
 		if ($this->form_validation->run()==FALSE) {
 			echo json_encode(array('status'=>0, 'message' => validation_errors()));
@@ -31,11 +32,13 @@ class transportasi_controller extends CI_Controller{
 			echo json_encode(array('status'=>1, 'message' => 'Successfully Submiited'));
 			$nama_transportasi=$this->input->post('nama_transportasi');
 			$jenis_transportasi=$this->input->post('jenis_transportasi');
+			$keterangan=$this->input->post('keterangan');
 			$idTransportasi=uniqid();
 			$input = array(
 				'idTransportasi'=>$idTransportasi,
 				'nama_transportasi'=>$nama_transportasi,
-				'jenis_transportasi'=>$jenis_transportasi
+				'jenis_transportasi'=>$jenis_transportasi,
+				'keterangan'=>$keterangan
 			);
 			$this->transportasi_model->addDataTransportasi($input);
 			$this->session->set_flashdata('message', 'Data Sukses Ditambahkan');
@@ -49,9 +52,11 @@ class transportasi_controller extends CI_Controller{
 	function updateDataTransportasi($idTransportasi){
 		$nama_transportasi = $this->input->post('nama_transportasi');
 		$jenis_transportasi=$this->input->post('jenis_transportasi');
+		$keterangan=$this->input->post('keterangan');
 		$input = array(
 			'nama_transportasi'=>$nama_transportasi,
-			'jenis_transportasi'=>$jenis_transportasi
+			'jenis_transportasi'=>$jenis_transportasi,
+			'keterangan'=>$keterangan
 		);
 		$this->transportasi_model->updateDataTransportasi($input,'idTransportasi', $idTransportasi);
 		$this->session->set_flashdata('message', 'Data Sukses Dirubah');
