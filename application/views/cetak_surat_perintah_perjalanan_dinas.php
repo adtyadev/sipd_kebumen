@@ -189,7 +189,7 @@
  <td width="1%">:</td>
  <td colspan="3">
   <?php
-  echo $data_perjalanan_dinas->tanggal_berangkat;
+  echo date_indo($data_perjalanan_dinas->tanggal_berangkat);
   ?>
 </td>
 </tr>
@@ -199,7 +199,7 @@
  <td width="1%">:</td>
  <td colspan="3">
   <?php
-  echo $data_perjalanan_dinas->tanggal_kembali;
+  echo date_indo($data_perjalanan_dinas->tanggal_kembali);
 
   foreach($pegawai_pengikut as $data_pegawai_pengikut){
     if ( $data_pegawai_pengikut->idPerjalananDinas == $data_perjalanan_dinas->idPerjalananDinas){
@@ -366,7 +366,7 @@ $count++;
             if ($data_pegawai->NIP == $temp_NIP_pejabat_penanda_tangan) {
               echo $data_pegawai->nama_pegawai.'<br>';
               $temp_golongan_pejabat_penanda_tangan= $data_pegawai->nama_pangkat;
-          
+              
               break;
             }
 

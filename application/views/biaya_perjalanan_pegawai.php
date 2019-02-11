@@ -24,33 +24,33 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Biaya Perjalanan Dinas
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active"> Biaya Perjalanan Dinas</li>
-      </ol>
-    </section>
+       Biaya Perjalanan Dinas Pegawai
+     </h1>
+     <ol class="breadcrumb">
+      <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+      <li class="active"> Biaya Perjalanan Dinas Pegawai</li>
+    </ol>
+  </section>
 
-    <!-- Main content -->
+  <!-- Main content -->
 
-    <section class="content">
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="box">
-            <div class="box-header">
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              <table id="exampler" class="table table-bordered table-striped ">
-                <thead>
-                  <tr>
-                    <th>No</th>
-                    <th>Nomor SPPD</th>
-                    <th>Nama Pegawai Tugas</th>
-                    <th>Mata Anggaran</th>
-                    <th>Rincian Anggaran</th>
-                    <th>Total Anggaran</th>
+  <section class="content">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="box">
+          <div class="box-header">
+          </div>
+          <!-- /.box-header -->
+          <div class="box-body">
+            <table id="exampler" class="table table-bordered table-striped ">
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Nomor SPPD</th>
+                  <th>Nama Pegawai Tugas</th>
+                  <th>Mata Anggaran</th>
+                  <th>Rincian Anggaran</th>
+                  <th>Total Anggaran</th>
 <!--                     <th>Laporan SPJ</th>
   <th>Cetak Anggaran</th> -->
   <th>Action</th>   
