@@ -6,10 +6,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  */
 class biaya_perjalanan_pegawai_model extends CI_Model{
 
-    private $_table="sppd";
+    private $_tableSPPD="sppd";
+    private $_tablePunyaPegawaiPengikut="punya_pegawai_pengikut";
     public function getAllSuratPerintahPerjalananDinas(){
         $this->db->select('sppd.idPerjalananDinas, sppd.idSPPD, sppd.nomor_sppd, sppd.mata_anggaran, sppd.keterangan_lain_lain,sppd.status_cetak, sppd.status_cetak_anggaran');
-        $this->db->from($this->_table);
+        $this->db->from($this->_tableSPPD);
         return $this->db->get();
     }
 
@@ -84,12 +85,17 @@ class biaya_perjalanan_pegawai_model extends CI_Model{
 
     function updateDataSuratPerintahPerjalananDinas( $input, $columnWhere, $valueWhere){
         $this->db->where($columnWhere, $valueWhere);
-        $this->db->update($this->_table, $input);
+        $this->db->update($this->_tableSPPD, $input);
+    }
+
+    function updateDataPunyaPegawaiPengikut( $input, $columnWhere, $valueWhere){
+        $this->db->where($columnWhere, $valueWhere);
+        $this->db->update($this->_tablePunyaPegawaiPengikut, $input);
     }
 
     function removeDataSuratPerintahPerjalananDinas($columnWhere, $valueWhere) {
         $this->db->where($columnWhere, $valueWhere);
-        $this->db->delete($this->_table);
+        $this->db->delete($this->_tableSPPD);
     }
 
 }

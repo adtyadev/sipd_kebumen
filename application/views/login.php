@@ -30,14 +30,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <!-- Google Font -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
-<body class="hold-transition login-page">
+<body class="hold-transition login-page" style="background-image: url('<?php echo base_url('assets')?>/dist/img/regal.png');
+    background-repeat: repeat;">
   <div class="login-box">
     <div class="login-logo">
       <a href="<?=base_url('assets/')?>/index2.html"><b>Hi</b>Login</a>
     </div>
     <!-- /.login-logo -->
-    <div class="login-box-body">
-      <p class="login-box-msg">Sign in to start your session</p>
+    <div class="login-box-body" style="background: #350950">
+      <p class="login-box-msg" style="color: white">Sign in to start your session</p>
 
       <form action="<?=base_url('login_controller')?>" method="post">
         <div class="form-group has-feedback">
@@ -51,8 +52,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div class="row">
           <div class="col-xs-8">
             <div class="checkbox icheck">
-              <label>
-                <input type="checkbox"> Remember Me
+              <label style="color: white">
+                <input type="checkbox" > Remember Me
               </label>
             </div>
           </div>

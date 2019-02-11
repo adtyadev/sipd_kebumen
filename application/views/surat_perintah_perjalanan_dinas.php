@@ -17,7 +17,8 @@
     </aside>
 
     <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
+    <div class="content-wrapper" style=" background-image: url('<?php echo base_url('assets')?>/dist/img/regal.png');
+                background-repeat: repeat;" >
       <!-- Content Header (Page header) -->
       <section class="content-header">
         <h1>
@@ -145,8 +146,8 @@
                       </td>
                       <td> 
                         <div class="btn-group">
-                          <a href="<?php echo base_url('surat_perintah_perjalanan_dinas/cetakSuratPerintahPerjalananDinas')?>">
-                            <button type="button" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i> View </button>
+                          <a href="<?php echo base_url('surat_perintah_perjalanan_dinas/cetakSuratPerintahPerjalananDinas/'.$data_surat_perintah_perjalanan_dinas->idSPPD)?>">
+                            <button type="button" class="btn btn-primary btn-sm"><i class="fa fa-print"></i> Print </button>
                           </a>
                         </div> &nbsp;&nbsp;
                         <div class="btn-group">

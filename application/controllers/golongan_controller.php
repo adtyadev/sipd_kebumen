@@ -9,6 +9,8 @@ class golongan_controller extends CI_Controller{
 	function __construct(){
 		parent::__construct();	
 		$this->load->model("golongan_model");
+		$this->load->helper('security');
+		$this->load->library("form_validation");
 		if ($this->session->userdata('login') != 'yes') {
 			redirect(base_url());
 		}
@@ -20,15 +22,23 @@ class golongan_controller extends CI_Controller{
 	}
 
 	function addDataGolongan(){
-		$nama_golongan=$this->input->post('nama_golongan');
-		$idGolongan=uniqid();
-		$input = array(
-			'idGolongan'=>$idGolongan,
-			'nama_golongan'=>$nama_golongan
-		);
-		$this->golongan_model->addDataGolongan($input);
-		$this->session->set_flashdata('message', 'Data Sukses Ditambahkan');
-		redirect(base_url('golongan/index'));
+		$this->form_validation->set_rules('nama_golongan', 'Nama Golongan', 'required');
+		if ($this->form_validation->run()==FALSE) {
+			echo validation_errors();
+		}
+		else{
+			echo "Sukses";
+			$nama_golongan=$this->input->post('nama_golongan');
+			$idGolongan=uniqid();
+			$input = array(
+				'idGolongan'=>$idGolongan,
+				'nama_golongan'=>$nama_golongan
+			);
+			$this->golongan_model->addDataGolongan($input);
+			$this->session->set_flashdata('message', 'Data Sukses Ditambahkan');
+			//redirect(base_url('golongan/index'));	
+		}
+		
 	}
 
 	function updateDataGolongan($idGolongan){

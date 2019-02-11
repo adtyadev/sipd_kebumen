@@ -5,6 +5,8 @@ class perjalanan_dinas_controller extends CI_Controller{
 	function __construct() {
 		parent::__construct();
 		$this->load->model("perjalanan_dinas_model");
+		$this->load->helper('security');
+		$this->load->library('form_validation');
 		$this->load->helper(array('url'));
 		if ($this->session->userdata('login') != 'yes') {
 			redirect(base_url());
@@ -26,6 +28,15 @@ class perjalanan_dinas_controller extends CI_Controller{
 	}
 	
 	function addDataPerjalananDinas(){
+
+		// $this->form_validation->set_rules('pegawai_tugas', 'Pegawai Tugas', 'required');
+		// $this->form_validation->set_rules('pegawai_pengikut[]', 'Pegawai Pengikut', 'required|differs[pegawai_tugas]');
+
+		// if ($this->form_validation->run()==FALSE) {
+		// 	echo validation_errors();
+		// }
+		// else{
+		// 	echo "Sukses";
 		$idTransportasi=$this->input->post('idTransportasi');
 		$NIP_pegawai_tugas=$this->input->post('pegawai_tugas');
 		$idPejabatPenandaTangan=$this->input->post('idPejabatPenandaTangan');
@@ -37,7 +48,7 @@ class perjalanan_dinas_controller extends CI_Controller{
 		if (isset($idBiayaPenginapan)) {
 			if(empty($idBiayaPenginapan))$idBiayaPenginapan=NULL;
 		}
-		
+
 
 		$idBiayaTransportasiMobil=$this->perjalanan_dinas_model->getBiayaTransportasiMobil($idTransportasi)->row()->idBiayaTransportasiMobil;
 		if (isset($idBiayaTransportasiMobil)) {
@@ -78,6 +89,7 @@ class perjalanan_dinas_controller extends CI_Controller{
 			'idBiayaTransportasiMobil'=>$idBiayaTransportasiMobil,
 			'idBiayaTransportasiLain'=>$idBiayaTransportasiLain,
 			'idBiayaHarian'=>$idBiayaHarian,
+			'jarak_perjalanan'=>$jarak_perjalanan,
 			'idBiayaTambahan'=>$idBiayaTambahan,
 			'idPerjalananDinas'=>$idPerjalananDinas,
 			'tanggal_berangkat'=>$tanggal_berangkat,
@@ -85,10 +97,12 @@ class perjalanan_dinas_controller extends CI_Controller{
 			'lama_perjalanan'=>$lama_perjalanan,
 			'kegiatan'=>$kegiatan_perjalanan,
 			'jenis_kegiatan'=>$jenis_kegiatan,
-			'alamat_spesifik_tujuan'=>$alamat_spesifik_tujuan
+			'alamat_spesifik_tujuan'=>$alamat_spesifik_tujuan,
+
+
 		);
 		$this->perjalanan_dinas_model->addDataPerjalananDinas($input);
-		
+
 		// print_r($NIP_pegawai_pengikut);
 		// echo count($NIP_pegawai_pengikut);
 		$i=0;
@@ -100,7 +114,7 @@ class perjalanan_dinas_controller extends CI_Controller{
 			if (isset($idBiayaTransportasiLain)) {
 				if (empty($idBiayaTransportasiLain))$idBiayaTransportasiLainPengikut=NULL;
 			}
-			
+
 			$idBiayaHarianPengikut=$this->perjalanan_dinas_model->getBiayaHarian($idGolonganPengikut,$idLokasiProvinsi,$jarak_perjalanan,$jenis_kegiatan)->row()->idBiayaHarian;
 			if (isset($idBiayaHarianPengikut)) {
 				if(empty($idBiayaHarianPengikut))$idBiayaHarianPengikut=NULL;
@@ -164,6 +178,8 @@ class perjalanan_dinas_controller extends CI_Controller{
 
 		$this->session->set_flashdata('message', 'Data Sukses Ditambahkan');
 		redirect(base_url('perjalanan_dinas/index'));
+//		}
+		
 	}
 
 	function updateDataPerjalananDinas($idPerjalananDinas){

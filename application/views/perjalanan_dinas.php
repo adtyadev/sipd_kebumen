@@ -17,499 +17,737 @@
     </aside>
 
     <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
-      <!-- Content Header (Page header) -->
-      <section class="content-header">
-        <h1>
-          Perjalanan Dinas
-        </h1>
-        <ol class="breadcrumb">
-          <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-          <li class="active">Perjalanan Dinas</li>
-        </ol>
-      </section>
+    <div class="content-wrapper" style=" background-image: url('<?php echo base_url('assets')?>/dist/img/regal.png');
+    background-repeat: repeat;" >
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        Perjalanan Dinas
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Perjalanan Dinas</li>
+      </ol>
+    </section>
 
-      <!-- Main content -->
+    <!-- Main content -->
 
-      <section class="content">
-        <div class="row">
-          <div class="col-sm-12 col-lg-12">
-            <div class="panel-body">
-              <a href="#modalTambahData" data-toggle="modal" class="btn btn-primary">
-                <i class="fa fa-plus"></i> Tambah Data Perjalanan Dinas
-              </a>
-              <?php
-              if ($this->session->flashdata('message')) {
-                ?>
-                <div class="alert alert-success clearfix">
-                  <div class="noti-info">
-                    <a href="#"><?=$this->session->flashdata('message')?></a>
-                  </div>
-                </div>
-                <?php
-              }
+    <section class="content">
+      <div class="row">
+        <div class="col-sm-12 col-lg-12">
+          <div class="panel-body">
+            <a href="#modalTambahData" data-toggle="modal" class="btn btn-primary">
+              <i class="fa fa-plus"></i> Tambah Data Perjalanan Dinas
+            </a>
+            <?php
+            if ($this->session->flashdata('message')) {
               ?>
-            </div>
-            <?php //echo validation_errors(); ?>
-            <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" id="modalTambahData" class="modal fade">
-              <div class="modal-dialog" style="width: 60%">
-                <div class="box box-primary">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-                      <h4 class="modal-title">Tambah Data Perjalanan Dinas</h4>
-                    </div>
-                    <div class="modal-body">
-                      <form class="form-horizontal" role="form" method="post" action="<?php echo base_url('perjalanan_dinas/addDataPerjalananDinas')?>">
-                        <div class="form-group">
-                          <div class="col-lg-12">
-                           <label >Pegawai yang ditugaskan</label> 
-                           <select name="pegawai_tugas" id="pegawai_tugas" class="form-control select2 select2-hidden-accessible"  style="width: 100%;" tabindex="-1" aria-hidden="true">
-                             <option disabled=""> PILIH PEGAWAI YANG DITUGASKAN</option>
-                             <?php 
-
-
-                             foreach ($pegawai as $data_pegawai) {
-                              ?>
-                              <option value="<?php echo $data_pegawai->NIP ?>"> <?php echo $data_pegawai->nama_pegawai ?></option>
-                              <?php 
-                            }
-                            ?>
-                          </select>
-
-                        </div>
-                      </div>
-
+              <div class="alert alert-success clearfix">
+                <div class="noti-info">
+                  <a href="#"><?=$this->session->flashdata('message')?></a>
+                </div>
+              </div>
+              <?php
+            }
+            ?>
+          </div>
+          <?php //echo validation_errors(); ?>
+          <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" id="modalTambahData" class="modal fade">
+            <div class="modal-dialog" style="width: 60%">
+              <div class="box box-primary">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                    <h4 class="modal-title">Tambah Data Perjalanan Dinas</h4>
+                  </div>
+                  <div class="modal-body">
+                    <form class="form-horizontal" role="form" method="post" action="<?php echo base_url('perjalanan_dinas/addDataPerjalananDinas'); ?>">
                       <div class="form-group">
-
                         <div class="col-lg-12">
-                          <label>Pegawai pengikut yang ditugaskan</label>
-                          <select name="pegawai_pengikut[]" id="pegawai_pengikut" class="form-control select2 select2-hidden-accessible" multiple="" data-placeholder="pilih pegawai pengikut" style="width: 100%;" tabindex="-1" aria-hidden="true">
-                            <option disabled="">-- PILIH PEGAWAI PENGIKUT --</option>
-                            <?php 
+                         <label >Pegawai yang ditugaskan</label> 
+                         <select name="pegawai_tugas" id="pegawai_tugas" class="form-control select2 select2-hidden-accessible"  style="width: 100%;" tabindex="-1" aria-hidden="true">
+                           <option disabled=""> PILIH PEGAWAI YANG DITUGASKAN</option>
+                           <?php 
 
-                            foreach ($pegawai as $data_pegawai) {
-                              ?>
-                              <option value="<?php echo $data_pegawai->NIP ?>"> <?php echo $data_pegawai->nama_pegawai ?></option>
-                              <?php 
-                            }
+
+                           foreach ($pegawai as $data_pegawai) {
                             ?>
-                            <!-- masih bisa menerima data yang sama, pegawai tugas dan pegawai pengikut. -->
+                            <option value="<?php echo $data_pegawai->NIP ?>"> <?php echo $data_pegawai->nama_pegawai ?></option>
+                            <?php 
+                          }
+                          ?>
+                        </select>
 
-                          </select>
-                        </div>
                       </div>
+                    </div>
 
-                      <div class="form-group">
-                        <div class="col-lg-12 col-sm-12">
-                          <div class="col-lg-6">
-                            <label> Kegiatan Perjalanan </label>
-                            <input type="text" name="kegiatan_perjalanan" id="kegiatan_perjalanan" class="form-control" placeholder="Kegiatan perjalanan" >
-                          </div>
-                          <div class="col-lg-6">
-                            <label> Jenis Kegiatan </label>
-                            <select name="jenis_kegiatan" id="jenis_kegiatan" class="form-control" placeholder="Jenis Kegiatan" >
-                              <option disabled>---Pilih Jenis Kegiatan---</option>
-                              <option value="dinas">Dinas</option>
-                              <option value="audit">Audit</option>
-                            </select>
-                          </div>
-                        </div>
-                      </div>
+                    <div class="form-group">
 
-                      <div class="form-group">
-                       <div class="col-lg-12">
-                        <label> Jarak Perjalanan </label>
-                        <input type="number" min="0"  name="jarak_perjalanan" id="jarak_perjalanan" class="form-control" placeholder="jarak_perjalanan" >
+                      <div class="col-lg-12">
+                        <label>Pegawai pengikut yang ditugaskan</label>
+                        <select name="pegawai_pengikut[]" id="pegawai_pengikut" class="form-control select2 select2-hidden-accessible" multiple="" data-placeholder="pilih pegawai pengikut" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                          <option disabled="">-- PILIH PEGAWAI PENGIKUT --</option>
+                          <?php 
+
+                          foreach ($pegawai as $data_pegawai) {
+                            ?>
+                            <option value="<?php echo $data_pegawai->NIP ?>"> <?php echo $data_pegawai->nama_pegawai ?></option>
+                            <?php 
+                          }
+                          ?>
+                          <!-- masih bisa menerima data yang sama, pegawai tugas dan pegawai pengikut. -->
+
+                        </select>
                       </div>
                     </div>
 
                     <div class="form-group">
                       <div class="col-lg-12 col-sm-12">
-                       <label> Lokasi tujuan : </label>
-                     </div>
+                        <div class="col-lg-6">
+                          <label> Kegiatan Perjalanan </label>
+                          <input type="text" name="kegiatan_perjalanan" id="kegiatan_perjalanan" class="form-control" placeholder="Kegiatan perjalanan" >
+                        </div>
+                        <div class="col-lg-6">
+                          <label> Jenis Kegiatan </label>
+                          <select name="jenis_kegiatan" id="jenis_kegiatan" class="form-control" placeholder="Jenis Kegiatan" >
+                            <option disabled>---Pilih Jenis Kegiatan---</option>
+                            <option value="dinas">Dinas</option>
+                            <option value="audit">Audit</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
 
+                    <div class="form-group">
                      <div class="col-lg-12">
-
-                       <div class="col-lg-3 col-sm-3"> 
-                        <label>Provinsi</label>
-                        <select name="idProvinsi" id="idProvinsi" class="form-control  select2 select2-hidden-accessible" onchange="" style="width: 100%;" tabindex="-1" aria-hidden="true"  >
-                          <option>-- Pilih Provinsi --</option>
-                          <?php 
-
-                          foreach ($provinsi as $data_provinsi) {
-                            ?>
-                            <option value="<?php echo $data_provinsi->idProvinsi?>"> <?php echo $data_provinsi->nama_provinsi ?></option>
-                            <?php 
-                          }
-                          ?>
-
-                        </select>
-                      </div>
-                      <div class="col-lg-3 col-sm-3">
-                        <label>Kabupaten</label>
-                        <select name="idKabupaten" id="idKabupaten" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" >
-
-                        </select>
-                      </div>
-                      <div class="col-lg-3 col-sm-3">
-                        <label>Kecamatan</label>
-                        <select name="idKecamatan" id="idKecamatan" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" >
-                          <option>-- Pilih Kecamatan --</option>
-                        </select>
-                      </div>
-                      <div class="col-lg-3 col-sm-3">
-                        <label>Kelurahan</label>
-                        <select name="idKelurahan" id="idKelurahan" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" >
-                          <option>-- Pilih Kelurahan --</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-
-
-                  <div class="form-group">
-                    <div class="col-lg-12">
-                      <label> Alamat lokasi </label>
-                      <input type="text" name="alamat_lokasi" id="alamat_lokasi" class="form-control" placeholder="Alamat lokasi" >
+                      <label> Jarak Perjalanan </label>
+                      <input type="number" min="0"  name="jarak_perjalanan" id="jarak_perjalanan" class="form-control" placeholder="jarak_perjalanan" >
                     </div>
                   </div>
 
                   <div class="form-group">
-                    <div class="col-lg-6 col-sm-6">
-                      <label> Tanggal berangkat </label>
-                      <div class="input-group date">
-                        <div class="input-group-addon">
-                          <i class="fa fa-calendar"></i>
-                        </div>
-                        <input type="text" class="form-control pull-right" id="datepicker" name="tanggal_berangkat" placeholder="yyyy-mm-dd">
-                      </div>
-                    </div>
-                    <div class="col-lg-6 col-sm-6">
-                      <label> Tanggal kembali </label>
-                      <div class="input-group date">
-                        <div class="input-group-addon">
-                          <i class="fa fa-calendar"></i>
-                        </div>
-                        <input type="text" class="form-control pull-right" id="datepicker" name="tanggal_kembali" placeholder="yyyy-mm-dd">
-                      </div>
-                    </div>
+                    <div class="col-lg-12 col-sm-12">
+                     <label> Lokasi tujuan : </label>
+                   </div>
 
-                  </div>
-                  <div class="form-group">
-                    <div class="col-lg-12">
-                      <label> Lama Perjalanan </label>
-                      <input type="number" min="0"  name="lama_perjalanan" id="lama_perjalanan" class="form-control" placeholder="Lama Perjalanan" >
-                    </div>
-                  </div>
+                   <div class="col-lg-12">
 
-                  <div class="form-group">
-                    <div class="col-lg-12">
-                      <label> Transportasi </label>
-                      <select name="idTransportasi" id="idTransportasi" class="form-control" >
-                        <option disabled="">-- PILIH TRANSPORTASI --</option>
+                     <div class="col-lg-3 col-sm-3"> 
+                      <label>Provinsi</label>
+                      <select name="idProvinsi" id="idProvinsi" class="form-control  select2 select2-hidden-accessible" onchange="" style="width: 100%;" tabindex="-1" aria-hidden="true"  >
+                        <option>-- Pilih Provinsi --</option>
                         <?php 
 
-                        foreach ($transportasi as $data_transportasi) {
+                        foreach ($provinsi as $data_provinsi) {
                           ?>
-                          <option value="<?php echo $data_transportasi->idTransportasi ?>"> <?php echo $data_transportasi->nama_transportasi ?></option>
+                          <option value="<?php echo $data_provinsi->idProvinsi?>"> <?php echo $data_provinsi->nama_provinsi ?></option>
                           <?php 
                         }
                         ?>
 
                       </select>
                     </div>
-                  </div>
-                  <div class="form-group">
-                    <div class="col-lg-12">
-                      <label> Pejabat Penanda Tangan </label>
-                      <select name="idPejabatPenandaTangan" id="idPejabatPenandaTangan" class="form-control" >
-                       <option disabled="">-- PILIH PEJABAT PENANDA TANGAN --</option>
-                       <?php 
+                    <div class="col-lg-3 col-sm-3">
+                      <label>Kabupaten</label>
+                      <select name="idKabupaten" id="idKabupaten" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" >
 
-                       foreach ($pejabat_penanda_tangan as $data_pejabat_penanda_tangan) {
+                      </select>
+                    </div>
+                    <div class="col-lg-3 col-sm-3">
+                      <label>Kecamatan</label>
+                      <select name="idKecamatan" id="idKecamatan" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" >
+                        <option>-- Pilih Kecamatan --</option>
+                      </select>
+                    </div>
+                    <div class="col-lg-3 col-sm-3">
+                      <label>Kelurahan</label>
+                      <select name="idKelurahan" id="idKelurahan" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" >
+                        <option>-- Pilih Kelurahan --</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="form-group">
+                  <div class="col-lg-12">
+                    <label> Alamat lokasi </label>
+                    <input type="text" name="alamat_lokasi" id="alamat_lokasi" class="form-control" placeholder="Alamat lokasi" >
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <div class="col-lg-6 col-sm-6">
+                    <label> Tanggal berangkat </label>
+                    <div class="input-group date">
+                      <div class="input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                      </div>
+                      <input type="text" class="form-control pull-right" id="datepicker" name="tanggal_berangkat" placeholder="yyyy-mm-dd">
+                    </div>
+                  </div>
+                  <div class="col-lg-6 col-sm-6">
+                    <label> Tanggal kembali </label>
+                    <div class="input-group date">
+                      <div class="input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                      </div>
+                      <input type="text" class="form-control pull-right" id="datepicker" name="tanggal_kembali" placeholder="yyyy-mm-dd">
+                    </div>
+                  </div>
+
+                </div>
+                <div class="form-group">
+                  <div class="col-lg-12">
+                    <label> Lama Perjalanan </label>
+                    <input type="number" min="0"  name="lama_perjalanan" id="lama_perjalanan" class="form-control" placeholder="Lama Perjalanan" >
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <div class="col-lg-12">
+                    <label> Transportasi </label>
+                    <select name="idTransportasi" id="idTransportasi" class="form-control" >
+                      <option disabled="">-- PILIH TRANSPORTASI --</option>
+                      <?php 
+                      foreach ($transportasi as $data_transportasi) {
                         ?>
-                        <option value="<?php echo $data_pejabat_penanda_tangan->idPejabatPenandaTangan ?>"> <?php echo $data_pejabat_penanda_tangan->nama_pegawai ?></option>
+                        <option value="<?php echo $data_transportasi->idTransportasi ?>"> <?php echo $data_transportasi->nama_transportasi ?></option>
                         <?php 
                       }
                       ?>
+
                     </select>
                   </div>
                 </div>
-                <div id="alert-msg"></div>
                 <div class="form-group">
-                  <div class="col-lg-offset-11 col-lg-offset-11">
-                    <button type="submit" id="addButton" class="btn btn-primary" name="tambah" value="tambah">Kirim</button>
-                  </div>
+                  <div class="col-lg-12">
+                    <label> Pejabat Penanda Tangan </label>
+                    <select name="idPejabatPenandaTangan" id="idPejabatPenandaTangan" class="form-control" >
+                     <option disabled="">-- PILIH PEJABAT PENANDA TANGAN --</option>
+                     <?php 
+
+                     foreach ($pejabat_penanda_tangan as $data_pejabat_penanda_tangan) {
+                      ?>
+                      <option value="<?php echo $data_pejabat_penanda_tangan->idPejabatPenandaTangan ?>"> <?php echo $data_pejabat_penanda_tangan->nama_pegawai ?></option>
+                      <?php 
+                    }
+                    ?>
+                  </select>
                 </div>
-              </form>
-            </div>
+              </div>
+              <div id="alert-msg"></div>
+              <div class="form-group">
+                <div class="col-lg-offset-11 col-lg-offset-11">
+                  <button type="submit" id="addButton" class="btn btn-primary" name="tambah" onclick="form_validation()" value="tambah">Kirim</button>
+                </div>
+              </div>
+            </form>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="col-xs-12">
-    <div class="box box-solid box-primary">
-      <div class="box-header">
-      </div>
-      <!-- /.box-header -->
-      <div class="box-body">
-        <table id="exampler" class="table table-bordered table-striped">
-          <thead>
-            <tr>
-              <th>No</th>
-              <th>Nama Pegawai Tugas</th>
-              <th>Nama Pegawai Pengikut </th>
-              <th>Lokasi Tujuan</th>
-              <th>Kegiatan</th>
-              <th>Transportasi</th>
-              <th>Tanggal</th>
-              <th>Lama</th>
-              <th>Action</th>   
-            </tr>
-          </thead>
-          <tbody>
-           <?php
-           $no=1 ;
-           foreach($perjalanan_dinas as $data_perjalanan_dinas) {
-             ?>
-             <tr>
-              <td><?php echo $no?></td>
-              <td><?php echo $data_perjalanan_dinas->nama_pegawai?></td>
-              <td> 
-                <?php 
-                foreach($pegawai_pengikut as $data_pegawai_pengikut){
-                  if ( $data_pegawai_pengikut->idPerjalananDinas == $data_perjalanan_dinas->idPerjalananDinas){
-                    echo $data_pegawai_pengikut->nama_pegawai . "<br>";
-                  }
-
-                }
-                ?>
-              </td>
-              <td><?php echo $data_perjalanan_dinas->nama_kelurahan?></td>
-              <td><?php echo $data_perjalanan_dinas->kegiatan?></td>
-              <td><?php echo $data_perjalanan_dinas->nama_transportasi?></td>
-              <td style="text-align: center;"> <?php echo $data_perjalanan_dinas->tanggal_berangkat . "<br> s/d <br>" . $data_perjalanan_dinas->tanggal_kembali ?></td>
-              <td> <?php echo $data_perjalanan_dinas->lama_perjalanan?></td>
-              <td> 
-                <div class="btn-group">
-                  <button type="button" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i> View </button>
-                </div> &nbsp;&nbsp;
-                <div class="btn-group">
-                  <a style="color: white" href="#modalEditData<?php echo $data_perjalanan_dinas->idPerjalananDinas?>" data-toggle="modal">
-                    <button type="button" class="btn btn-warning btn-sm"><i class="fa  fa-pencil-square"></i> Edit </button> 
-                  </a>
-                </div>&nbsp;&nbsp;
-                <div class="btn-group">
-                  <button type="button" class="btn btn-danger btn-sm" onclick="hapusData('<?php echo $data_perjalanan_dinas->idPerjalananDinas?>')"><i class="fa fa-trash"></i> Delete </button> 
-                </div>&nbsp;&nbsp;
-              </td>
-            </div>
+</div>
+<div class="col-xs-12">
+  <div class="box box-solid box-primary">
+    <div class="box-header">
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+      <table id="exampler" class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Nama Pegawai Tugas</th>
+            <th>Nama Pegawai Pengikut </th>
+            <th>Lokasi Tujuan</th>
+            <th>Kegiatan</th>
+            <th>Transportasi</th>
+            <th>Tanggal</th>
+            <th>Lama</th>
+            <th>Action</th>   
           </tr>
-          <?php
-          $no++;
-        }
-        ?>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+         <?php
+         $no=1 ;
+         foreach($perjalanan_dinas as $data_perjalanan_dinas) {
+           ?>
+           <tr>
+            <td><?php echo $no?></td>
+            <td><?php echo $data_perjalanan_dinas->nama_pegawai?></td>
+            <td> 
+              <?php 
+              foreach($pegawai_pengikut as $data_pegawai_pengikut){
+                if ( $data_pegawai_pengikut->idPerjalananDinas == $data_perjalanan_dinas->idPerjalananDinas){
+                  echo $data_pegawai_pengikut->nama_pegawai . "<br>";
+                }
 
-    <?php
-    foreach ($perjalanan_dinas as $data_perjalanan_dinas) {
+              }
+              ?>
+            </td>
+            <td><?php echo $data_perjalanan_dinas->nama_kelurahan?></td>
+            <td><?php echo $data_perjalanan_dinas->kegiatan?></td>
+            <td><?php echo $data_perjalanan_dinas->nama_transportasi?></td>
+            <td style="text-align: center;"> <?php echo $data_perjalanan_dinas->tanggal_berangkat . "<br> s/d <br>" . $data_perjalanan_dinas->tanggal_kembali ?></td>
+            <td> <?php echo $data_perjalanan_dinas->lama_perjalanan?></td>
+            <td> 
+              <div class="btn-group">
+                <a style="color:white" href="#modalViewData<?php echo $data_perjalanan_dinas->idPerjalananDinas?>" data-toggle="modal">
+                  <button type="button" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i> View </button>
+                </a>
+              </div> &nbsp;&nbsp;
+              <div class="btn-group">
+                <a style="color: white" href="#modalEditData<?php echo $data_perjalanan_dinas->idPerjalananDinas?>" data-toggle="modal">
+                  <button type="button" class="btn btn-warning btn-sm"><i class="fa  fa-pencil-square"></i> Edit </button> 
+                </a>
+              </div>&nbsp;&nbsp;
+              <div class="btn-group">
+                <button type="button" class="btn btn-danger btn-sm" onclick="hapusData('<?php echo $data_perjalanan_dinas->idPerjalananDinas?>')"><i class="fa fa-trash"></i> Delete </button> 
+              </div>&nbsp;&nbsp;
+            </td>
+          </div>
+        </tr>
+        <?php
+        $no++;
+      }
       ?>
-      <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="modalEditData<?php echo $data_perjalanan_dinas->idPerjalananDinas?>" class="modal fade">
-        <div class="modal-dialog" style="width: 60%">
-          <div class="box box-primary">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-                <h4 class="modal-title">Edit Data Perjalanan Dinas ( MASIH SALAH )</h4>
-              </div>
-              <div class="modal-body">
-                <form class="form-horizontal" role="form" method="post" action="<?=base_url('perjalanan_dinas/updateDataPerjalananDinas/'.$data_perjalanan_dinas->idPerjalananDinas)?>">
+    </tbody>
+  </table>
 
-                  <div class="form-group">
+  <!-- Modal Edit -->
+  <?php
+  foreach ($perjalanan_dinas as $data_perjalanan_dinas) {
+    ?>
+    <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" id="modalEditData<?php echo $data_perjalanan_dinas->idPerjalananDinas?>" class="modal fade">
+      <div class="modal-dialog" style="width: 60%">
+        <div class="box box-primary">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+              <h4 class="modal-title">Edit Data Perjalanan Dinas ( MASIH SALAH )</h4>
+            </div>
+            <div class="modal-body">
+              <form class="form-horizontal" role="form" method="post" action="<?=base_url('perjalanan_dinas/updateDataPerjalananDinas/'.$data_perjalanan_dinas->idPerjalananDinas)?>">
 
-                    <div class="col-lg-12">
-                      <label >Pegawai yang ditugaskan</label> 
-                      <select name="pegawai_tugas" id="pegawai_tugas" class="form-control select2 select2-hidden-accessible"  style="width: 100%;" tabindex="-1" aria-hidden="true">
-                       <option disabled=""> PILIH PEGAWAI YANG DITUGASKAN</option>
-                       <?php 
-
-                       foreach ($pegawai as $data_pegawai) {
-                        if ( $data_pegawai->nama_pegawai == $data_perjalanan_dinas->nama_pegawai ) {
-                          echo "string";
-                          echo "<option selected value='$data_pegawai->NIP'> $data_perjalanan_dinas->nama_pegawai </option>";
-                          continue;
-                        }
-                        ?>
-                        <option value="<?php echo $data_pegawai->NIP ?>"> <?php echo $data_pegawai->nama_pegawai ?></option>
-                        <?php 
-                      }
-                      ?>
-                    </select>
-                  </div>
-                  
+                <div class="form-group">
 
                   <div class="col-lg-12">
-                    <label>Pegawai pengikut yang ditugaskan</label>
-                    <select name="pegawai_pengikut" id="pegawai_pengikut" class="form-control select2 select2-hidden-accessible" multiple="" data-placeholder="pilih pegawai pengikut" style="width: 100%;" tabindex="-1" aria-hidden="true">
-                      <option disabled="">-- PILIH PEGAWAI PENGIKUT --</option>
-                      <?php 
-
-                      foreach ($pegawai as $data_pegawai) {
-                       if ( $data_pegawai->nama_pegawai == $data_perjalanan_dinas->nama_pegawai ) {
+                    <label >Pegawai yang ditugaskan</label> 
+                    <select name="pegawai_tugas" id="pegawai_tugas" class="form-control select2 select2-hidden-accessible"  style="width: 100%;" tabindex="-1" aria-hidden="true">
+                     <option disabled=""> PILIH PEGAWAI YANG DITUGASKAN</option>
+                     <?php 
+                     foreach ($pegawai as $data_pegawai) {
+                      if ( $data_pegawai->NIP == $data_perjalanan_dinas->idPegawaiTugas ) {
+                        echo "string";
                         echo "<option selected value='$data_pegawai->NIP'> $data_perjalanan_dinas->nama_pegawai </option>";
                         continue;
                       }
                       ?>
-                      <option value="<?php echo $data_pegawai->idPegawai ?>"> <?php echo $data_pegawai->nama_pegawai ?></option>
+                      <option value="<?php echo $data_pegawai->NIP ?>"> <?php echo $data_pegawai->nama_pegawai ?></option>
                       <?php 
                     }
                     ?>
-                    <!-- masih bisa menerima data yang sama, pegawai tugas dan pegawai pengikut. -->
                   </select>
                 </div>
-                
-                
+
                 <div class="col-lg-12">
-                  <label> Kegiatan Perjalanan </label>
-                  <input type="text" name="kegiatan_perjalanan" id="kegiatan_perjalanan" class="form-control" placeholder="Kegiatan perjalanan" value="<?php $data_perjalanan_dinas->kegiatan ?>" >
-                </div>
-                
-
-                
-                <div class="col-lg-12 col-sm-12">
-                 <label> Lokasi tujuan : </label>
-               </div>
-
-               <div class="col-lg-12">
-
-                 <div class="col-lg-3 col-sm-3"> 
-                  <label>Provinsi</label>
-                  <select name="idProvinsi" id="idProvinsi" class="form-control select2 select2-hidden-accessible" onchange="" style="width: 100%;" tabindex="-1" aria-hidden="true"  >
-                    <option>-- Pilih Provinsi --</option>
+                  <label>Pegawai pengikut yang ditugaskan</label>
+                  <select name="pegawai_pengikut" id="pegawai_pengikut" class="form-control select2 select2-hidden-accessible" multiple="" data-placeholder="pilih pegawai pengikut" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                    <option disabled="">-- PILIH PEGAWAI PENGIKUT --</option>
                     <?php 
-
-                    foreach ($provinsi as $data_provinsi) {
-
-                      ?>
-                      <option value="<?php echo $data_provinsi->idProvinsi?>"> <?php echo $data_provinsi->nama_provinsi ?></option>
-                      <?php 
+                    foreach ($pegawai as $data_pegawai) {
+                      $cek=true;
+                      foreach($pegawai_pengikut as $data_pegawai_pengikut){
+                        if ($data_pegawai->NIP==$data_pegawai_pengikut->idPegawaiPengikut) {
+                          if ( $data_pegawai_pengikut->idPerjalananDinas == $data_perjalanan_dinas->idPerjalananDinas){
+                           echo "<option selected value='$data_pegawai_pengikut->idPegawaiPengikut'> $data_pegawai_pengikut->nama_pegawai </option>";
+                           $cek=false;
+                           break;
+                         }
+                       }
+                     }
+                     if ($cek==false) {
+                      continue;
                     }
                     ?>
-
-                  </select>
-                </div>
-                <div class="col-lg-3 col-sm-3">
-                  <label>Kabupaten</label>
-                  <select name="idKabupaten" id="idKabupaten" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" >
-
-                  </select>
-                </div>
-                <div class="col-lg-3 col-sm-3">
-                  <label>Kecamatan</label>
-                  <select name="idKecamatan" id="idKecamatan" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" >
-                    <option>-- Pilih Kecamatan --</option>
-                  </select>
-                </div>
-                <div class="col-lg-3 col-sm-3">
-                  <label>Kelurahan</label>
-                  <select name="idKelurahan" id="idKelurahan" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" >
-                    <option>-- Pilih Kelurahan --</option>
-                  </select>
-                </div>
+                    <option value="<?=$data_pegawai->NIP ?>"> <?=$data_pegawai->nama_pegawai ?></option>
+                    <?php 
+                  }
+                  ?>
+                  <!-- masih bisa menerima data yang sama, pegawai tugas dan pegawai pengikut. -->
+                </select>
               </div>
 
 
-              
               <div class="col-lg-12">
-                <label> Alamat lokasi </label>
-                <input type="text" name="alamat_lokasi" id="alamat_lokasi" class="form-control" placeholder="Alamat lokasi" >
+                <label> Kegiatan Perjalanan </label>
+                <input type="text" name="kegiatan_perjalanan" id="kegiatan_perjalanan" class="form-control" placeholder="Kegiatan perjalanan" value="<?php echo $data_perjalanan_dinas->kegiatan ?>" >
               </div>
 
+              <div class="col-lg-12 col-sm-12">
+               <label> Lokasi tujuan : </label>
+             </div>
 
-              
-              <div class="col-lg-6 col-sm-6">
-                <label> Tanggal berangkat </label>
-                <div class="input-group date">
-                  <div class="input-group-addon">
-                    <i class="fa fa-calendar"></i>
-                  </div>
-                  <input type="text" class="form-control pull-right" id="datepicker" name="tanggal_berangkat" placeholder="yyyy-mm-dd">
-                </div>
-              </div>
+             <div class="col-lg-12">
 
-              <div class="col-lg-6 col-sm-6">
-                <label> Tanggal kembali </label>
-                <div class="input-group date">
-                  <div class="input-group-addon">
-                    <i class="fa fa-calendar"></i>
-                  </div>
-                  <input type="text" class="form-control pull-right" id="datepicker" name="tanggal_kembali" placeholder="yyyy-mm-dd">
-                </div>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <div class="col-lg-12">
-                <label> Lama Perjalanan </label>
-                <input type="number" min="0"  name="lama_perjalanan" id="lama_perjalanan" class="form-control" placeholder="Lama Perjalanan" >
-              </div>
-            </div>
-
-            <div class="form-group">
-              <div class="col-lg-12">
-                <label> Transportasi </label>
-                <select name="idTransportasi" id="idTransportasi" class="form-control" >
-                  <option disabled="">-- PILIH TRANSPORTASI --</option>
+               <div class="col-lg-3 col-sm-3"> 
+                <label>Provinsi</label>
+                <select name="idProvinsi" id="idProvinsi" class="form-control select2 select2-hidden-accessible" onchange="" style="width: 100%;" tabindex="-1" aria-hidden="true"  >
+                  <option>-- Pilih Provinsi --</option>
                   <?php 
 
-                  foreach ($transportasi as $data_transportasi) {
+                  foreach ($provinsi as $data_provinsi) {
+
                     ?>
-                    <option value="<?php echo $data_transportasi->idTransportasi ?>"> <?php echo $data_transportasi->nama_transportasi ?></option>
+                    <option value="<?php echo $data_provinsi->idProvinsi?>"> <?php echo $data_provinsi->nama_provinsi ?></option>
                     <?php 
                   }
                   ?>
 
                 </select>
               </div>
+              <div class="col-lg-3 col-sm-3">
+                <label>Kabupaten</label>
+                <select name="idKabupaten" id="idKabupaten" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" >
+
+                </select>
+              </div>
+              <div class="col-lg-3 col-sm-3">
+                <label>Kecamatan</label>
+                <select name="idKecamatan" id="idKecamatan" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" >
+                  <option>-- Pilih Kecamatan --</option>
+                </select>
+              </div>
+              <div class="col-lg-3 col-sm-3">
+                <label>Kelurahan</label>
+                <select name="idKelurahan" id="idKelurahan" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" >
+                  <option>-- Pilih Kelurahan --</option>
+                </select>
+              </div>
             </div>
 
-            
+
+
             <div class="col-lg-12">
-              <label> Pejabat Penanda Tangan </label>
-              <select name="idPejabatPenandaTangan" id="idPejabatPenandaTangan" class="form-control" >
-               <option disabled="">-- PILIH PEJABAT PENANDA TANGAN --</option>
-               <?php 
+              <label> Alamat lokasi </label>
+              <input type="text" name="alamat_lokasi" id="alamat_lokasi" class="form-control" placeholder="Alamat lokasi" value="<?= $data_perjalanan_dinas->alamat_spesifik_tujuan?> " >
+            </div>
 
-               foreach ($pejabat_penanda_tangan as $data_pejabat_penanda_tangan) {
-                ?>
-                <option value="<?php echo $data_pejabat_penanda_tangan->idPejabatPenandaTangan ?>"> <?php echo $data_pejabat_penanda_tangan->nama_pegawai ?></option>
-                <?php 
-              }
-              ?>
-            </select>
+
+
+            <div class="col-lg-6 col-sm-6">
+              <label> Tanggal berangkat </label>
+              <div class="input-group date">
+                <div class="input-group-addon">
+                  <i class="fa fa-calendar"></i>
+                </div>
+                <input type="text" class="form-control pull-right" id="datepicker" name="tanggal_berangkat" placeholder="yyyy-mm-dd" value="<?= $data_perjalanan_dinas->tanggal_berangkat?>">
+              </div>
+            </div>
+
+            <div class="col-lg-6 col-sm-6">
+              <label> Tanggal kembali </label>
+              <div class="input-group date">
+                <div class="input-group-addon">
+                  <i class="fa fa-calendar"></i>
+                </div>
+                <input type="text" class="form-control pull-right" id="datepicker" name="tanggal_kembali" placeholder="yyyy-mm-dd" value="<?= $data_perjalanan_dinas->tanggal_kembali?>">
+              </div>
+            </div>
           </div>
-          
-
-          <div id="alert-msg"> </div>
 
           <div class="form-group">
-            <div class="col-lg-offset-10 col-lg-offset-10">
-              <button type="submit" class="btn btn-primary" name="edit" value="edit">Update</button>
+            <div class="col-lg-12">
+              <label> Lama Perjalanan </label>
+              <input type="number" min="0"  name="lama_perjalanan" id="lama_perjalanan" class="form-control" placeholder="Lama Perjalanan" value="<?= $data_perjalanan_dinas->lama_perjalanan?>" >
             </div>
           </div>
-        </form>
-      </div>
+
+          <div class="form-group">
+            <div class="col-lg-12">
+              <label> Transportasi </label>
+              <select name="idTransportasi" id="idTransportasi" class="form-control" >
+                <option disabled="">-- PILIH TRANSPORTASI --</option>
+                <?php 
+                foreach ($transportasi as $data_transportasi) {
+                  if ($data_transportasi->idTransportasi==$data_perjalanan_dinas->idTransportasi) {
+                    echo "<option selected value=' $data_transportasi->idTransportasi'> $data_transportasi->nama_transportasi </option>";
+                    continue;
+                  }
+                  ?>
+                  <option value="<?php echo $data_transportasi->idTransportasi ?>"> <?php echo $data_transportasi->nama_transportasi ?></option>
+                  <?php 
+                }
+                ?>
+
+              </select>
+            </div>
+          </div>
+
+
+          <div class="col-lg-12">
+            <label> Pejabat Penanda Tangan </label>
+            <select name="idPejabatPenandaTangan" id="idPejabatPenandaTangan" class="form-control" >
+             <option disabled="">-- PILIH PEJABAT PENANDA TANGAN --</option>
+             <?php 
+
+             foreach ($pejabat_penanda_tangan as $data_pejabat_penanda_tangan) {
+              $cek=true;
+              foreach ($pegawai as $data_pegawai) {
+                if ($data_pegawai->NIP==$data_pejabat_penanda_tangan->NIP) {
+                  if ($data_pejabat_penanda_tangan->idPejabatPenandaTangan==$data_perjalanan_dinas->idPejabatPenandaTangan) {
+                    echo "<option selected value='$data_pejabat_penanda_tangan->idPejabatPenandaTangan' > $data_pejabat_penanda_tangan->nama_pegawai>";
+                    $cek=false;
+                    break;
+                  }
+                }
+              }
+              if ($cek==FALSE) {
+                continue;
+              }
+              ?>
+              <option value="<?php echo $data_pejabat_penanda_tangan->idPejabatPenandaTangan ?>"> <?php echo $data_pejabat_penanda_tangan->nama_pegawai ?></option>
+              <?php 
+            }
+            
+            ?>
+          </select>
+        </div>
+
+        <div id="alert-msg"> </div>
+
+        <div class="form-group">
+          <div class="col-lg-offset-10 col-lg-offset-10">
+            <button type="submit" class="btn btn-primary" name="edit" value="edit">Update</button>
+          </div>
+        </div>
+      </form>
     </div>
   </div>
+</div>
 </div>
 </div>
 <?php
 }
 ?>
+<!-- end of modal edit -->
 
+
+<!-- modal view -->
+<?php
+foreach ($perjalanan_dinas as $data_perjalanan_dinas) {
+  ?>
+  <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="modalViewData<?php echo $data_perjalanan_dinas->idPerjalananDinas?>" class="modal fade">
+    <div class="modal-dialog" style="width: 60%">
+      <div class="box box-primary">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+            <h4 class="modal-title">View Data Perjalanan Dinas ( MASIH SALAH )</h4>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal" role="form" method="post" action="<?=base_url('perjalanan_dinas/updateDataPerjalananDinas/'.$data_perjalanan_dinas->idPerjalananDinas)?>">
+
+              <div class="form-group">
+
+                <div class="col-lg-12">
+                  <label >Pegawai yang ditugaskan</label> 
+                  <select disabled name="pegawai_tugas" id="pegawai_tugas" class="form-control select2 select2-hidden-accessible"  style="width: 100%;" tabindex="-1" aria-hidden="true">
+                   <option disabled=""> PILIH PEGAWAI YANG DITUGASKAN</option>
+                   <?php 
+                   foreach ($pegawai as $data_pegawai) {
+                    if ( $data_pegawai->NIP == $data_perjalanan_dinas->idPegawaiTugas ) {
+                      echo "string";
+                      echo "<option selected value='$data_pegawai->NIP'> $data_perjalanan_dinas->nama_pegawai </option>";
+                      continue;
+                    }
+                    ?>
+                    <option value="<?php echo $data_pegawai->NIP ?>"> <?php echo $data_pegawai->nama_pegawai ?></option>
+                    <?php 
+                  }
+                  ?>
+                </select>
+              </div>
+
+              <div class="col-lg-12">
+                <label>Pegawai pengikut yang ditugaskan</label>
+                <select disabled name="pegawai_pengikut" id="pegawai_pengikut" class="form-control select2 select2-hidden-accessible" multiple="" data-placeholder="pilih pegawai pengikut" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                  <option disabled="">-- PILIH PEGAWAI PENGIKUT --</option>
+                  <?php 
+                  foreach ($pegawai as $data_pegawai) {
+                    $cek=true;
+                    foreach($pegawai_pengikut as $data_pegawai_pengikut){
+                      if ($data_pegawai->NIP==$data_pegawai_pengikut->idPegawaiPengikut) {
+                        if ( $data_pegawai_pengikut->idPerjalananDinas == $data_perjalanan_dinas->idPerjalananDinas){
+                         echo "<option selected value='$data_pegawai_pengikut->idPegawaiPengikut'> $data_pegawai_pengikut->nama_pegawai </option>";
+                         $cek=false;
+                         break;
+                       }
+                     }
+                   }
+                   if ($cek==false) {
+                    continue;
+                  }
+                  ?>
+                  <option value="<?=$data_pegawai->NIP ?>"> <?=$data_pegawai->nama_pegawai ?></option>
+                  <?php 
+                }
+                ?>
+                <!-- masih bisa menerima data yang sama, pegawai tugas dan pegawai pengikut. -->
+              </select>
+            </div>
+
+
+            <div class="col-lg-12">
+              <label> Kegiatan Perjalanan </label>
+              <input disabled type="text" name="kegiatan_perjalanan" id="kegiatan_perjalanan" class="form-control" placeholder="Kegiatan perjalanan" value="<?php echo $data_perjalanan_dinas->kegiatan ?>" >
+            </div>
+
+            <div class="col-lg-12 col-sm-12">
+             <label> Lokasi tujuan : </label>
+           </div>
+
+           <div class="col-lg-12">
+
+             <div class="col-lg-3 col-sm-3"> 
+              <label>Provinsi</label>
+              <select disabled name="idProvinsi" id="idProvinsi" class="form-control select2 select2-hidden-accessible" onchange="" style="width: 100%;" tabindex="-1" aria-hidden="true"  >
+                <option>-- Pilih Provinsi --</option>
+                <?php 
+
+                foreach ($provinsi as $data_provinsi) {
+
+                  ?>
+                  <option value="<?php echo $data_provinsi->idProvinsi?>"> <?php echo $data_provinsi->nama_provinsi ?></option>
+                  <?php 
+                }
+                ?>
+
+              </select>
+            </div>
+            <div class="col-lg-3 col-sm-3">
+              <label>Kabupaten</label>
+              <select disabled name="idKabupaten" id="idKabupaten" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" >
+
+              </select>
+            </div>
+            <div class="col-lg-3 col-sm-3">
+              <label>Kecamatan</label>
+              <select disabled name="idKecamatan" id="idKecamatan" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" >
+                <option>-- Pilih Kecamatan --</option>
+              </select>
+            </div>
+            <div class="col-lg-3 col-sm-3">
+              <label>Kelurahan</label>
+              <select disabled name="idKelurahan" id="idKelurahan" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" >
+                <option>-- Pilih Kelurahan --</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-lg-12">
+            <label> Alamat lokasi </label>
+            <input disabled type="text" name="alamat_lokasi" id="alamat_lokasi" class="form-control" placeholder="Alamat lokasi" value="<?= $data_perjalanan_dinas->alamat_spesifik_tujuan?> " >
+          </div>
+
+
+
+          <div class="col-lg-6 col-sm-6">
+            <label> Tanggal berangkat </label>
+            <div class="input-group date">
+              <div class="input-group-addon">
+                <i class="fa fa-calendar"></i>
+              </div>
+              <input disabled type="text" class="form-control pull-right" id="datepicker" name="tanggal_berangkat" placeholder="yyyy-mm-dd" value="<?= $data_perjalanan_dinas->tanggal_berangkat?>">
+            </div>
+          </div>
+
+          <div class="col-lg-6 col-sm-6">
+            <label> Tanggal kembali </label>
+            <div class="input-group date">
+              <div class="input-group-addon">
+                <i class="fa fa-calendar"></i>
+              </div>
+              <input disabled type="text" class="form-control pull-right" id="datepicker" name="tanggal_kembali" placeholder="yyyy-mm-dd" value="<?= $data_perjalanan_dinas->tanggal_kembali?>">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="col-lg-12">
+            <label> Lama Perjalanan </label>
+            <input disabled type="number" min="0"  name="lama_perjalanan" id="lama_perjalanan" class="form-control" placeholder="Lama Perjalanan" value="<?= $data_perjalanan_dinas->lama_perjalanan?>" >
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="col-lg-12">
+            <label> Transportasi </label>
+            <select disabled name="idTransportasi" id="idTransportasi" class="form-control" >
+              <option disabled="">-- PILIH TRANSPORTASI --</option>
+              <?php 
+              foreach ($transportasi as $data_transportasi) {
+                if ($data_transportasi->idTransportasi==$data_perjalanan_dinas->idTransportasi) {
+                  echo "<option selected value=' $data_transportasi->idTransportasi'> $data_transportasi->nama_transportasi </option>";
+                  continue;
+                }
+                ?>
+                <option value="<?php echo $data_transportasi->idTransportasi ?>"> <?php echo $data_transportasi->nama_transportasi ?></option>
+                <?php 
+              }
+              ?>
+
+            </select>
+          </div>
+        </div>
+
+
+        <div class="col-lg-12">
+          <label> Pejabat Penanda Tangan </label>
+          <select disabled name="idPejabatPenandaTangan" id="idPejabatPenandaTangan" class="form-control" >
+           <option disabled="">-- PILIH PEJABAT PENANDA TANGAN --</option>
+           <?php 
+
+           foreach ($pejabat_penanda_tangan as $data_pejabat_penanda_tangan) {
+            $cek=true;
+            foreach ($pegawai as $data_pegawai) {
+              if ($data_pegawai->NIP==$data_pejabat_penanda_tangan->NIP) {
+                if ($data_pejabat_penanda_tangan->idPejabatPenandaTangan==$data_perjalanan_dinas->idPejabatPenandaTangan) {
+                  echo "<option selected value='$data_pejabat_penanda_tangan->idPejabatPenandaTangan' > $data_pejabat_penanda_tangan->nama_pegawai>";
+                  $cek=false;
+                  break;
+                }
+              }
+            }
+            if ($cek==FALSE) {
+              continue;
+            }
+            ?>
+            <option value="<?php echo $data_pejabat_penanda_tangan->idPejabatPenandaTangan ?>"> <?php echo $data_pejabat_penanda_tangan->nama_pegawai ?></option>
+            <?php 
+          }
+
+          ?>
+        </select>
+      </div>
+
+      <div id="alert-msg"> </div>
+
+      <div class="form-group">
+
+      </div>
+    </form>
+  </div>
+</div>
+</div>
+</div>
+</div>
+<?php
+}
+?>
+<!-- end of modal view -->
 </div>
 <!-- /.box-body -->
 </div>
@@ -541,6 +779,8 @@
 
 
    <!-- ./wrapper -->
+
+   
 
    <!-- jQuery 3 -->
    <script async="" src="//www.google-analytics.com/analytics.js"></script>;
@@ -764,3 +1004,42 @@
 
 </body>
 </html>
+
+<script>
+  function form_validation(){
+
+/*     var form_data = {
+      pegawai_tugas:$('#pegawai_tugas').val(),
+      pegawai_pengikut:$('#pegawai_pengikut').val(),
+      kegiatan_perjalanan:$('#kegiatan_perjalanan').val(),
+      jenis_kegiatan:$('#jenis_kegiatan').val(),
+      jarak_perjalanan:$('#jarak_perjalanan').val(),
+      idProvinsi:$('#idProvinsi').val(),
+      idKabupaten:$('#idKabupaten').val(),
+      idKecamatan:$('#idKecamatan').val(),
+      idKelurahan:$('#idKelurahan').val(),
+      alamat_lokasi:$('#alamat_lokasi').val(),
+      tanggal_berangkat:$('#tanggal_berangkat').val(),
+      tanggal_kembali:$('#tanggal_kembali').val(),
+      lama_perjalanan:$('#lama_perjalanan').val(),
+      transportasi:$('#transportasi').val(),
+      pejabat_penanda_tangan:$('#pejabat_penanda_tangan').val(),
+    };
+    $.ajax({
+      url: "<?php echo base_url('perjalanan_dinas/addDataPerjalananDinas'); ?>",
+      type: 'POST',
+      data: form_data,
+      success: function(message) {
+        if (message == "Sukses"){
+          $('#alert-msg').html('<div class="alert alert-success">' + "Data Berhasil Ditambahkan" + '</div>');
+             //window.location.reload();
+           }
+           else{
+            $('#alert-msg').html('<div class="alert alert-danger">' + message + '</div>');
+          }
+        }
+      });
+      alert("message?: DOMString")*/
+   // return false;
+ }
+</script>

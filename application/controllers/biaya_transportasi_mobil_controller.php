@@ -8,6 +8,7 @@ class biaya_transportasi_mobil_controller extends CI_Controller{
 	
 	function __construct(){
 		parent::__construct();	
+		$this->load->library('form_validation');
 		$this->load->model("biaya_transportasi_mobil_model");
 		if ($this->session->userdata('login') != 'yes') {
 			redirect(base_url());
@@ -21,7 +22,12 @@ class biaya_transportasi_mobil_controller extends CI_Controller{
 	}
 
 	function addDataBiayaTransportasiMobil(){
-		$idTransportasi=$this->input->post('idTransportasi');
+		$this->form_validation->set_rules('nominal_biaya_mobil','Nominal Biaya Mobil','required|numeric');
+		if ($this->form_validation->run()==FALSE) {
+			echo validation_errors();
+		}
+		else{
+			$idTransportasi=$this->input->post('idTransportasi');
 		$kilometer=$this->input->post('kilometer');
 		$mesin_cc=$this->input->post('mesin_cc');
 		$jenis_bbm=$this->input->post('jenis_bbm');
@@ -38,6 +44,8 @@ class biaya_transportasi_mobil_controller extends CI_Controller{
 		$this->biaya_transportasi_mobil_model->addDataBiayaTransportasiMobil($input);
 		$this->session->set_flashdata('message', 'Data Sukses Ditambahkan');
 		redirect(base_url('biaya_transportasi_mobil/index'));
+		}
+		
 	}
 
 	function updateDataBiayaTransportasiMobil($idBiayaTransportasiMobil){

@@ -8,6 +8,7 @@ class biaya_penginapan_controller extends CI_Controller{
 	
 	function __construct(){
 		parent::__construct();	
+		$this->load->library('form_validation');
 		$this->load->model("biaya_penginapan_model");
 		if ($this->session->userdata('login') != 'yes') {
 			redirect(base_url());
@@ -22,19 +23,26 @@ class biaya_penginapan_controller extends CI_Controller{
 	}
 
 	function addDataBiayaPenginapan(){
-		$idGolongan=$this->input->post('idGolongan');
-		$idProvinsi=$this->input->post('idProvinsi');
-		$nominal_biaya_penginapan=$this->input->post('nominal_biaya_penginapan');
-		$idBiayaPenginapan=uniqid();
-		$input = array(
-			'idBiayaPenginapan'=>$idBiayaPenginapan,
-			'idGolongan'=>$idGolongan,
-			'idLokasiProvinsi'=>$idProvinsi,
-			'nominal_biaya_penginapan'=>$nominal_biaya_penginapan
-		);
-		$this->biaya_penginapan_model->addDataBiayaPenginapan($input);
-		$this->session->set_flashdata('message', 'Data Sukses Ditambahkan');
-		redirect(base_url('biaya_penginapan/index'));
+		$this->form_validation->set_rules('nominal_biaya_penginapan','Nominal Biaya Penginapan','required|numeric');
+		if ($this->form_validation->run()==FALSE) {
+			echo validation_errors();
+		}
+		else{
+			$idGolongan=$this->input->post('idGolongan');
+			$idProvinsi=$this->input->post('idProvinsi');
+			$nominal_biaya_penginapan=$this->input->post('nominal_biaya_penginapan');
+			$idBiayaPenginapan=uniqid();
+			$input = array(
+				'idBiayaPenginapan'=>$idBiayaPenginapan,
+				'idGolongan'=>$idGolongan,
+				'idLokasiProvinsi'=>$idProvinsi,
+				'nominal_biaya_penginapan'=>$nominal_biaya_penginapan
+			);
+			$this->biaya_penginapan_model->addDataBiayaPenginapan($input);
+			$this->session->set_flashdata('message', 'Data Sukses Ditambahkan');
+			redirect(base_url('biaya_penginapan/index'));
+		}
+
 	}
 
 	function updateDataBiayaPenginapan($idBiayaPenginapan){

@@ -1,15 +1,19 @@
 <!-- Logo -->
-<a href="<?php echo base_url('dashboard/index')?>" class="logo" style="background-color:#2C5364 ">
+<a href="<?php echo base_url('dashboard/index')?>" class="logo" style="background-color:#2C5380 ">
   <!-- mini logo for sidebar mini 50x50 pixels -->
   <span class="logo-mini"><b>SIPD</b></span>
   <!-- logo for regular state and mobile devices -->
-  <span class="logo-lg" style="background: linear-gradient(to left, #6a9113, #2C5364);">
+  <span class="logo-lg" style="background:#2C5380;">
     <b>SIPD</b> Kab KEBUMEN<br>
   </span>
 </a>
 
 <!-- Header Navbar: style can be found in header.less -->
-<nav class="navbar navbar-static-top" style="background: linear-gradient(to left, #6a9113, #2C5364);">
+<nav class="navbar navbar-static-top" style="background: linear-gradient(to left,#1cba92,#2C5380);">
+  <!-- background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%); -->
+  <!-- background: linear-gradient(to left,#6a9113,#2C5364); -->
+
+  <!-- background-image: linear-gradient(to top, #09203f 0%, #537895 100%); -->
   <!-- Sidebar toggle button-->
   <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
     <span class="sr-only">Toggle navigation</span>
@@ -23,7 +27,7 @@
       <li class="dropdown user user-menu">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
           <img style=" max-width: 100px " src="<?php echo base_url('assets/')?>dist/img/kebumen.png" class="user-image" alt="User Image">
-          <span class="hidden-xs"><?=$this->session->userdata('nama_admin')?></span>
+          <span class="hidden-xs" style="font-weight: bold; text-transform: capitalize"><?=$this->session->userdata('nama_admin')?></span>
         </a>
         <ul class="dropdown-menu">
           <!-- User image -->
@@ -32,7 +36,7 @@
 
             <p>
               <?=$this->session->userdata('namaUser')?>
-              <small>Admin</small>
+              <small>Administrator</small>
             </p>
           </li>
           <!-- Menu Body -->

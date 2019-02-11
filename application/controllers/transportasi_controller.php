@@ -9,6 +9,7 @@ class transportasi_controller extends CI_Controller{
 	function __construct(){
 		parent::__construct();	
 		$this->load->model("transportasi_model");
+		$this->load->library('form_validation');
 		if ($this->session->userdata('login') != 'yes') {
 			redirect(base_url());
 		}
@@ -20,17 +21,29 @@ class transportasi_controller extends CI_Controller{
 	}
 
 	function addDataTransportasi(){
-		$nama_transportasi=$this->input->post('nama_transportasi');
-		$jenis_transportasi=$this->input->post('jenis_transportasi');
-		$idTransportasi=uniqid();
-		$input = array(
-			'idTransportasi'=>$idTransportasi,
-			'nama_transportasi'=>$nama_transportasi,
-			'jenis_transportasi'=>$jenis_transportasi
-		);
-		$this->transportasi_model->addDataTransportasi($input);
-		$this->session->set_flashdata('message', 'Data Sukses Ditambahkan');
-		redirect(base_url('transportasi/index'));
+		$this->form_validation->set_rules('nama_transportasi', 'Nama Transportasi', 'required|max_length[15]');
+		$this->form_validation->set_rules('jenis_transportasi', 'Jenis Transportasi','required|alpha|max_length[15]');
+
+		if ($this->form_validation->run()==FALSE) {
+			echo validation_errors();
+		}
+		else{
+			//echo "Sukses";
+			$nama_transportasi=$this->input->post('nama_transportasi');
+			$jenis_transportasi=$this->input->post('jenis_transportasi');
+			$idTransportasi=uniqid();
+			$input = array(
+				'idTransportasi'=>$idTransportasi,
+				'nama_transportasi'=>$nama_transportasi,
+				'jenis_transportasi'=>$jenis_transportasi
+			);
+			$this->transportasi_model->addDataTransportasi($input);
+			$this->session->set_flashdata('message', 'Data Sukses Ditambahkan');
+
+			redirect(base_url('transportasi/index'));
+		}
+
+		
 	}
 
 	function updateDataTransportasi($idTransportasi){
@@ -47,7 +60,7 @@ class transportasi_controller extends CI_Controller{
 
 	function removeDataTransportasi($idTransportasi){
 		$this->transportasi_model->removeDataTransportasi('idTransportasi', $idTransportasi);
-		$this->session->set_flashdata('message', 'Data Sukses Dihabus');
+		$this->session->set_flashdata('message', 'Data Sukses Dihapus');
 		redirect(base_url('transportasi/index'));
 	}
 

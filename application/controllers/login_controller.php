@@ -5,10 +5,11 @@ class login_controller extends CI_Controller{
 
   function __construct() {
     parent::__construct();
+    $this->load->library('form_validation');
   }
   function index() {
     if ($this->session->userdata('login') == 'yes') {
-     // redirect(base_url('welcome'));
+    
       redirect(base_url('dashboard/index'));
     }
     else {

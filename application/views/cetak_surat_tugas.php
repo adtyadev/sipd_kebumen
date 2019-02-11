@@ -8,7 +8,7 @@
     <title>Surat Tugas</title>
     <link rel="stylesheet" href="<?php echo base_url('assets')?>/bower_components/surat_sipd/css/surat_sipd.css">
     <script type="text/javascript">
-       // window.print();
+        window.print();
     </script>
 </head>
 
@@ -144,7 +144,7 @@
                                         <td> < Kasi Infastek Bidang PDE ></td>
                                     </tr>
                                     <?php
-                                    foreach($pegawai_pengikut as $data_pegawai_pengikut){
+                                    foreach($pegawai_pengikut as $data_pegawai_pengikut){+
                                         if ( $data_pegawai_pengikut->idPerjalananDinas == $data_perjalanan_dinas->idPerjalananDinas){
                                             ?>
                                             <tr>
@@ -238,78 +238,122 @@
     <tr>
         <td width="15%">Untuk  </td>
         <td width="1%">:</td>
-        <td colspan="3"> <1> < Koordinasi dan Penyempurnaan Perbub Draft TIK Kabupaten Kebumen ></td>
-        </tr>
-        <tr>
-            <td width="15%"></td>
-            <td width="1%"></td>
-            <td width="15%"> Pada </td>
-            <td width="1%"> : </td>
-            <td></td>
-        </tr>
-        <tr>
-            <td width="15%"></td>
-            <td width="1%"></td>
-            <td width="15%"> Hari/tanggal </td>
-            <td width="1%"> : </td>
-            <td> < Senin, 7 Januari 2019 > </td>
-        </tr>
-        <tr>
-            <td width="15%"></td>
-            <td width="1%"></td>
-            <td width="15%"> Tempat </td>
-            <td width="1%"> : </td>
-            <td> < Gamatechno Yogyakarta ></td>
-        </tr>
-        <tr>
-            <td width="15%"></td>
-            <td width="1%"></td>
-            <td colspan="3"> <2> < Koordinasi dan Penyempurnaan Perbub Draft TIK Kabupaten Kebumen ></td>
-            </tr>
-        </table>
-        <br><br>
-        <table width="100%" border="0">
-            <tr>
-                <td width="65%"></td>
-                <td width="35%">
-                    <table width="100%">
+        <td colspan="3"> 
+            <?php foreach ($perjalanan_dinas as $data_perjalanan_dinas) {
+                if ($data_surat_tugas->idPerjalananDinas == $data_perjalanan_dinas->idPerjalananDinas){ 
+                    echo "1. &nbsp;" .$data_perjalanan_dinas->kegiatan . '<br>';
+                }
+            }
+            ?>    
+        </td>
+    </tr>
+    <tr>
+        <td width="15%"></td>
+        <td width="1%"></td>
+        <td width="15%"> Pada </td>
+        <td width="1%"> : </td>
+        <td></td>
+    </tr>
+    <tr>
+        <td width="15%"></td>
+        <td width="1%"></td>
+        <td width="15%"> Hari/tanggal </td>
+        <td width="1%"> : </td>
+        <td> 
+            <?php foreach ($perjalanan_dinas as $data_perjalanan_dinas) {
+                if ($data_surat_tugas->idPerjalananDinas == $data_perjalanan_dinas->idPerjalananDinas){ 
+                    echo $data_perjalanan_dinas->tanggal_acara . '<br>';
+                }
+            }
+            ?>    
+        </td>
+    </tr>
+    <tr>
+        <td width="15%"></td>
+        <td width="1%"></td>
+        <td width="15%"> Tempat </td>
+        <td width="1%"> : </td>
+        <td> 
+            <?php foreach ($perjalanan_dinas as $data_perjalanan_dinas) {
+                if ($data_surat_tugas->idPerjalananDinas == $data_perjalanan_dinas->idPerjalananDinas){ 
+                    echo $data_perjalanan_dinas->alamat_spesifik_tujuan . '<br>';
+                }
+            }
+            ?>    
+        </td>
+    </tr>
+    <tr>
+        <td width="15%"></td>
+        <td width="1%"></td>
+        <td colspan="3"> 2 < Koordinasi dan Penyempurnaan Perbub Draft TIK Kabupaten Kebumen ></td>
+    </tr>
+</table>
+<br><br>
+<table width="100%" border="0">
+    <tr>
+        <td width="65%"></td>
+        <td width="35%">
+            <table width="100%">
+                <tr>
+                    <td width="85%">Ditetapkan di kebumen,</td>
+                </tr>
+                <tr>
+                    <td width="85%">Pada tanggal 
+                        <?php
+                        echo date("D, M Y");
+                        ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="85%" rowspan="2" style="text-align: center; text-transform: uppercase" >
+                        <?php foreach ($perjalanan_dinas as $data_perjalanan_dinas) {
+                            if ($data_surat_tugas->idPerjalananDinas == $data_perjalanan_dinas->idPerjalananDinas){ 
+                                $temp_NIP_pejabat_penanda_tangan=$data_perjalanan_dinas->NIP;
+                                echo $data_perjalanan_dinas->keterangan_jabatan . '<br>';
+                            }
+                        }
+                        ?>  
+                    </td>
+                </tr>
+                <tr>
+                    <tr>
+                        <td width="85%">&nbsp;</td>
+                    </tr>
+                    <tr>
                         <tr>
-                            <td width="85%">Ditetapkan di kebumen,</td>
+                            <td width="85%">&nbsp;</td>
                         </tr>
                         <tr>
-                            <td width="85%">Pada tanggal <21 Januari 2019></td>
-                            </tr>
-                            <tr>
-                                <td width="85%" style="text-align: center;">KEPALA DINAS KOMINFO</td>
-                            </tr>
-                            <tr>
-                                <td width="85%" style="text-align: center;">KABUPATEN KEBUMEN</td>
-                            </tr>
-                            <tr>
-                                <td width="85%">&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <tr>
-                                    <td width="85%">&nbsp;</td>
-                                </tr>
-                                <tr>
-                                    <td width="85%"></td>
-                                </tr>
-                                <tr>
-                                    <td width="85%" style="text-align: center; font-weight: bold; text-decoration: underline;"> COKRO AMINOTO, S.I.P.M.Kes </td>
-                                </tr>                    
-                                <tr>
-                                    <td width="85%" style="text-align: center;">< Penata Tk I > </td>
-                                </tr>
-                                <tr>
-                                    <td width="85%" style="text-align: center;">< NIP. 19661129 198702 1 004 > </td>
-                                </tr>
-                            </table>
+                            <td width="85%"></td>
+                        </tr>
+                        <tr>
+                            <td width="90%" style="text-align: center; font-weight: bold; text-decoration: underline; text-transform: uppercase"> 
+
+                             <?php foreach ($pegawai as $data_pegawai) {
+                                if ($data_pegawai->NIP == $temp_NIP_pejabat_penanda_tangan) {
+                                    echo $data_pegawai->nama_pegawai.'<br>';
+                                    $temp_golongan_pejabat_penanda_tangan= $data_pegawai->nama_pangkat;
+                                                    
+                                    break;
+                                }
+
+                            }
+                            ?>
+
                         </td>
+                    </tr>                    
+                    <tr>
+                        <td width="85%" style="text-align: center;"> <?=$temp_golongan_pejabat_penanda_tangan?></td>
+                    </tr>
+                    <tr>
+                        <td width="85%" style="text-align: center;"> NIP. <?=$temp_NIP_pejabat_penanda_tangan?> </td>
                     </tr>
                 </table>
-            </div>
-        </div>
-    </page>
+            </td>
+        </tr>
+    </table>
+</div>
+</div>
+</page>
 </body>
 </html>

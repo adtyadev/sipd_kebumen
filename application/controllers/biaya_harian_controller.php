@@ -8,6 +8,7 @@ class biaya_harian_controller extends CI_Controller{
 	
 	function __construct(){
 		parent::__construct();	
+		$this->load->library('form_validation');
 		$this->load->model("biaya_harian_model");
 		if ($this->session->userdata('login') != 'yes') {
 			?>
@@ -27,23 +28,33 @@ class biaya_harian_controller extends CI_Controller{
 	}
 
 	function addDataBiayaHarian(){
-		$idGolongan=$this->input->post('idGolongan');
-		$jarak_perjalanan=$this->input->post('jarak_perjalanan');
-		$wilayah=$this->input->post('wilayah');
-		$jenis_kegiatan=$this->input->post('jenis_kegiatan');
-		$nominal_biaya_harian=$this->input->post('nominal_biaya_harian');
-		$idBiayaHarian=uniqid();
-		$input = array(
-			'idBiayaHarian'=>$idBiayaHarian,
-			'jarak_perjalanan'=>$jarak_perjalanan,
-			'idGolongan'=>$idGolongan,
-			'wilayah'=>$wilayah,
-			'jenis_kegiatan'=>$jenis_kegiatan,
-			'nominal_biaya_harian'=>$nominal_biaya_harian
-		);
-		$this->biaya_harian_model->addDataBiayaHarian($input);
-		$this->session->set_flashdata('message', 'Data Sukses Ditambahkan');
-		redirect(base_url('biaya_harian/index'));
+
+		$this->form_validation->set_rules('nominal_biaya_harian','Nominal Biaya Harian','required|numeric');
+		
+		if ($this->form_validation->run()==FALSE) {
+			echo validation_errors();
+		}
+		else{
+			$idGolongan=$this->input->post('idGolongan');
+			$jarak_perjalanan=$this->input->post('jarak_perjalanan');
+			$wilayah=$this->input->post('wilayah');
+			$jenis_kegiatan=$this->input->post('jenis_kegiatan');
+			$nominal_biaya_harian=$this->input->post('nominal_biaya_harian');
+			$idBiayaHarian=uniqid();
+			$input = array(
+				'idBiayaHarian'=>$idBiayaHarian,
+				'jarak_perjalanan'=>$jarak_perjalanan,
+				'idGolongan'=>$idGolongan,
+				'wilayah'=>$wilayah,
+				'jenis_kegiatan'=>$jenis_kegiatan,
+				'nominal_biaya_harian'=>$nominal_biaya_harian
+			);
+			$this->biaya_harian_model->addDataBiayaHarian($input);
+			$this->session->set_flashdata('message', 'Data Sukses Ditambahkan');
+			redirect(base_url('biaya_harian/index'));
+		}
+
+		
 	}
 
 	function updateDataBiayaHarian($idBiayaHarian){

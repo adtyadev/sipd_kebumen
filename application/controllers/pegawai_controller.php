@@ -5,6 +5,8 @@ class pegawai_controller extends CI_Controller{
 	function __construct() {
 		parent::__construct();
 		$this->load->model("pegawai_model");
+		$this->load->helper('security');
+		$this->load->library('form_validation');
 		if ($this->session->userdata('login') != 'yes') {
 			redirect(base_url());
 		}
@@ -19,25 +21,40 @@ class pegawai_controller extends CI_Controller{
 	}
 
 	function addDataPegawai(){
-		$NIP=$this->input->post('NIP');
-		$nama_pegawai=$this->input->post('nama_pegawai');
-		$tempat_lahir=$this->input->post('tempat_lahir');
-		$tanggal_lahir=$this->input->post('tanggal_lahir');
-		$idPangkat=$this->input->post('idPangkat');
-		$idGolongan=$this->input->post('idGolongan');
-		$idUnitKerja=$this->input->post('idUnitKerja');
-		$input = array(
-			'NIP'=>$NIP,
-			'nama_pegawai'=>$nama_pegawai,
-			'tempat_lahir'=>$tempat_lahir,
-			'tanggal_lahir'=>$tanggal_lahir,
-			'idPangkat'=>$idPangkat,
-			'idGolongan'=>$idGolongan,
-			'idUnitKerja'=>$idUnitKerja
-		);
-		$this->pegawai_model->addDataPegawai($input);
-		$this->session->set_flashdata('message', 'Data Sukses Ditambahkan');
-		redirect(base_url('pegawai/index'));
+
+		$this->form_validation->set_rules('NIP','Nomor Induk Pegawai','required|numeric|exact_length[18]');
+		$this->form_validation->set_rules('tempat_lahir','Tempat Lahir', 'required|alpha|max_length[25]');
+		$this->form_validation->set_rules('nama_pegawai', 'Nama Pegawai', 'trim|required|alpha_numeric_spaces|max_length[50]');
+		$this->form_validation->set_rules('tanggal_lahir', 'Tanggal Lahir', 'required|regex_match[/-/]');
+
+		if ($this->form_validation->run()==FALSE) {
+			//echo $this->input->post('tempat_lahir');
+			echo validation_errors();
+
+		}
+		else{
+			echo "Sukses";
+			$NIP=$this->input->post('NIP');
+			$nama_pegawai=$this->input->post('nama_pegawai');
+			$tempat_lahir=$this->input->post('tempat_lahir');
+			$tanggal_lahir=$this->input->post('tanggal_lahir');
+			$idPangkat=$this->input->post('idPangkat');
+			$idGolongan=$this->input->post('idGolongan');
+			$idUnitKerja=$this->input->post('idUnitKerja');
+			$input = array(
+				'NIP'=>$NIP,
+				'nama_pegawai'=>$nama_pegawai,
+				'tempat_lahir'=>$tempat_lahir,
+				'tanggal_lahir'=>$tanggal_lahir,
+				'idPangkat'=>$idPangkat,
+				'idGolongan'=>$idGolongan,
+				'idUnitKerja'=>$idUnitKerja
+			);
+			$this->pegawai_model->addDataPegawai($input);
+			$this->session->set_flashdata('message', 'Data Sukses Ditambahkan');
+			redirect(base_url('pegawai/index'));	
+		}
+		
 	}
 
 	function updateDataPegawai($NIP){

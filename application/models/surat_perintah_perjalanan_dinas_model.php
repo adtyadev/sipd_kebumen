@@ -22,13 +22,14 @@ class surat_perintah_perjalanan_dinas_model extends CI_Model{
         return $this->db->get();
     }
 
-    function getAllPerjalananDinas(){
-    	$this->db->select('perjalanan_dinas.idPegawaiTugas, pegawai.nama_pegawai, lokasi_kelurahan.nama_kelurahan, perjalanan_dinas.kegiatan, transportasi.nama_transportasi, perjalanan_dinas.tanggal_berangkat, perjalanan_dinas.tanggal_kembali, perjalanan_dinas.lama_perjalanan, perjalanan_dinas.idPerjalananDinas');
-    	$this->db->FROM('perjalanan_dinas');
-    	$this->db->join('pegawai','perjalanan_dinas.idPegawaiTugas=pegawai.NIP');
-    	$this->db->join('lokasi_kelurahan','perjalanan_dinas.idLokasi = lokasi_kelurahan.idKelurahan');
-    	$this->db->join('transportasi','perjalanan_dinas.idTransportasi = transportasi.idTransportasi');
-    	return $this->db->get();
+   function getAllPerjalananDinas(){
+        $this->db->select('perjalanan_dinas.idPegawaiTugas, pegawai.nama_pegawai, lokasi_kelurahan.nama_kelurahan, perjalanan_dinas.kegiatan, transportasi.nama_transportasi, transportasi.keterangan,perjalanan_dinas.tanggal_berangkat, perjalanan_dinas.tanggal_kembali, perjalanan_dinas.lama_perjalanan, perjalanan_dinas.idPerjalananDinas, perjalanan_dinas.alamat_spesifik_tujuan, perjalanan_dinas.tanggal_acara, perjalanan_dinas.idPejabatPenandaTangan, pejabat_penanda_tangan.NIP, pejabat_penanda_tangan.keterangan_jabatan');
+        $this->db->FROM('perjalanan_dinas');
+        $this->db->join('pegawai','perjalanan_dinas.idPegawaiTugas=pegawai.NIP');
+        $this->db->join('lokasi_kelurahan','perjalanan_dinas.idLokasi = lokasi_kelurahan.idKelurahan');
+        $this->db->join('transportasi','perjalanan_dinas.idTransportasi = transportasi.idTransportasi');
+        $this->db->join('pejabat_penanda_tangan', 'perjalanan_dinas.idPejabatPenandaTangan = pejabat_penanda_tangan.idPejabatPenandaTangan');
+        return $this->db->get();
 
     }
 

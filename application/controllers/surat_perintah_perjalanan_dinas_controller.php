@@ -19,8 +19,13 @@ class surat_perintah_perjalanan_dinas_controller extends CI_Controller{
         $this->load->view('surat_perintah_perjalanan_dinas',$data);
     }
 
-    function cetakSuratPerintahPerjalananDinas(){
-        $this->load->view('cetak_surat_perintah_perjalanan_dinas');
+    function cetakSuratPerintahPerjalananDinas($idSPPD){
+        $data['pegawai']=$this->surat_perintah_perjalanan_dinas_model->getAllPegawai()->result();
+        $data['perjalanan_dinas']=$this->surat_perintah_perjalanan_dinas_model->getAllPerjalananDinas()->result();
+        $data['pegawai_pengikut']=$this->surat_perintah_perjalanan_dinas_model->getPegawaiPengikut()->result();
+        $data['surat_perintah_perjalanan_dinas']=$this->surat_perintah_perjalanan_dinas_model->getAllSuratPerintahPerjalananDinas()->result();
+        $data['idSPPD']=$idSPPD;
+        $this->load->view('cetak_surat_perintah_perjalanan_dinas',$data);
     }
 
     function updateDataSuratPerintahPerjalananDinas($idSPPD){

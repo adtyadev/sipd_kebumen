@@ -4,6 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class biaya_perjalanan_pegawai_controller extends CI_Controller{
     function __construct() {
         parent::__construct();
+        $this->load->library('form_validation');
         $this->load->model("biaya_perjalanan_pegawai_model");
         if ($this->session->userdata('login') != 'yes') {
             redirect(base_url());
@@ -29,18 +30,20 @@ class biaya_perjalanan_pegawai_controller extends CI_Controller{
         $this->load->view('');
     }
 
-    function updateDataSuratPerintahPerjalananDinas($idSPPD){
-        $nomor_sppd = $this->input->post('nomor_sppd');
-        $mata_anggaran=$this->input->post('mata_anggaran');
-        $keterangan_lain_lain=$this->input->post('keterangan_lain_lain');
-        $status_cetak=$this->input->post('status_cetak');
+    function updateDataBiayaPerjalananPegawais($idSPPD){
+        $idBiayaPenginapan=$this->input->post('idBiayaPenginapan');
+        $idBiayaTransportasiMobil=$this->input->post('idBiayaTransportasiMobil');
+        $idBiayaTransportasiLain=$this->input->post('idBiayaTransportasiLain');
+        $idBiayaHarian=$this->input->post('idBiayaHarian');
+        $idBiayaTambahan=$this->input->post('idBiayaTambahan');
         $input = array(
-            'nomor_sppd'=>$nomor_sppd,
-            'mata_anggaran'=>$mata_anggaran,
-            'keterangan_lain_lain'=>$keterangan_lain_lain,
-            'status_cetak'=>$status_cetak
+            'idBiayaPenginapan'=>$idBiayaPenginapan,
+            'idBiayaTransportasiMobil'=>$idBiayaTransportasiMobil,
+            'idBiayaTransportasiLain'=>$idBiayaTransportasiLain,
+            'idBiayaHarian'=>$idBiayaHarian,
+            'idBiayaTambahan'=>$idBiayaTambahan
         );
-        $this->biaya_perjalanan_pegawai_model->updateDataSuratPerintahPerjalananDinas($input,'idSPPD', $idSPPD);
+        $this->biaya_perjalanan_pegawai_model->updateDataBiayaPerjalananPegawai($input,'idSPPD', $idSPPD);
         $this->session->set_flashdata('message', 'Data Sukses Dirubah');
         redirect(base_url('biaya_perjalanan_pegawai/index'));
     }

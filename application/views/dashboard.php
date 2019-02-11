@@ -16,7 +16,8 @@
     </aside>
 
     <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
+    <div class="content-wrapper" style=" background-image: url('<?php echo base_url('assets')?>/dist/img/regal.png');
+                background-repeat: repeat;" >
       <!-- Content Header (Page header) -->
       <section class="content-header">
         <h1>

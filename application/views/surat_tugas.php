@@ -16,7 +16,8 @@
 			<?php $this->load->view("_partials/sidebar.php") ?>
 		</aside>
 		<!-- Content Wrapper. Contains page content -->
-		<div class="content-wrapper">
+		<div class="content-wrapper" style=" background-image: url('<?php echo base_url('assets')?>/dist/img/regal.png');
+                background-repeat: repeat;" >
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
 				<h1>
@@ -143,7 +144,7 @@
 												<td> 
 													<div class="btn-group">
 														<a href="<?php echo base_url('surat_tugas/cetakSuratTugas/'.$data_surat_tugas->idSPT)?>">
-															<button type="button" class="btn btn-primary btn-sm" ><i class="fa fa-eye"></i> View </button>
+															<button type="button" class="btn btn-primary btn-sm" ><i class="fa fa-print"></i> Print </button>
 														</a>
 													</div> &nbsp;&nbsp;
 													<div class="btn-group">

@@ -16,7 +16,8 @@
     </aside>
 
     <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
+    <div class="content-wrapper" style=" background-image: url('<?php echo base_url('assets')?>/dist/img/regal.png');
+                background-repeat: repeat;" >
       <!-- Content Header (Page header) -->
       <section class="content-header">
         <h1>
@@ -92,10 +93,10 @@
                       </div>
                     </div>
 
-
+                    <div id="alert-msg"> </div>
                     <div class="form-group">
                       <div style="padding-left: 60%" class="col-lg-offset-3 col-lg-9">
-                        <button type="submit" class="btn btn-primary" name="tambah" value="tambah">Kirim</button>
+                        <button type="submit" id="addButton" class="btn btn-primary" name="tambah" value="tambah">Kirim</button>
                       </div>
                     </div>
                   </form>
@@ -417,6 +418,31 @@
 
 </body>
 </html>
+<script type="text/javascript">
+$('#addButton').click(function() {
+
+ // var urlTambah = document.getElementById("urlTambah").action;
+ // console.log(urlTambah);
+ var form_data = {
+  nominal_biaya_penginapan:$('#nominal_biaya_penginapan').val()
+};
+$.ajax({
+  url: "<?php echo base_url('biaya_penginapan/addDataBiayaPenginapan'); ?>",
+  type: 'POST',
+  data: form_data,
+  success: function(message) {
+            if (message == "Sukses"){
+              $('#alert-msg').html('<div class="alert alert-success">' + "Data Berhasil Ditambahkan" + '</div>');
+             //window.location.reload();
+           }
+           else{
+            $('#alert-msg').html('<div class="alert alert-danger">' + message + '</div>');
+          }
+        }
+      });
+return false;
+});
+</script>
 <script>
 
   var url = window.location;
