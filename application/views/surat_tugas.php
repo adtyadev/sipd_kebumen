@@ -39,7 +39,7 @@
 							</div>
 							<!-- /.box-header -->
 							<div class="box-body">
-								<table id="exampler" class="table table-bordered table-striped">
+								<table id="exampler" class="table table-bordered table-striped" style="width: 100%">
 									<thead>
 										<tr>
 											<th>No</th>
@@ -389,9 +389,13 @@
 </script>
 
 <script>
-	$(function (){
-		$('#exampler').DataTable()
-	});
+  $(document).ready(function(){
+    $('#exampler').DataTable({
+      "scrollX":true,
+      "autoWidth":true
+    })
+  })
+
 	window.setTimeout(function() {
 		$(".alert").fadeTo(500, 0).slideUp(500, function(){
 			$(this).remove(); 

@@ -162,7 +162,7 @@
           </div>
           <!-- /.box-header -->
           <div class="box-body">
-            <table id="exampler" class="table table-bordered table-striped">
+            <table id="exampler" class="table table-bordered table-striped" style="width: 100%">
               <thead>
                 <tr>
                   <th>No</th>
@@ -197,11 +197,11 @@
                     <div class="btn-group">
                       <a style="color: white" href="#modalEditData<?php echo $data_pegawai->NIP?>" data-toggle="modal"> 
                         <button type="button" class="btn btn-warning btn-sm">
-                          <i class="fa  fa-pencil-square"></i> Edit</button>  
+                          <i class="fa  fa-pencil-square"></i>&nbsp;Edit &nbsp;</button>  
                         </a> 
                       </div>&nbsp;&nbsp;
                       <div class="btn-group">
-                       <button type="button" class="btn btn-danger btn-sm" onclick="hapusData('<?php echo $data_pegawai->NIP?>')"><i class="fa fa-trash"></i> Delete </button> 
+                       <button type="button" class="btn btn-danger btn-sm" onclick="hapusData('<?php echo $data_pegawai->NIP?>')"><i class="fa fa-trash"></i>Delete</button> 
 
                      </div>&nbsp;&nbsp;
                    </td>
@@ -545,9 +545,13 @@
 </script>
 
 <script>
-  $(function (){
-    $('#exampler').DataTable()
-  });
+
+  $(document).ready(function(){
+    $('#exampler').DataTable({
+      "scrollX":true,
+      "autoWidth":true
+    })
+  })
 
   window.setTimeout(function(){
     $(".alert").fadeTo(500,0).slideUp(500, function(){

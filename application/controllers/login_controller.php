@@ -9,7 +9,7 @@ class login_controller extends CI_Controller{
   }
   function index() {
     if ($this->session->userdata('login') == 'yes') {
-    
+      
       redirect(base_url('dashboard/index'));
     }
     else {

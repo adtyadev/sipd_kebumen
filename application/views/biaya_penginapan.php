@@ -122,7 +122,7 @@
           <section class="panel">
             <div class="panel-body">
               <div class="adv-table">
-                <table class="display table table-bordered table-striped" id="dynamic-table">
+                <table class="display table table-bordered table-striped" id="dynamic-table" style="width: 100%">
                   <thead>
                     <tr>
                       <th width="5%">No</th>
@@ -144,7 +144,7 @@
                         <td><?php echo "Rp ". number_format($data_biaya_penginapan->nominal_biaya_penginapan, 0, '', '.')  .",-"?></td>
                         <td style="text-align: center">
                           <a href="#modalEditData<?php echo $data_biaya_penginapan->idBiayaPenginapan?>" data-toggle="modal" class="btn btn-warning btn-sm">
-                            <i class="fa fa-edit"></i> Edit
+                            <i class="fa fa-edit"></i>&nbsp;Edit &nbsp;
                           </a>
                           <button type="button" class="btn btn-danger btn-sm" onclick="hapusData('<?php echo $data_biaya_penginapan->idBiayaPenginapan?>')"><i class="fa fa-trash-o"></i> Hapus</button>
                         </td>
@@ -369,9 +369,13 @@
   })
 </script>
 <script>
-  $(function (){
-    $('#dynamic-table').DataTable()
-  });
+  $(document).ready(function(){
+    $('#dynamic-table').DataTable({
+      "scrollX":true,
+      "autoWidth":true
+    })
+  })
+
   window.setTimeout(function() {
     $(".alert").fadeTo(500, 0).slideUp(500, function(){
       $(this).remove(); 

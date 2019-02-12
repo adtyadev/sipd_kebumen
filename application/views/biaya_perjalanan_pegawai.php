@@ -42,7 +42,7 @@
           </div>
           <!-- /.box-header -->
           <div class="box-body">
-            <table id="exampler" class="table table-bordered table-striped ">
+            <table id="exampler" class="table table-bordered table-striped " style="width: 100%">
               <thead>
                 <tr>
                   <th>No</th>
@@ -63,6 +63,7 @@
   $temp_idPegawaiTugas='';
 
 
+
   foreach ($surat_perintah_perjalanan_dinas as $data_surat_perintah_perjalanan_dinas) {
     ?>
     <tr>
@@ -77,10 +78,12 @@
             $temp_idPerjalananDinas=$data_surat_perintah_perjalanan_dinas->idPerjalananDinas;
             $temp_idPegawaiTugas=$data_perjalanan_dinas->idPegawaiTugas;
             echo $data_perjalanan_dinas->nama_pegawai . '<br>';
+            
 
             foreach($pegawai_pengikut as $data_pegawai_pengikut){
               if ( $data_pegawai_pengikut->idPerjalananDinas == $data_perjalanan_dinas->idPerjalananDinas){
                 echo $data_pegawai_pengikut->nama_pegawai . "<br>";
+
                 if (!isset($temp_idPegawaiPengikut)) {
                   $temp_idPegawaiPengikut[0]=$data_pegawai_pengikut->idPegawaiPengikut;
                 }
@@ -245,7 +248,7 @@
               </div> &nbsp;&nbsp;
               <div class="btn-group">
                 <a href="#modalEditData<?php echo $data_surat_perintah_perjalanan_dinas->idSPPD?>" data-toggle="modal" class="btn btn-warning btn-sm">
-                  <i class="fa fa-edit"></i> Edit
+                  <i class="fa fa-edit"></i>&nbsp;Edit &nbsp;
                 </a>
               </div>&nbsp;&nbsp;
 <!--               <div class="btn-group">
@@ -522,8 +525,6 @@ break;
 };
 ?>
 
-
-
 <!-- <div class="form-group">
   <label class="col-lg-2 col-sm-2 control-label"> Status Cetak</label>
   <div class="col-lg-10 col-sm-10">
@@ -599,6 +600,7 @@ foreach ($surat_perintah_perjalanan_dinas as $data_surat_perintah_perjalanan_din
                     <address>
                       <strong><br>Nama Pegawai Tugas:</strong><br><br>
                       <?php
+
                       foreach ($perjalanan_dinas as $data_perjalanan_dinas) {
                         if ($data_surat_perintah_perjalanan_dinas->idPerjalananDinas == $data_perjalanan_dinas->idPerjalananDinas){ 
                           $temp_idPerjalananDinas=$data_surat_perintah_perjalanan_dinas->idPerjalananDinas;
@@ -610,6 +612,8 @@ foreach ($surat_perintah_perjalanan_dinas as $data_surat_perintah_perjalanan_din
                               echo $data_pegawai->nama_pangkat . '<br>';
                               echo $data_pegawai->nama_unit_kerja;
                               echo '<hr>';
+                              $nama_pegawai[0]=$data_pegawai->nama_pegawai;
+                              
                             }
                           }
                           ?>
@@ -626,6 +630,8 @@ foreach ($surat_perintah_perjalanan_dinas as $data_surat_perintah_perjalanan_din
                                 echo $data_pegawai->nama_pegawai . '<br>';
                                 echo  $data_pegawai->nama_pangkat . ' / Gol ' . $data_pegawai->nama_golongan ;
                                 echo '<hr>';
+                                array_push($nama_pegawai, $data_pegawai->nama_pegawai);
+                                //echo $nama_pegawai[0] . $nama_pegawai[1];
                               }
                             }
 
@@ -643,6 +649,8 @@ foreach ($surat_perintah_perjalanan_dinas as $data_surat_perintah_perjalanan_din
                   <address>
                     <strong>Pembayaran :</strong><br>
                     Transfer<br>
+                    <strong>Mata Anggaran :</strong><br>
+                    <?=$data_surat_perintah_perjalanan_dinas->mata_anggaran?><br>
                   </address>
                 </div>
                 <div class="col-xs-6 text-right">
@@ -667,64 +675,590 @@ foreach ($surat_perintah_perjalanan_dinas as $data_surat_perintah_perjalanan_din
                 </div>
                 <div class="panel-body">
                   <div class="table-responsive">
-                    <table class="table table-condensed" border="1">
-                      <thead>
-                        <tr>
-                          <td><strong>Item Biaya</strong></td>
-                          <td class="text-center"><strong>Harga</strong></td>
-                          <td class="text-center"><strong>Jumlah</strong></td>
-                          <td class="text-right"><strong>Totals</strong></td>
+                    <?php 
+
+                    $i=0;
+                    $total_anggaran_pegawai=0;
+                    foreach ($perjalanan_dinas as $data_perjalanan_dinas) {
+                      if ($data_surat_perintah_perjalanan_dinas->idPerjalananDinas == $data_perjalanan_dinas->idPerjalananDinas){ 
+                        $temp_idPerjalananDinas=$data_surat_perintah_perjalanan_dinas->idPerjalananDinas;
+                        $temp_idPegawaiTugas=$data_perjalanan_dinas->idPegawaiTugas;
+                        echo "Biaya Anggaran Pegawai Tugas : <br>";
+                        ?>
+                        <h5> [ <?php 
+                          if ($i>count($nama_pegawai)-1) {
+                           continue;
+                         }
+                         else{
+                          echo $nama_pegawai[$i]; 
+                          $i++; 
+                        }
+                        ?> 
+                      ] </h5>
+                      <table class="table table-condensed" border="0">
+                        <thead>
+                          <tr>
+                            <td><strong>Item Biaya</strong></td>
+                            <td class="text-center"><strong>Harga</strong></td>
+                            <td class="text-center"><strong>Jumlah</strong></td>
+                            <td class="text-right"><strong>Total</strong></td>
+                          </tr>
+                        </thead>
+                        <tbody>
+
+                          <?php
+                          if ($data_perjalanan_dinas->nominal_biaya_harian == NULL ) {
+                            ?>
+                            <tr>
+                              <td>
+                                <?php
+                                echo "Biaya Harian "
+                                ?>
+                              </td>
+                              <td class="text-center">
+                               <?php
+                               echo " Rp 0,- <br>";
+                               $total_anggaran_pegawai+=0;
+                               ?>
+                             </td>
+                             <td class="text-center">x - </td>
+                             <td class="text-right">Rp 0,- </td>
+                           </tr>
+
+                           <?php
+                         }
+
+                         else {
+                          ?>
+                          <tr>  
+                            <td>
+                              <?php
+                              echo "Biaya Harian " 
+                              ?>
+                            </td>
+                            <td class="text-center">
+                              <?php
+                              echo " Rp " . number_format($data_perjalanan_dinas->nominal_biaya_harian, 0, '', '.') ; 
+                              ?>
+                            </td>
+                            <td class="text-center">x 
+                              <?php
+                              echo (INT)$data_perjalanan_dinas->lama_perjalanan;
+                              ?>
+                            </td>
+                            <td class="text-right">
+                              <?php
+                              echo " Rp " . number_format($data_perjalanan_dinas->nominal_biaya_harian* (INT)$data_perjalanan_dinas->lama_perjalanan, 0, '', '.')  . ',-';
+                              $total_anggaran_pegawai+=( (INT)$data_perjalanan_dinas->nominal_biaya_harian * (INT)$data_perjalanan_dinas->lama_perjalanan);
+                              ?>
+                            </td>
+                          </tr>
+
+                          <?php
+                        }
+
+                        if ($data_perjalanan_dinas->nominal_biaya_penginapan==NULL) {
+                          ?>
+                          <tr>
+                            <td>
+                              <?php
+                              echo "Biaya Penginapan "
+                              ?>
+                            </td>
+                            <td class="text-center">
+                             <?php
+                             echo " Rp 0,- <br>";
+                             $total_anggaran_pegawai+=0;
+                             ?>
+                           </td>
+                           <td class="text-center">x - </td>
+                           <td class="text-right">Rp 0,- </td>
+                         </tr>
+
+                         <?php
+                       }
+                       else{
+                         ?>
+                         <tr>  
+                          <td>
+                            <?php
+                            echo "Biaya Penginapan " 
+                            ?>
+                          </td>
+                          <td class="text-center">
+                            <?php
+                            echo " Rp " . number_format($data_perjalanan_dinas->nominal_biaya_penginapan, 0, '', '.') ; 
+                            ?>
+                          </td>
+                          <td class="text-center">x 
+                            <?php
+                            echo (INT)$data_perjalanan_dinas->lama_perjalanan;
+                            ?>
+                          </td>
+                          <td class="text-right">
+                            <?php
+                            echo " Rp " . number_format($data_perjalanan_dinas->nominal_biaya_penginapan, 0, '', '.')  . ',-';
+                            $total_anggaran_pegawai+=( (INT)$data_perjalanan_dinas->nominal_biaya_penginapan );
+                            ?>
+                          </td>
                         </tr>
-                      </thead>
-                      <tbody>
-                        <!-- foreach ($order->lineItems as $line) or some such thing here -->
+
+                        <?php
+                      }
+                      if ($data_perjalanan_dinas->nominal_biaya_mobil==NULL) {
+                        ?>
                         <tr>
-                          <td>BS-200</td>
-                          <td class="text-center">$10.99</td>
-                          <td class="text-center">1</td>
-                          <td class="text-right">$10.99</td>
-                        </tr>
-                        <tr>
-                          <td>BS-400</td>
-                          <td class="text-center">$20.00</td>
-                          <td class="text-center">3</td>
-                          <td class="text-right">$60.00</td>
-                        </tr>
-                        <tr>
-                          <td>BS-1000</td>
-                          <td class="text-center">$600.00</td>
-                          <td class="text-center">1</td>
-                          <td class="text-right">$600.00</td>
-                        </tr>
-                        <tr>
-                          <td class="thick-line"></td>
-                          <td class="thick-line"></td>
-                          <td class="thick-line text-center"><strong>Subtotal</strong></td>
-                          <td class="thick-line text-right">$670.99</td>
-                        </tr>
-                        <tr>
-                          <td class="no-line"></td>
-                          <td class="no-line"></td>
-                          <td class="no-line text-center"><strong>Shipping</strong></td>
-                          <td class="no-line text-right">$15</td>
-                        </tr>
-                        <tr>
-                          <td class="no-line"></td>
-                          <td class="no-line"></td>
-                          <td class="no-line text-center"><strong>Total</strong></td>
-                          <td class="no-line text-right">$685.99</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+                          <td>
+                            <?php
+                            echo "Biaya Transportasi Mobil "
+                            ?>
+                          </td>
+                          <td class="text-center">
+                           <?php
+                           echo " Rp 0,- <br>";
+                           $total_anggaran_pegawai+=0;
+                           ?>
+                         </td>
+                         <td class="text-center">x - </td>
+                         <td class="text-right">Rp 0,- </td>
+                       </tr>
+
+                       <?php
+                     }
+                     else{
+                      ?>
+                      <tr>  
+                        <td>
+                          <?php
+                          echo "Biaya Transportasi Mobil " 
+                          ?>
+                        </td>
+                        <td class="text-center">
+                          <?php
+                          echo " Rp " . number_format($data_perjalanan_dinas->nominal_biaya_mobil, 0, '', '.') ; 
+                          ?>
+                        </td>
+                        <td class="text-center">x 
+                          <?php
+                          echo (INT)$data_perjalanan_dinas->jarak_perjalanan . "Km";
+                          ?>
+                        </td>
+                        <td class="text-right">
+                          <?php
+                          echo " Rp " . number_format($data_perjalanan_dinas->nominal_biaya_mobil* (INT)$data_perjalanan_dinas->jarak_perjalanan, 0, '', '.')  . ',-';
+                          $total_anggaran_pegawai+=( (INT)$data_perjalanan_dinas->nominal_biaya_mobil * (INT)$data_perjalanan_dinas->jarak_perjalanan);
+                          ?>
+                        </td>
+                      </tr>
+
+                      <?php
+                    }
+                    if ($data_perjalanan_dinas->kelas_transportasi==NULL) {
+                     ?>
+                     <tr>
+                      <td>
+                        <?php
+                        echo "Biaya Transportasi Bukan Mobil "
+                        ?>
+                      </td>
+                      <td class="text-center">
+                       <?php
+                       echo " -- <br>";
+                       $total_anggaran_pegawai+=0;
+                       ?>
+                     </td>
+                     <td class="text-center">x - </td>
+                     <td class="text-right">-- </td>
+                   </tr>
+
+                   <?php
+                 }
+                 else {
+                   ?>
+                   <tr>  
+                    <td>
+                      <?php
+                      echo "Biaya Transportasi Bukan Mobil " 
+                      ?>
+                    </td>
+                    <td class="text-center">
+                      <?php
+                      echo $data_perjalanan_dinas->kelas_transportasi; 
+                      ?>
+                    </td>
+                    <td class="text-center">x 
+                      <?php
+                      echo "--";
+                      ?>
+                    </td>
+                    <td class="text-right">
+                      <?php
+                      echo $data_perjalanan_dinas->kelas_transportasi;
+                      ?>
+                    </td>
+                  </tr>
+                  <?php
+
+                }
+                if ( $data_perjalanan_dinas->nominal_biaya_tambahan == NULL) {
+                 ?>
+                 <tr>
+                  <td>
+                    <?php
+                    echo "Biaya Tambahan Lain "
+                    ?>
+                  </td>
+                  <td class="text-center">
+                   <?php
+                   echo " Rp 0,- <br>";
+                   $total_anggaran_pegawai+=0;
+                   ?>
+                 </td>
+                 <td class="text-center">x - </td>
+                 <td class="text-right">Rp 0,- </td>
+               </tr>
+
+               <?php
+             } 
+             else {
+               ?>
+               <tr>  
+                <td>
+                  <?php
+                  echo "Biaya Tambahan Lain " 
+                  ?>
+                </td>
+                <td class="text-center">
+                  <?php
+                  echo " Rp " . number_format($data_perjalanan_dinas->nominal_biaya_tambahan, 0, '', '.') ; 
+                  ?>
+                </td>
+                <td class="text-center">x 
+                  <?php
+                  echo "--";
+                  ?>
+                </td>
+                <td class="text-right">
+                  <?php
+                  echo " Rp " . number_format($data_perjalanan_dinas->nominal_biaya_tambahan, 0, '', '.')  . ',-';
+                  $total_anggaran_pegawai+= (INT)$data_perjalanan_dinas->nominal_biaya_tambahan ;
+                  ?>
+                </td>
+              </tr>
+
+              <?php
+            } 
+            ?>
+            <tr>
+              <td class="no-line"></td>
+              <td class="no-line"></td>
+              <td class="no-line text-center"><strong>Total</strong></td>
+              <td class="no-line text-right">Rp <?= number_format($total_anggaran_pegawai, 0, '', '.')?>,-</td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- End Pegawai Tugas -->
+        
+        <!-- Start Pegawai Pengikut -->
+        <?php
+        $total_anggaran_pegawai=0;
+        echo "Biaya Anggaran Pegawai Pengikut : <br>";
+
+        foreach($pegawai_pengikut as $data_pegawai_pengikut){
+          if ( $data_pegawai_pengikut->idPerjalananDinas == $data_pegawai_pengikut->idPerjalananDinas){
+            ?>
+            <h5> <?php 
+            if ($i>count($nama_pegawai)-1) {
+             break;
+           }
+           else{
+            echo "[".$nama_pegawai[$i] . "]"; 
+            $i++; 
+          }
+          ?> 
+        </h5>
+        <table class="table table-condensed" border="0">
+          <thead>
+            <tr>
+              <td><strong>Item Biaya</strong></td>
+              <td class="text-center"><strong>Harga</strong></td>
+              <td class="text-center"><strong>Jumlah</strong></td>
+              <td class="text-right"><strong>Total</strong></td>
+            </tr>
+          </thead>
+          <tbody>
+
+            <?php
+            if ($data_pegawai_pengikut->nominal_biaya_harian == NULL ) {
+              ?>
+              <tr>
+                <td>
+                  <?php
+                  echo "Biaya Harian "
+                  ?>
+                </td>
+                <td class="text-center">
+                 <?php
+                 echo " Rp 0,- <br>";
+                 $total_anggaran_pegawai+=0;
+                 ?>
+               </td>
+               <td class="text-center">x - </td>
+               <td class="text-right">Rp 0,- </td>
+             </tr>
+
+             <?php
+           }
+
+           else {
+            ?>
+            <tr>  
+              <td>
+                <?php
+                echo "Biaya Harian " 
+                ?>
+              </td>
+              <td class="text-center">
+                <?php
+                echo " Rp " . number_format($data_pegawai_pengikut->nominal_biaya_harian, 0, '', '.') ; 
+                ?>
+              </td>
+              <td class="text-center">x 
+                <?php
+                echo (INT)$data_pegawai_pengikut->lama_perjalanan;
+                ?>
+              </td>
+              <td class="text-right">
+                <?php
+                echo " Rp " . number_format($data_pegawai_pengikut->nominal_biaya_harian* (INT)$data_pegawai_pengikut->lama_perjalanan, 0, '', '.')  . ',-';
+                $total_anggaran_pegawai+=( (INT)$data_pegawai_pengikut->nominal_biaya_harian * (INT)$data_pegawai_pengikut->lama_perjalanan);
+                ?>
+              </td>
+            </tr>
+
+            <?php
+          }
+          if ($data_pegawai_pengikut->nominal_biaya_penginapan==NULL) {
+            ?>
+            <tr>
+              <td>
+                <?php
+                echo "Biaya Penginapan "
+                ?>
+              </td>
+              <td class="text-center">
+               <?php
+               echo " Rp 0,- <br>";
+               $total_anggaran_pegawai+=0;
+               ?>
+             </td>
+             <td class="text-center">x - </td>
+             <td class="text-right">Rp 0,- </td>
+           </tr>
+
+           <?php
+         }
+         else{
+           ?>
+           <tr>  
+            <td>
+              <?php
+              echo "Biaya Penginapan " 
+              ?>
+            </td>
+            <td class="text-center">
+              <?php
+              echo " Rp " . number_format($data_pegawai_pengikut->nominal_biaya_penginapan, 0, '', '.') ; 
+              ?>
+            </td>
+            <td class="text-center">x 
+              <?php
+              echo (INT)$data_pegawai_pengikut->lama_perjalanan;
+              ?>
+            </td>
+            <td class="text-right">
+              <?php
+              echo " Rp " . number_format($data_pegawai_pengikut->nominal_biaya_penginapan, 0, '', '.')  . ',-';
+              $total_anggaran_pegawai+=( (INT)$data_pegawai_pengikut->nominal_biaya_penginapan );
+              ?>
+            </td>
+          </tr>
+
+          <?php
+        }
+        if ($data_pegawai_pengikut->nominal_biaya_mobil==NULL) {
+          ?>
+          <tr>
+            <td>
+              <?php
+              echo "Biaya Transportasi Mobil "
+              ?>
+            </td>
+            <td class="text-center">
+             <?php
+             echo " Rp 0,- <br>";
+             $total_anggaran_pegawai+=0;
+             ?>
+           </td>
+           <td class="text-center">x - </td>
+           <td class="text-right">Rp 0,- </td>
+         </tr>
+
+         <?php
+       }
+       else{
+        ?>
+        <tr>  
+          <td>
+            <?php
+            echo "Biaya Transportasi Mobil " 
+            ?>
+          </td>
+          <td class="text-center">
+            <?php
+            echo " Rp " . number_format($data_pegawai_pengikut->nominal_biaya_mobil, 0, '', '.') ; 
+            ?>
+          </td>
+          <td class="text-center">x 
+            <?php
+            echo (INT)$data_perjalanan_dinas->jarak_perjalanan . "Km";
+            ?>
+          </td>
+          <td class="text-right">
+            <?php
+            echo " Rp " . number_format($data_pegawai_pengikut->nominal_biaya_mobil* (INT)$data_perjalanan_dinas->jarak_perjalanan, 0, '', '.')  . ',-';
+            $total_anggaran_pegawai+=( (INT)$data_pegawai_pengikut->nominal_biaya_mobil * (INT)$data_perjalanan_dinas->jarak_perjalanan);
+            ?>
+          </td>
+        </tr>
+
+        <?php
+      }
+      if ($data_pegawai_pengikut->kelas_transportasi==NULL) {
+       ?>
+       <tr>
+        <td>
+          <?php
+          echo "Biaya Transportasi Bukan Mobil "
+          ?>
+        </td>
+        <td class="text-center">
+         <?php
+         echo " -- <br>";
+         $total_anggaran_pegawai+=0;
+         ?>
+       </td>
+       <td class="text-center">x - </td>
+       <td class="text-right">-- </td>
+     </tr>
+
+     <?php
+   }
+   else {
+     ?>
+     <tr>  
+      <td>
+        <?php
+        echo "Biaya Transportasi Bukan Mobil " 
+        ?>
+      </td>
+      <td class="text-center">
+        <?php
+        echo $data_pegawai_pengikut->kelas_transportasi; 
+        ?>
+      </td>
+      <td class="text-center">x 
+        <?php
+        echo "--";
+        ?>
+      </td>
+      <td class="text-right">
+        <?php
+        echo $data_pegawai_pengikut->kelas_transportasi;
+        ?>
+      </td>
+    </tr>
+    <?php
+
+  }
+  if ( $data_pegawai_pengikut->nominal_biaya_tambahan == NULL) {
+   ?>
+   <tr>
+    <td>
+      <?php
+      echo "Biaya Tambahan Lain "
+      ?>
+    </td>
+    <td class="text-center">
+     <?php
+     echo " Rp 0,- <br>";
+     $total_anggaran_pegawai+=0;
+     ?>
+   </td>
+   <td class="text-center">x - </td>
+   <td class="text-right">Rp 0,- </td>
+ </tr>
+
+ <?php
+} 
+else {
+ ?>
+ <tr>  
+  <td>
+    <?php
+    echo "Biaya Tambahan Lain " 
+    ?>
+  </td>
+  <td class="text-center">
+    <?php
+    echo " Rp " . number_format($data_pegawai_pengikut->nominal_biaya_tambahan, 0, '', '.') ; 
+    ?>
+  </td>
+  <td class="text-center">x 
+    <?php
+    echo "--";
+    ?>
+  </td>
+  <td class="text-right">
+    <?php
+    echo " Rp " . number_format($data_pegawai_pengikut->nominal_biaya_tambahan, 0, '', '.')  . ',-';
+    $total_anggaran_pegawai+= (INT)$data_pegawai_pengikut->nominal_biaya_tambahan ;
+    ?>
+  </td>
+</tr>
+
+<?php
+} 
+
+?>
+<tr>
+  <td class="no-line"></td>
+  <td class="no-line"></td>
+  <td class="no-line text-center"><strong>Total</strong></td>
+  <td class="no-line text-right">Rp <?= number_format($total_anggaran_pegawai, 0, '', '.')?>,-</td>
+</tr>
+</tbody>
+</table>
+<?php
+}
+}
+}
+
+};
+unset($nama_pegawai);
+?> 
+
+
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 <?php
 }
@@ -762,41 +1296,41 @@ foreach ($surat_perintah_perjalanan_dinas as $data_surat_perintah_perjalanan_din
 <!-- Control Sidebar -->
 
 <!-- /.control-sidebar -->
-  <!-- Add the sidebar's background. This div must be placed
-    immediately after the control sidebar -->
+                <!-- Add the sidebar's background. This div must be placed
+                  immediately after the control sidebar -->
 
 
-    <!-- ./wrapper -->
+                  <!-- ./wrapper -->
 
-    <!-- jQuery 3 -->
-    <script src="<?php echo base_url('assets/')?>bower_components/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap 3.3.7 -->
-    <script src="<?php echo base_url('assets/')?>bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- FastClick -->
-    <script src="<?php echo base_url('assets/')?>bower_components/fastclick/lib/fastclick.js"></script>
-    <!-- AdminLTE App -->
-    <script src="<?php echo base_url('assets/')?>dist/js/adminlte.min.js"></script>
-    <!-- Sparkline -->
-    <script src="<?php echo base_url('assets/')?>bower_components/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
-    <!-- jvectormap  -->
-    <!-- Select2 -->
-    <script src="<?php echo base_url('assets/')?>bower_components/select2/dist/js/select2.full.min.js"></script>
-    <script src="<?php echo base_url('assets/')?>plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
-    <script src="<?php echo base_url('assets/')?>plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
-    <!-- SlimScroll -->
-    <script src="<?php echo base_url('assets/')?>bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-    <!-- ChartJS -->
-    <script src="<?php echo base_url('assets/')?>bower_components/chart.js/Chart.js"></script>
-    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-    <script src="<?php echo base_url('assets/')?>dist/js/pages/dashboard2.js"></script>
-    <!-- AdminLTE for demo purposes -->
-    <script src="<?php echo base_url('assets/')?>dist/js/demo.js"></script>
-    <!-- DataTables -->
-    <script src="<?php echo base_url('assets/')?>bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-    <script src="<?php echo base_url('assets/')?>bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+                  <!-- jQuery 3 -->
+                  <script src="<?php echo base_url('assets/')?>bower_components/jquery/dist/jquery.min.js"></script>
+                  <!-- Bootstrap 3.3.7 -->
+                  <script src="<?php echo base_url('assets/')?>bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+                  <!-- FastClick -->
+                  <script src="<?php echo base_url('assets/')?>bower_components/fastclick/lib/fastclick.js"></script>
+                  <!-- AdminLTE App -->
+                  <script src="<?php echo base_url('assets/')?>dist/js/adminlte.min.js"></script>
+                  <!-- Sparkline -->
+                  <script src="<?php echo base_url('assets/')?>bower_components/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
+                  <!-- jvectormap  -->
+                  <!-- Select2 -->
+                  <script src="<?php echo base_url('assets/')?>bower_components/select2/dist/js/select2.full.min.js"></script>
+                  <script src="<?php echo base_url('assets/')?>plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
+                  <script src="<?php echo base_url('assets/')?>plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+                  <!-- SlimScroll -->
+                  <script src="<?php echo base_url('assets/')?>bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+                  <!-- ChartJS -->
+                  <script src="<?php echo base_url('assets/')?>bower_components/chart.js/Chart.js"></script>
+                  <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+                  <script src="<?php echo base_url('assets/')?>dist/js/pages/dashboard2.js"></script>
+                  <!-- AdminLTE for demo purposes -->
+                  <script src="<?php echo base_url('assets/')?>dist/js/demo.js"></script>
+                  <!-- DataTables -->
+                  <script src="<?php echo base_url('assets/')?>bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+                  <script src="<?php echo base_url('assets/')?>bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 
-    <script >
-      $(function () {
+                  <script >
+                    $(function () {
     //Initialize Select2 Elements
     $('.select2').select2()
 
@@ -864,9 +1398,13 @@ foreach ($surat_perintah_perjalanan_dinas as $data_surat_perintah_perjalanan_din
 </script>
 
 <script>
-  $(function (){
-    $('#exampler').DataTable()
-  });
+  $(document).ready(function(){
+    $('#exampler').DataTable({
+      "scrollX":true,
+      "autoWidth":true
+    })
+  })
+
   window.setTimeout(function() {
     $(".alert").fadeTo(500, 0).slideUp(500, function(){
       $(this).remove(); 
