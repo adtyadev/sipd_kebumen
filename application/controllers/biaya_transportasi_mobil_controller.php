@@ -27,7 +27,7 @@ class biaya_transportasi_mobil_controller extends CI_Controller{
 			echo json_encode(array('status'=>0, 'message' => validation_errors()));
 		}
 		else{
-			echo json_encode(array('status'=>1, 'message' => 'Successfully Submiited'));
+			
 			$idTransportasi=$this->input->post('idTransportasi');
 			$kilometer=$this->input->post('kilometer');
 			$mesin_cc=$this->input->post('mesin_cc');
@@ -42,34 +42,45 @@ class biaya_transportasi_mobil_controller extends CI_Controller{
 				'jenis_bbm'=>$jenis_bbm,
 				'nominal_biaya_mobil'=>$nominal_biaya_mobil
 			);
+			
 			$this->biaya_transportasi_mobil_model->addDataBiayaTransportasiMobil($input);
 			$this->session->set_flashdata('message', 'Data Sukses Ditambahkan');
-			redirect(base_url('biaya_transportasi_mobil/index'));
+			echo json_encode(array('status'=>1, 'message' => 'Successfully Submiited'));
+			//redirect(base_url('biaya_transportasi_mobil/index'));
 		}
 		
 	}
 
 	function updateDataBiayaTransportasiMobil($idBiayaTransportasiMobil){
-		$idTransportasi=$this->input->post('idTransportasi');
-		$kilometer=$this->input->post('kilometer');
-		$mesin_cc=$this->input->post('mesin_cc');
-		$jenis_bbm=$this->input->post('jenis_bbm');
-		$nominal_biaya_mobil=$this->input->post('nominal_biaya_mobil');
-		$input = array(
-			'idTransportasi'=>$idTransportasi,
-			'kilometer'=>$kilometer,
-			'mesin_cc'=>$mesin_cc,
-			'jenis_bbm'=>$jenis_bbm,
-			'nominal_biaya_mobil'=>$nominal_biaya_mobil
-		);
-		$this->biaya_transportasi_mobil_model->updateDataBiayaTransportasiMobil($input,'idBiayaTransportasiMobil', $idBiayaTransportasiMobil);
-		$this->session->set_flashdata('message', 'Data Sukses Dirubah');
-		redirect(base_url('biaya_transportasi_mobil/index'));
+		$this->form_validation->set_rules('nominal_biaya_mobil','Nominal Biaya Mobil','required|numeric');
+		if ($this->form_validation->run()==FALSE) {
+			echo json_encode(array('status'=>0, 'message' => validation_errors()));
+		}
+		else{
+			echo json_encode(array('status'=>1, 'message' => 'Successfully Submiited'));
+			$idTransportasi=$this->input->post('idTransportasi');
+			$kilometer=$this->input->post('kilometer');
+			$mesin_cc=$this->input->post('mesin_cc');
+			$jenis_bbm=$this->input->post('jenis_bbm');
+			$nominal_biaya_mobil=$this->input->post('nominal_biaya_mobil');
+			$input = array(
+				'idTransportasi'=>$idTransportasi,
+				'kilometer'=>$kilometer,
+				'mesin_cc'=>$mesin_cc,
+				'jenis_bbm'=>$jenis_bbm,
+				'nominal_biaya_mobil'=>$nominal_biaya_mobil
+			);
+			$this->biaya_transportasi_mobil_model->updateDataBiayaTransportasiMobil($input,'idBiayaTransportasiMobil', $idBiayaTransportasiMobil);
+			
+			$this->session->set_flashdata('message', 'Data Sukses Dirubah');
+
+		//redirect(base_url('biaya_transportasi_mobil/index'));
+		}
 	}
 
 	function removeDataBiayaTransportasiMobil($idBiayaTransportasiMobil){
 		$this->biaya_transportasi_mobil_model->removeDataBiayaTransportasiMobil('idBiayaTransportasiMobil', $idBiayaTransportasiMobil);
-		$this->session->set_flashdata('message', 'Data Sukses Dihabus');
+		$this->session->set_flashdata('message', 'Data Sukses Dihapus');
 		redirect(base_url('biaya_transportasi_mobil/index'));
 	}
 

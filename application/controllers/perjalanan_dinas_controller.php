@@ -37,7 +37,7 @@ class perjalanan_dinas_controller extends CI_Controller{
 		$this->form_validation->set_rules('idProvinsi', 'Provinsi', 'required|max_length[2]');
 		$this->form_validation->set_rules('idKabupaten', 'Kabupaten', 'required|max_length[4]');
 		$this->form_validation->set_rules('idKecamatan', 'Kecamatan','required|max_length[6]');
-		$this->form_validation->set_rules('idKelurahan','Kelurahan','required|max_length[8]');
+		$this->form_validation->set_rules('idKelurahan','Kelurahan','required|max_length[10]');
 		$this->form_validation->set_rules('tanggal_berangkat', 'Tanggal Berangkat','required|regex_match[/-/]');
 		$this->form_validation->set_rules('tanggal_kembali', 'Tanggal Kembali', 'required|regex_match[/-/]');
 		$this->form_validation->set_rules('lama_perjalanan', 'Lama Perjalanan', 'required|numeric');

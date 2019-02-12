@@ -164,7 +164,7 @@
                 <?php
                 foreach ($biaya_transportasi_lain as $data_biaya_transportasi_lain) {
                   ?>
-                  <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="modalEditData<?php echo $data_biaya_transportasi_lain->idBiayaTransportasiLain?>" class="modal fade">
+                  <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="modalEditData<?php echo $data_biaya_transportasi_lain->idBiayaTransportasiLain?>" class="modal fade edit">
                     <div class="modal-dialog">
                       <div class="modal-content">
                         <div class="modal-header">
@@ -172,12 +172,12 @@
                           <h4 class="modal-title">Edit Data BiayaTransportasiLain</h4>
                         </div>
                         <div class="modal-body">
-                          <form class="form-horizontal" role="form" method="post" action="<?=base_url('biaya_transportasi_lain/updateDataBiayaTransportasiLain/'.$data_biaya_transportasi_lain->idBiayaTransportasiLain)?>">
+                          <form class="form-horizontal edit" role="form" id="urlEdit<?=$data_biaya_transportasi_lain->idBiayaTransportasiLain?>" method="post" action="<?=base_url('biaya_transportasi_lain/updateDataBiayaTransportasiLain/'.$data_biaya_transportasi_lain->idBiayaTransportasiLain)?>">
 
                            <div class="form-group">
                             <label class="col-lg-3 col-sm-3 control-label">Nama Golongan</label>
                             <div class="col-lg-9 col-sm-9">
-                              <select name="idGolongan" id="idGolongan" class="form-control" required>
+                              <select name="idGolongan<?=$data_biaya_transportasi_lain->idBiayaTransportasiLain?>" id="idGolongan<?=$data_biaya_transportasi_lain->idBiayaTransportasiLain?>" class="form-control idGolongan" required>
 
                                 <option disabled="">-- PILIH GOLONGAN --</option>
                                 <?php 
@@ -200,7 +200,7 @@
                           <div class="form-group">
                             <label class="col-lg-3 col-sm-3 control-label">Nama Tranportasi</label>
                             <div class="col-lg-9 col-sm-9">
-                             <select name="idTransportasi" id="idTransportasi" class="form-control select2 select2-hidden-accessible" onchange="" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                             <select name="idTransportasi<?=$data_biaya_transportasi_lain->idBiayaTransportasiLain?>" id="idTransportasi<?=$data_biaya_transportasi_lain->idBiayaTransportasiLain?>" class="form-control idTransportasi select2 select2-hidden-accessible" onchange="" style="width: 100%;" tabindex="-1" aria-hidden="true">
                               <option disabled=""> -- Pilih Nama Tranportasi --</option>
                               <?php 
 
@@ -226,13 +226,13 @@
                       <div class="form-group">
                         <label class="col-lg-3 col-sm-3 control-label">Kelas Transportasi</label>
                         <div class="col-lg-9 col-sm-9">
-                          <input type="text" name="kelas_transportasi" id="kelas_transportasi" class="form-control" placeholder="Kelas II-A" value="<?php echo $data_biaya_transportasi_lain->kelas_transportasi?>" required>
+                          <input type="text" name="kelas_transportasi<?=$data_biaya_transportasi_lain->idBiayaTransportasiLain?>" id="kelas_transportasi<?=$data_biaya_transportasi_lain->idBiayaTransportasiLain?>" class="form-control kelas_transportasi" placeholder="Kelas II-A" value="<?php echo $data_biaya_transportasi_lain->kelas_transportasi?>" required>
                         </div>
                       </div>
-
+                      <div class="alert-msg-edit"></div>
                       <div class="form-group">
                         <div style="padding-left: 60%" class="col-lg-offset-3 col-lg-9">
-                          <button type="submit" class="btn btn-primary" name="edit" value="edit">Update</button>
+                          <button type="submit" class="btn btn-primary edit" id="editButton<?=$data_biaya_transportasi_lain->idBiayaTransportasiLain?>" name="edit" value="edit">Update</button>
                         </div>
                       </div>
                     </form>
@@ -394,6 +394,8 @@
  $('#addButton').click(function() {
   var form_data = {
     kelas_transportasi:$('#kelas_transportasi').val(),
+    idGolongan:$('#idGolongan').val(),
+    idTransportasi:$('#idTransportasi').val()
   };
   $.ajax({
     url: "<?php echo base_url('biaya_transportasi_lain/addDataBiayaTransportasiLain'); ?>",
@@ -413,6 +415,59 @@
   return false;
 });
 </script>
+
+<script type="text/javascript">
+
+  var editButton = document.getElementsByClassName("btn btn-primary edit");
+
+  $('.btn.btn-primary.edit').each(function(index) {
+
+    $(this).on("click", function(){
+      //alert("message?: DOMString");
+      var cek = document.getElementsByClassName("btn btn-primary edit");
+      console.log(cek);
+          // console.log(cek);
+          var idGolongan_edit = document.getElementsByClassName("form-control idGolongan")[index].id;
+          var idTransportasi_edit = document.getElementsByClassName("form-control idTransportasi")[index].id;
+          var kelas_transportasi_edit = document.getElementsByClassName("form-control kelas_transportasi")[index].id;
+
+          var b = document.getElementsByClassName("form-horizontal edit")[index].id;
+          var url_edit = document.getElementById(b).action;
+          console.log(url_edit);
+
+          var form_data = {
+            idGolongan: $('#'+idGolongan_edit).val(),
+            idTransportasi: $('#'+idTransportasi_edit).val(),
+            kelas_transportasi: $('#'+kelas_transportasi_edit).val()
+
+          };
+          console.log(form_data);
+          $.ajax({
+            url: url_edit,
+            type: 'POST',
+            data: form_data,
+            dataType: "JSON",
+            success: function(message) {
+              if (message.status == 1){
+               $('.alert-msg-edit').html('<div class="alert alert-success">' + message.message + '</div>');
+               location.reload();
+             }
+             else{
+              $('.alert-msg-edit').html('<div class="alert alert-danger">' + message.message + '</div>');
+            }
+          }
+        });
+          return false;
+
+
+        });
+  });
+  $('.modal.fade.edit').on('hidden.bs.modal', function () {
+    $('input[name=checkListItem').val('');
+    $( ".alert.alert-danger" ).remove();
+  })
+</script>
+
 
 <script>
  function hapusData(id) {

@@ -137,7 +137,7 @@
               <?php
               foreach ($transportasi as $data_transportasi) {
                 ?>
-                <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="modalEditData<?php echo $data_transportasi->idTransportasi?>" class="modal fade">
+                <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="modalEditData<?php echo $data_transportasi->idTransportasi?>" class="modal fade edit">
                   <div class="modal-dialog">
                     <div class="modal-content">
                       <div class="modal-header">
@@ -145,23 +145,23 @@
                         <h4 class="modal-title">Edit Data Transportasi</h4>
                       </div>
                       <div class="modal-body">
-                        <form class="form-horizontal" role="form" method="post" action="<?=base_url('transportasi/updateDataTransportasi/'.$data_transportasi->idTransportasi)?>">
+                        <form class="form-horizontal edit" role="form" id="urlEdit<?=$data_transportasi->idTransportasi?>" method="post" action="<?=base_url('transportasi/updateDataTransportasi/'.$data_transportasi->idTransportasi)?>">
                           <div class="form-group">
                             <label class="col-lg-3 col-sm-3 control-label">Nama Transportasi</label>
                             <div class="col-lg-9">
-                              <input type="text" name="nama_transportasi" id="nama_transportasi" class="form-control" placeholder="Nama Transportasi" value="<?php echo $data_transportasi->nama_transportasi?>" required>
+                              <input type="text" name="nama_transportasi<?=$data_transportasi->idTransportasi?>" id="nama_transportasi<?=$data_transportasi->idTransportasi?>" class="form-control nama_transportasi" placeholder="Nama Transportasi" value="<?php echo $data_transportasi->nama_transportasi?>" required>
                             </div>
                           </div>
                           <div class="form-group">
                             <label class="col-lg-3 col-sm-3 control-label">Jenis Transportasi</label>
                             <div class="col-lg-9">
-                              <input type="text" name="jenis_transportasi" id="jenis_transportasi" class="form-control" placeholder="Jenis Transportasi" value="<?php echo $data_transportasi->jenis_transportasi?>" required>
+                              <input type="text" name="jenis_transportasi<?=$data_transportasi->idTransportasi?>" id="jenis_transportasi<?=$data_transportasi->idTransportasi?>" class="form-control jenis_transportasi" placeholder="Jenis Transportasi" value="<?php echo $data_transportasi->jenis_transportasi?>" required>
                             </div>
                           </div>
                           <div class="form-group">
                             <label class="col-lg-3 col-sm-3 control-label">Keterangan Transportasi</label>
                             <div class="col-lg-9 col-sm-9">
-                             <select name="keterangan" id="keterangan" class="form-control" required>
+                             <select name="keterangan<?=$data_transportasi->idTransportasi?>" id="keterangan<?=$data_transportasi->idTransportasi?>" class="form-control keterangan" required>
                               <option disabled="">-- PILIH KETERANGAN --</option>
                               <?php 
                               if ($data_transportasi->keterangan=="kendaraan umum") {
@@ -177,9 +177,10 @@
                             </select>
                           </div>
                         </div>
+                        <div class="alert-msg-edit"></div>
                         <div class="form-group">
                           <div style="padding-left: 60%" class="col-lg-offset-3 col-lg-9">
-                            <button type="submit" class="btn btn-primary" name="edit" value="edit">Update</button>
+                            <button type="submit" class="btn btn-primary edit" name="edit" id="editButton<?= $data_transportasi->idTransportasi ?>" value="edit">Update</button>
                           </div>
                         </div>
                       </form>
@@ -333,6 +334,60 @@
   return false;
 });
 </script>
+
+
+<script type="text/javascript">
+
+  var editButton = document.getElementsByClassName("btn btn-primary edit");
+
+  $('.btn.btn-primary.edit').each(function(index) {
+
+    $(this).on("click", function(){
+      //alert("message?: DOMString");
+      var cek = document.getElementsByClassName("btn btn-primary edit");
+      console.log(cek);
+          // console.log(cek);
+          var nama_transportasi_edit = document.getElementsByClassName("form-control nama_transportasi")[index].id;
+          var jenis_transportasi_edit = document.getElementsByClassName("form-control jenis_transportasi")[index].id;
+          var keterangan_edit = document.getElementsByClassName("form-control keterangan")[index].id;
+
+          var b = document.getElementsByClassName("form-horizontal edit")[index].id;
+          var url_edit = document.getElementById(b).action;
+          console.log(url_edit);
+
+          var form_data = {
+            nama_transportasi: $('#'+nama_transportasi_edit).val(),
+            jenis_transportasi: $('#'+jenis_transportasi_edit).val(),
+            keterangan: $('#'+keterangan_edit).val()
+
+          };
+          console.log(form_data);
+          $.ajax({
+            url: url_edit,
+            type: 'POST',
+            data: form_data,
+            dataType: "JSON",
+            success: function(message) {
+              if (message.status == 1){
+               $('.alert-msg-edit').html('<div class="alert alert-success">' + message.message + '</div>');
+               location.reload();
+             }
+             else{
+              $('.alert-msg-edit').html('<div class="alert alert-danger">' + message.message + '</div>');
+            }
+          }
+        });
+          return false;
+
+
+        });
+  });
+  $('.modal.fade.edit').on('hidden.bs.modal', function () {
+    $('input[name=checkListItem').val('');
+    $( ".alert.alert-danger" ).remove();
+  })
+</script>
+
 
 <script>
 

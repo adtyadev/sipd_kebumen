@@ -24,6 +24,8 @@ class biaya_penginapan_controller extends CI_Controller{
 
 	function addDataBiayaPenginapan(){
 		$this->form_validation->set_rules('nominal_biaya_penginapan','Nominal Biaya Penginapan','required|numeric');
+		$this->form_validation->set_rules('idGolongan', 'Nama golongan', 'required');
+		$this->form_validation->set_rules('idProvinsi', 'Nama provinsi', 'required');
 		if ($this->form_validation->run()==FALSE) {
 			echo json_encode(array('status'=>0, 'message' => validation_errors()));
 		}
@@ -41,23 +43,32 @@ class biaya_penginapan_controller extends CI_Controller{
 			);
 			$this->biaya_penginapan_model->addDataBiayaPenginapan($input);
 			$this->session->set_flashdata('message', 'Data Sukses Ditambahkan');
-			redirect(base_url('biaya_penginapan/index'));
+			//redirect(base_url('biaya_penginapan/index'));
 		}
 
 	}
 
 	function updateDataBiayaPenginapan($idBiayaPenginapan){
-		$idGolongan=$this->input->post('idGolongan');
-		$idProvinsi=$this->input->post('idProvinsi');
-		$nominal_biaya_penginapan=$this->input->post('nominal_biaya_penginapan');
-		$input = array(
-			'idGolongan'=>$idGolongan,
-			'idLokasiProvinsi'=>$idProvinsi,
-			'nominal_biaya_penginapan'=>$nominal_biaya_penginapan
-		);
-		$this->biaya_penginapan_model->updateDataBiayaPenginapan($input,'idBiayaPenginapan', $idBiayaPenginapan);
-		$this->session->set_flashdata('message', 'Data Sukses Dirubah');
-		redirect(base_url('biaya_penginapan/index'));
+		$this->form_validation->set_rules('nominal_biaya_penginapan','Nominal Biaya Penginapan','required|numeric');
+		$this->form_validation->set_rules('idGolongan', 'Nama golongan', 'required');
+		$this->form_validation->set_rules('idProvinsi', 'Nama provinsi', 'required');
+		if ($this->form_validation->run()==FALSE) {
+			echo json_encode(array('status'=>0, 'message' => validation_errors()));
+		}
+		else{
+			echo json_encode(array('status'=>1, 'message' => 'Successfully Submiited'));
+			$idGolongan=$this->input->post('idGolongan');
+			$idProvinsi=$this->input->post('idProvinsi');
+			$nominal_biaya_penginapan=$this->input->post('nominal_biaya_penginapan');
+			$input = array(
+				'idGolongan'=>$idGolongan,
+				'idLokasiProvinsi'=>$idProvinsi,
+				'nominal_biaya_penginapan'=>$nominal_biaya_penginapan
+			);
+			$this->biaya_penginapan_model->updateDataBiayaPenginapan($input,'idBiayaPenginapan', $idBiayaPenginapan);
+			$this->session->set_flashdata('message', 'Data Sukses Dirubah');
+		//redirect(base_url('biaya_penginapan/index'));
+		}
 	}
 
 	function removeDataBiayaPenginapan($idBiayaPenginapan){

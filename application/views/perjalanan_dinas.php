@@ -928,6 +928,7 @@ foreach ($perjalanan_dinas as $data_perjalanan_dinas) {
     idTransportasi:$('#idTransportasi').val(),
     idPejabatPenandaTangan:$('#idPejabatPenandaTangan').val(),
   };
+  console.log(form_data);
   $.ajax({
     url: "<?php echo base_url('perjalanan_dinas/addDataPerjalananDinas'); ?>",
     type: 'POST',

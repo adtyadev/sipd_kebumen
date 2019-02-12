@@ -42,12 +42,19 @@ class golongan_controller extends CI_Controller{
 	}
 
 	function updateDataGolongan($idGolongan){
-		$nama_golongan = $this->input->post('nama_golongan');
-		$input = array(
-			'nama_golongan'=>$nama_golongan);
-		$this->golongan_model->updateDataGolongan($input,'idGolongan', $idGolongan);
-		$this->session->set_flashdata('message', 'Data Sukses Dirubah');
-		redirect(base_url('golongan/index'));
+		$this->form_validation->set_rules('nama_golongan', 'Nama Golongan', 'required');
+		if ($this->form_validation->run()==FALSE) {
+			echo json_encode(array('status'=>0, 'message' => validation_errors()));
+		}
+		else{
+			echo json_encode(array('status'=>1, 'message' => 'Successfully Submiited'));
+			$nama_golongan = $this->input->post('nama_golongan');
+			$input = array(
+				'nama_golongan'=>$nama_golongan);
+			$this->golongan_model->updateDataGolongan($input,'idGolongan', $idGolongan);
+			$this->session->set_flashdata('message', 'Data Sukses Dirubah');
+			//redirect(base_url('golongan/index'));
+		}
 	}
 
 	function removeDataGolongan($idGolongan){

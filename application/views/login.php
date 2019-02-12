@@ -34,10 +34,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     background-repeat: repeat;">
   <div class="login-box">
     <div class="login-logo">
-      <a href="<?=base_url('assets/')?>/index2.html"><b>Hi</b>Login</a>
+      <a href="<?=base_url('assets/')?>/index2.html"><b style="color:rgb(61, 22, 53) ">Hi</b>Login</a>
     </div>
     <!-- /.login-logo -->
-    <div class="login-box-body" style="background: #350950">
+    <div class="login-box-body" style="background-image: linear-gradient(to right, #6a11cb 35%, #2575fc 100%); border-radius: 5px">
       <p class="login-box-msg" style="color: white">Sign in to start your session</p>
 
       <form action="<?=base_url('login_controller')?>" method="post">
@@ -59,7 +59,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           </div>
           <!-- /.col -->
           <div class="col-xs-4">
-            <button type="submit" name="login" value="login" class="btn btn-primary btn-block btn-flat">Sign In</button>
+            <button type="submit" name="login" value="login" style="background: #6a11cb; border-color: transparent; border-radius: 10px"  class="btn btn-primary btn-block btn-flat">Sign In</button>
           </div>
           <!-- /.col -->
         </div>

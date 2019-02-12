@@ -185,20 +185,20 @@
               <?php
               foreach ($biaya_harian as $data_biaya_harian) {
                 ?>
-                <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="modalEditData<?php echo $data_biaya_harian->idBiayaHarian?>" class="modal fade">
+                <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="modalEditData<?php echo $data_biaya_harian->idBiayaHarian?>" class="modal fade edit">
                   <div class="modal-dialog">
                     <div class="modal-content">
                       <div class="modal-header">
                         <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-                        <h4 class="modal-title">Edit Data BiayaHarian</h4>
+                        <h4 class="modal-title">Edit Data Biaya Harian</h4>
                       </div>
                       <div class="modal-body">
-                        <form class="form-horizontal" role="form" method="post" action="<?=base_url('biaya_harian/updateDataBiayaHarian/'.$data_biaya_harian->idBiayaHarian)?>">
+                        <form class="form-horizontal edit" role="form" id="urlEdit<?=$data_biaya_harian->idBiayaHarian?>" method="post" action="<?=base_url('biaya_harian/updateDataBiayaHarian/'.$data_biaya_harian->idBiayaHarian)?>">
 
                          <div class="form-group">
                           <label class="col-lg-3 col-sm-3 control-label">Nama Golongan</label>
                           <div class="col-lg-9 col-sm-9">
-                            <select name="idGolongan" id="idGolongan" class="form-control" required>
+                            <select name="idGolongan<?=$data_biaya_harian->idBiayaHarian?>" id="idGolongan<?=$data_biaya_harian->idBiayaHarian?>" class="form-control idGolongan" required>
 
                               <option disabled="">-- PILIH GOLONGAN --</option>
                               <?php 
@@ -221,7 +221,7 @@
                         <div class="form-group">
                           <label class="col-lg-3 col-sm-3 control-label">Jarak Perjalanan</label>
                           <div class="col-lg-9 col-sm-9">
-                           <select name="jarak_perjalanan" id="jarak_perjalanan" class="form-control" required>
+                           <select name="jarak_perjalanan<?=$data_biaya_harian->idBiayaHarian?>" id="jarak_perjalanan<?=$data_biaya_harian->idBiayaHarian?>" class="form-control jarak_perjalanan" required>
 
                             <?php switch ((INT)$data_biaya_harian->jarak_perjalanan) {
                               case 1:
@@ -290,7 +290,7 @@
                       <div class="form-group">
                         <label class="col-lg-3 col-sm-3 control-label">Wilayah</label>
                         <div class="col-lg-9 col-sm-9">
-                          <select name="wilayah" id="wilayah" class="form-control" required>
+                          <select name="wilayah<?=$data_biaya_harian->idBiayaHarian?>" id="wilayah<?=$data_biaya_harian->idBiayaHarian?>" class="form-control wilayah" required>
 
                             <?php 
                             switch ($data_biaya_harian->wilayah) {
@@ -374,7 +374,7 @@
                       <div class="form-group">
                         <label class="col-lg-3 col-sm-3 control-label">Jenis Kegiatan</label>
                         <div class="col-lg-9 col-sm-9">
-                         <select name="jenis_kegiatan" id="jenis_kegiatan" class="form-control" required>
+                         <select name="jenis_kegiatan<?=$data_biaya_harian->idBiayaHarian?>" id="jenis_kegiatan<?=$data_biaya_harian->idBiayaHarian?>" class="form-control jenis_kegiatan" required>
                           <option disabled=""> -- Pilih Jenis Kegiatan --</option>
                           <option value="audit"> Audit </option>
                           <option value="dinas"> Dinas </option>
@@ -385,13 +385,13 @@
                     <div class="form-group">
                       <label class="col-lg-3 col-sm-3 control-label">Nominal</label>
                       <div class="col-lg-9 col-sm-9">
-                        <input type="number" name="nominal_biaya_harian" id="nominal_biaya_harian" class="form-control" placeholder="Masukan Nominal" value="<?php echo $data_biaya_harian->nominal_biaya_harian?>" required>
+                        <input type="number" name="nominal_biaya_harian<?=$data_biaya_harian->idBiayaHarian?>" id="nominal_biaya_harian<?=$data_biaya_harian->idBiayaHarian?>" class="form-control nominal_biaya_harian" placeholder="Masukan Nominal" value="<?php echo $data_biaya_harian->nominal_biaya_harian?>" required>
                       </div>
                     </div>
-
+                    <div class="alert-msg-edit"></div>
                     <div class="form-group">
                       <div style="padding-left: 60%" class="col-lg-offset-3 col-lg-9">
-                        <button type="submit" class="btn btn-primary" name="edit" value="edit">Update</button>
+                        <button type="submit" class="btn btn-primary edit" id="editButton<?=$data_biaya_harian->idBiayaHarian?>" name="edit" value="edit">Update</button>
                       </div>
                     </div>
                   </form>
@@ -522,9 +522,13 @@
   $('#addButton').click(function() {
 
    var form_data = {
-    nominal_biaya_harian:$('#nominal_biaya_harian').val()
-  };
-  $.ajax({
+     idGolongan: $('#idGolongan').val(),
+     jarak_perjalanan: $('#jarak_perjalanan').val(),
+     wilayah: $('#wilayah').val(),
+     jenis_kegiatan: $('#jenis_kegiatan').val(),
+     nominal_biaya_harian:$('#nominal_biaya_harian').val()
+   };
+   $.ajax({
     url: "<?php echo base_url('biaya_harian/addDataBiayaHarian'); ?>",
     type: 'POST',
     data: form_data,
@@ -539,9 +543,68 @@
     }
   }
 });
-  return false;
-});
+   return false;
+ });
 </script>
+
+
+<script type="text/javascript">
+
+  var editButton = document.getElementsByClassName("btn btn-primary edit");
+
+  $('.btn.btn-primary.edit').each(function(index) {
+
+    $(this).on("click", function(){
+      //alert("message?: DOMString");
+      var cek = document.getElementsByClassName("btn btn-primary edit");
+      console.log(cek);
+          // console.log(cek);
+          var idGolongan_edit = document.getElementsByClassName("form-control idGolongan")[index].id;
+          var jarak_perjalanan_edit = document.getElementsByClassName("form-control jarak_perjalanan")[index].id;
+          var wilayah_edit = document.getElementsByClassName("form-control wilayah")[index].id;
+          var jenis_kegiatan_edit = document.getElementsByClassName("form-control jenis_kegiatan")[index].id;
+          var nominal_biaya_harian_edit = document.getElementsByClassName("form-control nominal_biaya_harian")[index].id;
+
+          var b = document.getElementsByClassName("form-horizontal edit")[index].id;
+          var url_edit = document.getElementById(b).action;
+          console.log(url_edit);
+
+          var form_data = {
+            idGolongan: $('#'+idGolongan_edit).val(),
+            jarak_perjalanan: $('#'+jarak_perjalanan_edit).val(),
+            wilayah: $('#'+wilayah_edit).val(),
+            jenis_kegiatan: $('#'+jenis_kegiatan_edit).val(),
+            nominal_biaya_harian: $('#'+nominal_biaya_harian_edit).val()
+
+          };
+          console.log(form_data);
+          $.ajax({
+            url: url_edit,
+            type: 'POST',
+            data: form_data,
+            dataType: "JSON",
+            success: function(message) {
+              if (message.status == 1){
+               $('.alert-msg-edit').html('<div class="alert alert-success">' + message.message + '</div>');
+               location.reload();
+             }
+             else{
+              $('.alert-msg-edit').html('<div class="alert alert-danger">' + message.message + '</div>');
+            }
+          }
+        });
+          return false;
+
+
+        });
+  });
+  $('.modal.fade.edit').on('hidden.bs.modal', function () {
+    $('input[name=checkListItem').val('');
+    $( ".alert.alert-danger" ).remove();
+  })
+</script>
+
+
 <script>
 
   var url = window.location;

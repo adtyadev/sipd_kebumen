@@ -25,6 +25,10 @@ class biaya_transportasi_lain_controller extends CI_Controller{
 
 	function addDataBiayaTransportasiLain(){
 		$this->form_validation->set_rules('kelas_transportasi','kelas Transportasi','required|regex_match[/-/]');
+		$this->form_validation->set_rules('idGolongan','Nama Golongan','required');
+		$this->form_validation->set_rules('idTransportasi','Nama Transportasi','required');
+		$this->form_validation->set_rules('kelas_transportasi','kelas Transportasi','required');
+		
 		if ($this->form_validation->run()==FALSE) {
 			echo json_encode(array('status'=>0, 'message' => validation_errors()));
 		}
@@ -48,17 +52,28 @@ class biaya_transportasi_lain_controller extends CI_Controller{
 	}
 
 	function updateDataBiayaTransportasiLain($idBiayaTransportasiLain){
-		$idGolongan=$this->input->post('idGolongan');
-		$idTransportasi=$this->input->post('idTransportasi');
-		$kelas_transportasi=$this->input->post('kelas_transportasi');
-		$input = array(
-			'idGolongan'=>$idGolongan,
-			'idLokasiTransportasi'=>$idTransportasi,
-			'kelas_transportasi'=>$kelas_transportasi
-		);
-		$this->biaya_transportasi_lain_model->updateDataBiayaTransportasiLain($input,'idBiayaTransportasiLain', $idBiayaTransportasiLain);
-		$this->session->set_flashdata('message', 'Data Sukses Dirubah');
-		redirect(base_url('biaya_transportasi_lain/index'));
+		$this->form_validation->set_rules('kelas_transportasi','kelas Transportasi','required|regex_match[/-/]');
+		$this->form_validation->set_rules('idGolongan','Nama Golongan','required');
+		$this->form_validation->set_rules('idTransportasi','Nama Transportasi','required');
+		$this->form_validation->set_rules('kelas_transportasi','kelas Transportasi','required');
+		
+		if ($this->form_validation->run()==FALSE) {
+			echo json_encode(array('status'=>0, 'message' => validation_errors()));
+		}
+		else{
+			echo json_encode(array('status'=>1, 'message' => 'Successfully Submiited'));
+			$idGolongan=$this->input->post('idGolongan');
+			$idTransportasi=$this->input->post('idTransportasi');
+			$kelas_transportasi=$this->input->post('kelas_transportasi');
+			$input = array(
+				'idGolongan'=>$idGolongan,
+				'idTransportasi'=>$idTransportasi,
+				'kelas_transportasi'=>$kelas_transportasi
+			);
+			$this->biaya_transportasi_lain_model->updateDataBiayaTransportasiLain($input,'idBiayaTransportasiLain', $idBiayaTransportasiLain);
+			$this->session->set_flashdata('message', 'Data Sukses Dirubah');
+		//redirect(base_url('biaya_transportasi_lain/index'));
+		}
 	}
 
 	function removeDataBiayaTransportasiLain($idBiayaTransportasiLain){

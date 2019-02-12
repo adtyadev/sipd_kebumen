@@ -116,7 +116,7 @@
                   <?php
                   foreach ($golongan as $data_golongan) {
                     ?>
-                    <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="modalEditData<?php echo $data_golongan->idGolongan?>" class="modal fade">
+                    <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="modalEditData<?php echo $data_golongan->idGolongan?>" class="modal fade edit">
                       <div class="modal-dialog">
                         <div class="modal-content">
                           <div class="modal-header">
@@ -124,16 +124,18 @@
                             <h4 class="modal-title">Edit Data Golongan</h4>
                           </div>
                           <div class="modal-body">
-                            <form class="form-horizontal" role="form" method="post" action="<?=base_url('golongan/updateDataGolongan/'.$data_golongan->idGolongan)?>">
+                            <form class="form-horizontal edit" id="urlEdit<?=$data_golongan->idGolongan?>" role="form" method="post" action="<?=base_url('golongan/updateDataGolongan/'.$data_golongan->idGolongan)?>">
                               <div class="form-group">
                                 <label class="col-lg-3 col-sm-3 control-label">Nama Golongan</label>
                                 <div class="col-lg-9">
-                                  <input type="text" name="nama_golongan" id="nama_golongan" class="form-control" placeholder="Nama Golongan" value="<?php echo $data_golongan->nama_golongan?>" required>
+                                  <input type="text" name="nama_golongan<?=$data_golongan->idGolongan?>" id="nama_golongan<?=$data_golongan->idGolongan?>" class="form-control nama_golongan" placeholder="Nama Golongan" value="<?php echo $data_golongan->nama_golongan?>" required>
                                 </div>
                               </div>
+                              <div class="alert-msg-edit"></div>
+
                               <div class="form-group">
                                 <div class="col-lg-offset-3 col-lg-9">
-                                  <button type="submit" class="btn btn-primary" name="edit" value="edit">Update</button>
+                                  <button type="submit" class="btn btn-primary edit" name="edit" id="editButton<?= $data_golongan->idGolongan ?>" value="edit">Update</button>
                                 </div>
                               </div>
                             </form>
@@ -282,6 +284,54 @@
   });
     return false;
   });
+</script>
+
+
+<script type="text/javascript">
+
+  var editButton = document.getElementsByClassName("btn btn-primary edit");
+
+  $('.btn.btn-primary.edit').each(function(index) {
+
+    $(this).on("click", function(){
+      //alert("message?: DOMString");
+      var cek = document.getElementsByClassName("btn btn-primary edit");
+      console.log(cek);
+          // console.log(cek);
+          var nama_golongan_edit = document.getElementsByClassName("form-control nama_golongan")[index].id;
+          console.log(nama_golongan_edit);
+          var b = document.getElementsByClassName("form-horizontal edit")[index].id;
+          var url_edit = document.getElementById(b).action;
+          console.log(url_edit);
+         // console.log(nama_pegawai_edit);
+         var form_data = {
+          nama_golongan: $('#'+nama_golongan_edit).val(),
+        };
+        console.log(form_data);
+        $.ajax({
+          url: url_edit,
+          type: 'POST',
+          data: form_data,
+          dataType: "JSON",
+          success: function(message) {
+            if (message.status == 1){
+             $('.alert-msg-edit').html('<div class="alert alert-success">' + message.message + '</div>');
+             location.reload();
+           }
+           else{
+            $('.alert-msg-edit').html('<div class="alert alert-danger">' + message.message + '</div>');
+          }
+        }
+      });
+        return false;
+
+
+      });
+  });
+  $('.modal.fade.edit').on('hidden.bs.modal', function () {
+    $('input[name=checkListItem').val('');
+    $( ".alert.alert-danger" ).remove();
+  })
 </script>
 
 <script>

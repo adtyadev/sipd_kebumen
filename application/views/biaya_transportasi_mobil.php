@@ -183,19 +183,19 @@
               foreach ($biaya_transportasi_mobil as $data_biaya_transportasi_mobil) {
                 ?>
                 <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="modalEditData<?php echo $data_biaya_transportasi_mobil->idBiayaTransportasiMobil?>" class="modal fade">
-                  <div class="modal-dialog">
+                  <div class="modal-dialog edit">
                     <div class="modal-content">
                       <div class="modal-header">
                         <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
                         <h4 class="modal-title">Edit Data BiayaTransportasiMobil</h4>
                       </div>
                       <div class="modal-body">
-                        <form class="form-horizontal" role="form" method="post" action="<?=base_url('biaya_transportasi_mobil/updateDataBiayaTransportasiMobil/'.$data_biaya_transportasi_mobil->idBiayaTransportasiMobil)?>">
+                        <form class="form-horizontal edit" role="form" id="urlEdit<?=$data_biaya_transportasi_mobil->idBiayaTransportasiMobil?>" method="post" action="<?=base_url('biaya_transportasi_mobil/updateDataBiayaTransportasiMobil/'.$data_biaya_transportasi_mobil->idBiayaTransportasiMobil)?>">
 
                          <div class="form-group">
                           <label class="col-lg-3 col-sm-3 control-label">Nama Transportasi</label>
                           <div class="col-lg-9 col-sm-9">
-                            <select name="idTransportasi" id="idTransportasi" class="form-control" required>
+                            <select name="idTransportasi<?=$data_biaya_transportasi_mobil->idBiayaTransportasiMobil?>" id="idTransportasi<?=$data_biaya_transportasi_mobil->idBiayaTransportasiMobil?>" class="form-control idTransportasi" required>
 
                               <option disabled="">-- PILIH TRANSPORTASI --</option>
                               <?php 
@@ -220,7 +220,7 @@
                         <div class="form-group">
                           <label class="col-lg-3 col-sm-3 control-label">Jarak Kilometer</label>
                           <div class="col-lg-9 col-sm-9">
-                           <select name="kilometer" id="kilometer" class="form-control" required>
+                           <select name="kilometer<?=$data_biaya_transportasi_mobil->idBiayaTransportasiMobil?>" id="kilometer<?=$data_biaya_transportasi_mobil->idBiayaTransportasiMobil?>" class="form-control kilometer" required>
 
                             <?php switch ((INT)$data_biaya_transportasi_mobil->kilometer) {
                               case 7:
@@ -260,7 +260,7 @@
                       <div class="form-group">
                         <label class="col-lg-3 col-sm-3 control-label">Mesin CC</label>
                         <div class="col-lg-9 col-sm-9">
-                          <select name="mesin_cc" id="mesin_cc" class="form-control" required>
+                          <select name="mesin_cc<?=$data_biaya_transportasi_mobil->idBiayaTransportasiMobil?>" id="mesin_cc<?=$data_biaya_transportasi_mobil->idBiayaTransportasiMobil?>" class="form-control mesin_cc" required>
 
                             <?php 
                             switch ($data_biaya_transportasi_mobil->mesin_cc) {
@@ -304,39 +304,39 @@
                       <div class="form-group">
                         <label class="col-lg-3 col-sm-3 control-label">Jenis BBM</label>
                         <div class="col-lg-9 col-sm-9">
-                         <select name="jenis_bbm" id="jenis_bbm" class="form-control" required>
-                          <option disabled=""> -- Pilih Jenis BBM --</option>
-                          <option selected value="10000/liter">10.000/Liter</option>
-                        </select>
+                          <select name="jenis_bbm<?=$data_biaya_transportasi_mobil->idBiayaTransportasiMobil?>" id="jenis_bbm<?=$data_biaya_transportasi_mobil->idBiayaTransportasiMobil?>" class="form-control jenis_bbm" required>
+                            <option disabled=""> -- Pilih Jenis BBM --</option>
+                            <option selected value="10000/liter">10.000/Liter</option>
+                          </select>
+                        </div>
                       </div>
-                    </div>
 
-                    <div class="form-group">
-                      <label class="col-lg-3 col-sm-3 control-label">Nominal</label>
-                      <div class="col-lg-9 col-sm-9">
-                        <input type="number" name="nominal_biaya_mobil" id="nominal_biaya_mobil" class="form-control" placeholder="Masukan Nominal" value="<?php echo $data_biaya_transportasi_mobil->nominal_biaya_mobil?>" required>
+                      <div class="form-group">
+                        <label class="col-lg-3 col-sm-3 control-label">Nominal</label>
+                        <div class="col-lg-9 col-sm-9">
+                          <input type="number" name="nominal_biaya_mobil<?=$data_biaya_transportasi_mobil->idBiayaTransportasiMobil?>" id="nominal_biaya_mobil<?=$data_biaya_transportasi_mobil->idBiayaTransportasiMobil?>" class="form-control nominal_biaya_mobil" placeholder="Masukan Nominal" value="<?php echo $data_biaya_transportasi_mobil->nominal_biaya_mobil?>" required>
+                        </div>
                       </div>
-                    </div>
-
-                    <div class="form-group">
-                      <div style="padding-left: 60%" class="col-lg-offset-3 col-lg-9">
-                        <button type="submit" class="btn btn-primary" name="edit" value="edit">Update</button>
+                      <div class="alert-msg-edit"></div>
+                      <div class="form-group">
+                        <div style="padding-left: 60%" class="col-lg-offset-3 col-lg-9">
+                          <button type="submit" class="btn btn-primary edit" id="editButton<?=$data_biaya_transportasi_mobil->idBiayaTransportasiMobil?>" name="edit" value="edit">Update</button>
+                        </div>
                       </div>
-                    </div>
-                  </form>
+                    </form>
 
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <?php
-        }
-        ?>
+            <?php
+          }
+          ?>
 
+        </div>
       </div>
-    </div>
-  </section>
-</div>
+    </section>
+  </div>
 </div>
 </div>
 <!-- /.box -->
@@ -451,7 +451,11 @@
   $('#addButton').click(function() {
 
    var form_data = {
-    nominal_biaya_mobil:$('#nominal_biaya_mobil').val()
+    nominal_biaya_mobil:$('#nominal_biaya_mobil').val(),
+    kilometer:$('#kilometer').val(),
+    mesin_cc:$('#mesin_cc').val(),
+    jenis_bbm:$('#jenis_bbm').val(),
+    idTransportasi:$('#idTransportasi').val()
   };
   $.ajax({
     url: "<?php echo base_url('biaya_transportasi_mobil/addDataBiayaTransportasiMobil'); ?>",
@@ -471,6 +475,63 @@
   return false;
 });
 </script>
+
+<script type="text/javascript">
+
+  var editButton = document.getElementsByClassName("btn btn-primary edit");
+
+  $('.btn.btn-primary.edit').each(function(index) {
+
+    $(this).on("click", function(){
+      //alert("message?: DOMString");
+      var cek = document.getElementsByClassName("btn btn-primary edit");
+      console.log(cek);
+          // console.log(cek);
+
+          var nominal_biaya_mobil_edit = document.getElementsByClassName("form-control nominal_biaya_mobil")[index].id;
+          var idTransportasi_edit = document.getElementsByClassName("form-control idTransportasi")[index].id;
+          var kilometer_edit = document.getElementsByClassName("form-control kilometer")[index].id;
+          var mesin_cc_edit = document.getElementsByClassName("form-control mesin_cc")[index].id;
+          var jenis_bbm_edit = document.getElementsByClassName("form-control jenis_bbm")[index].id;
+          var b = document.getElementsByClassName("form-horizontal edit")[index].id;
+          var url_edit = document.getElementById(b).action;
+          console.log(url_edit);
+
+          var form_data = {
+
+            nominal_biaya_mobil: $('#'+nominal_biaya_mobil_edit).val(),
+            idTransportasi:$('#'+idTransportasi_edit).val(),
+            kilometer:$('#'+kilometer_edit).val(),
+            mesin_cc:$('#'+mesin_cc_edit).val(),
+            jenis_bbm_edit:$('#'+jenis_bbm_edit).val()
+
+          };
+          console.log(form_data);
+          $.ajax({
+            url: url_edit,
+            type: 'POST',
+            data: form_data,
+            dataType: "JSON",
+            success: function(message) {
+              if (message.status == 1){
+               $('.alert-msg-edit').html('<div class="alert alert-success">' + message.message + '</div>');
+               location.reload();
+             }
+             else{
+              $('.alert-msg-edit').html('<div class="alert alert-danger">' + message.message + '</div>');
+            }
+          }
+        });
+          return false;
+
+        });
+  });
+  $('.modal.fade.edit').on('hidden.bs.modal', function () {
+    $('input[name=checkListItem').val('');
+    $( ".alert.alert-danger" ).remove();
+  })
+</script>
+
 <script>
 
   var url = window.location;

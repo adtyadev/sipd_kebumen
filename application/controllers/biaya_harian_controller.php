@@ -30,6 +30,10 @@ class biaya_harian_controller extends CI_Controller{
 	function addDataBiayaHarian(){
 
 		$this->form_validation->set_rules('nominal_biaya_harian','Nominal Biaya Harian','required|numeric');
+		$this->form_validation->set_rules('idGolongan', 'nama golongan','required');
+		$this->form_validation->set_rules('jarak_perjalanan', 'Jarak Perjalanan', 'required');
+		$this->form_validation->set_rules('wilayah', 'Wilayah', 'required');
+		$this->form_validation->set_rules('jenis_kegiatan', 'Jenis Kegiatan','required');
 		
 		if ($this->form_validation->run()==FALSE) {
 			echo json_encode(array('status'=>0, 'message' => validation_errors()));
@@ -59,21 +63,33 @@ class biaya_harian_controller extends CI_Controller{
 	}
 
 	function updateDataBiayaHarian($idBiayaHarian){
-		$idGolongan=$this->input->post('idGolongan');
-		$jarak_perjalanan=$this->input->post('jarak_perjalanan');
-		$wilayah=$this->input->post('wilayah');
-		$jenis_kegiatan=$this->input->post('jenis_kegiatan');
-		$nominal_biaya_harian=$this->input->post('nominal_biaya_harian');
-		$input = array(
-			'idGolongan'=>$idGolongan,
-			'jarak_perjalanan'=>$jarak_perjalanan,
-			'wilayah'=>$wilayah,
-			'jenis_kegiatan'=>$jenis_kegiatan,
-			'nominal_biaya_harian'=>$nominal_biaya_harian
-		);
-		$this->biaya_harian_model->updateDataBiayaHarian($input,'idBiayaHarian', $idBiayaHarian);
-		$this->session->set_flashdata('message', 'Data Sukses Dirubah');
-		redirect(base_url('biaya_harian/index'));
+		$this->form_validation->set_rules('nominal_biaya_harian','Nominal Biaya Harian','required|numeric');
+		$this->form_validation->set_rules('idGolongan', 'nama golongan','required');
+		$this->form_validation->set_rules('jarak_perjalanan', 'Jarak Perjalanan', 'required');
+		$this->form_validation->set_rules('wilayah', 'Wilayah', 'required');
+		$this->form_validation->set_rules('jenis_kegiatan', 'Jenis Kegiatan','required');
+		
+		if ($this->form_validation->run()==FALSE) {
+			echo json_encode(array('status'=>0, 'message' => validation_errors()));
+		}
+		else{
+			echo json_encode(array('status'=>1, 'message' => 'Successfully Submiited'));
+			$idGolongan=$this->input->post('idGolongan');
+			$jarak_perjalanan=$this->input->post('jarak_perjalanan');
+			$wilayah=$this->input->post('wilayah');
+			$jenis_kegiatan=$this->input->post('jenis_kegiatan');
+			$nominal_biaya_harian=$this->input->post('nominal_biaya_harian');
+			$input = array(
+				'idGolongan'=>$idGolongan,
+				'jarak_perjalanan'=>$jarak_perjalanan,
+				'wilayah'=>$wilayah,
+				'jenis_kegiatan'=>$jenis_kegiatan,
+				'nominal_biaya_harian'=>$nominal_biaya_harian
+			);
+			$this->biaya_harian_model->updateDataBiayaHarian($input,'idBiayaHarian', $idBiayaHarian);
+			$this->session->set_flashdata('message', 'Data Sukses Dirubah');
+			//redirect(base_url('biaya_harian/index'));
+		}
 	}
 
 	function removeDataBiayaHarian($idBiayaHarian){
