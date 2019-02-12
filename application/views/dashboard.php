@@ -17,130 +17,65 @@
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper" style=" background-image: url('<?php echo base_url('assets')?>/dist/img/regal.png');
-                background-repeat: repeat;" >
-      <!-- Content Header (Page header) -->
-      <section class="content-header">
-        <h1>
-          Dashboard
-        </h1>
-        <ol class="breadcrumb">
-          <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-          <li class="active">Dashboard</li>
-        </ol>
-      </section>
+    background-repeat: repeat;" >
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        Dashboard
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Dashboard</li>
+      </ol>
+    </section>
 
-      <!-- Main content -->
-      <section class="content">
-       <!-- Info boxes -->
-       <div class="row">
-        <div class="col-md-4 col-sm-6 col-xs-12">
-          <div class="info-box">
-            <span class="info-box-icon bg-aqua"><i class="fa fa-hourglass"></i></span>
-            <div class="info-box-content">
-              <span class="info-box-text"><h4>Pengajuan Keuangan</h4></span>
-              <!-- <span class="info-box-number"><?=$belumcair?></span> -->
-              <span class="info-box-number">10</span>
-            </div>
-            <!-- /.info-box-content -->
+    <!-- Main content -->
+    <section class="content">
+     <!-- Info boxes -->
+     <div class="row">
+      <div class="col-md-4 col-sm-6 col-xs-12">
+        <div class="info-box">
+          <span class="info-box-icon bg-aqua"><i class="fa fa-hourglass"></i></span>
+          <div class="info-box-content">
+            <span class="info-box-text"><h4>Pengajuan Perjalanan Dinas</h4></span>
+            <span class="info-box-text"><h5>belum cetak SPPD</h5></span>
+
+            <span class="info-box-number"><?=$belum_cetak?></span>
           </div>
-          <!-- /.info-box -->
+          <!-- /.info-box-content -->
         </div>
-
-        
-        <div class="col-md-4 col-sm-6 col-xs-12">
-          <div class="info-box">
-            <span class="info-box-icon bg-red"><i class="fa fa-thumbs-up"></i></span>
-            <div class="info-box-content">
-              <span class="info-box-text"><h4>Keuangan Diterima</h4></span>
-              <!-- <span class="info-box-number"><?=$sdmpusat?></span> -->
-              <span class="info-box-number">10</span>
-            </div>
-            <!-- /.info-box-content -->
-          </div>
-          <!-- /.info-box -->
-        </div>
-
-        
-        <div class="col-md-4 col-sm-6 col-xs-12">
-          <div class="info-box">
-            <span class="info-box-icon bg-green"><i class="fa fa-check-circle"></i></span>
-
-            <div class="info-box-content">
-              <span class="info-box-text"><h4>Selesai</h4></span>
-              <!-- <span class="info-box-number"><?=$selesai?></span> -->
-              <span class="info-box-number">10</span>
-            </div>
-            <!-- /.info-box-content -->
-          </div>
-          <!-- /.info-box -->
-        </div>
+        <!-- /.info-box -->
       </div>
 
-      <div class="row">
-        <div class="col-xs-12">
-          <div class="box">
-            <div class="box-header">
-              <h3 class="box-title">Data Table With Full Features</h3>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              <table id="example1" class="table table-bordered table-striped">
-                <thead>
-                  <tr>
-                    <th>No SPPD</th>
-                    <th>Nama Pegawai</th>
-                    <th>Tanggal Berangkat</th>
-                    <th>Tanggal Pulang</th>
-                    <th>Maksud</th>
-                    <th>Kota Tujuan</th>
-                    <th>Biaya Transportasi</th>
-                    <th>Status</th>
-                  </tr>
-                </thead>
-                <tbody>
-                 <!--  <?php
-                  $no=1 ;
-                  foreach($sppd as $s) {
-                   ?>
-                   <tr>
-                    <td><center><b><?=$s->no_sppd?></b></center></td>
-                    <td><?=$s->nama_pegawai?></td>
-                    <td><?=date_indo($s->tgl_berangkat)?></td>
-                    <td><?=date_indo($s->tgl_berakhir)?></td>
-                    <td><?=$s->maksud?></td>
-                    <td><?=$s->rute?></td>
-                    <td style="text-align: right">Rp <?php $total = $s->biaya_pergi + $s->biaya_pulang; echo number_format($total, 0, '', '.')?></td>
-                    <td style="text-align: center;">
-                      <?php
-                      if ($s->status == 'Selesai') {
-                        ?>
-                        <span class="badge label-success">Selesai</span>
-                        <?php
-                      } elseif ($s->status == 'Masuk Keuangan') {
-                        ?>
-                        <span class="badge label-danger">Keuangan Diterima</span>
-                        <?php
-                      } elseif ($s->status == 'Pengajuan ke SDM Pusat') {
-                        ?>
-                        <span class="badge" style="background-color: #00bfbf">Pengajuan Keuangan</span>
-                        <?php
-                      }
-                      ?>
-                    </td>
-                  </tr>
-                  <?php
-                }
-                ?> -->
-              </tbody>
-            </table>
+
+      <div class="col-md-4 col-sm-6 col-xs-12">
+        <div class="info-box">
+          <span class="info-box-icon bg-red"><i class="fa fa-thumbs-up"></i></span>
+          <div class="info-box-content">
+            <span class="info-box-text"><h4>Sedang Perjalanan Dinas</h4></span>
+            <span class="info-box-text"><h5>sudah cetak SPPD</h5></span>
+            <span class="info-box-number"><?=$sudah_cetak?></span>
           </div>
-          <!-- /.box-body -->
+          <!-- /.info-box-content -->
         </div>
-        <!-- /.box -->
+        <!-- /.info-box -->
       </div>
-      <!-- /.col -->
+
+
+      <div class="col-md-4 col-sm-6 col-xs-12">
+        <div class="info-box">
+          <span class="info-box-icon bg-green"><i class="fa fa-check-circle"></i></span>
+
+          <div class="info-box-content">
+            <span class="info-box-text"><h4>Selesai Perjalanan Dinas</h4></span>
+            <span class="info-box-text"><h5>Sudah upload SPJ</h5></span>
+            <span class="info-box-number"><?=$selesai_spj?></span>
+          </div>
+          <!-- /.info-box-content -->
+        </div>
+        <!-- /.info-box -->
+      </div>
     </div>
-    <!-- /.row -->
 
     
   </section>

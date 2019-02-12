@@ -154,7 +154,7 @@
       foreach($pegawai_pengikut as $data_pegawai_pengikut){
 
         if ( $data_pegawai_pengikut->idPerjalananDinas == $data_perjalanan_dinas->idPerjalananDinas){
-          echo "<br>Biaya Anggaran Pegawai Pengikut : <br>";
+          echo  "<br>  Biaya Anggaran Pegawai Pengikut : <br>";
           if ($data_pegawai_pengikut->nominal_biaya_harian == NULL ) {
            echo "Biaya Harian : Rp 0,- <br>";
            $total_anggaran+=0;
@@ -239,7 +239,7 @@
             </td> -->
             <td> 
               <div class="btn-group">
-                <a href="#">
+                <a href="#modalViewData<?php echo $data_surat_perintah_perjalanan_dinas->idSPPD?>" data-toggle="modal">
                   <button type="button" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i> View </button>
                 </a>
               </div> &nbsp;&nbsp;
@@ -259,7 +259,7 @@
         } ?>
       </tbody>
     </table>
-
+    <!-- modal edit -->
     <?php
     foreach ($surat_perintah_perjalanan_dinas as $data_surat_perintah_perjalanan_dinas) {
       ?>
@@ -570,7 +570,168 @@ break;
 <?php
 }
 ?>
+<!-- end modal edit -->
 
+<!-- Modal View -->
+
+<?php
+foreach ($surat_perintah_perjalanan_dinas as $data_surat_perintah_perjalanan_dinas) {
+  ?>
+  <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="modalViewData<?php echo $data_surat_perintah_perjalanan_dinas->idSPPD?>" class="modal fade">
+    <div class="modal-dialog" style="width: 50%">
+      <div class="box box-primary">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+            <h3 class="modal-title">Invoice - Biaya Perjalanan Pegawai</h3>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-lg-12">
+                <strong>Nomor SPPD </strong><br>
+                <?php echo $data_surat_perintah_perjalanan_dinas->nomor_sppd; ?>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="row">
+                  <div class="col-xs-6">
+                    <address>
+                      <strong><br>Nama Pegawai Tugas:</strong><br><br>
+                      <?php
+                      foreach ($perjalanan_dinas as $data_perjalanan_dinas) {
+                        if ($data_surat_perintah_perjalanan_dinas->idPerjalananDinas == $data_perjalanan_dinas->idPerjalananDinas){ 
+                          $temp_idPerjalananDinas=$data_surat_perintah_perjalanan_dinas->idPerjalananDinas;
+                          $temp_idPegawaiTugas=$data_perjalanan_dinas->idPegawaiTugas;
+                          foreach ($pegawai as $data_pegawai) {
+                            if ($data_pegawai->NIP == $data_perjalanan_dinas->idPegawaiTugas) {
+                              echo $data_pegawai->nama_pegawai . '<br>';
+                              echo $data_pegawai->nama_golongan . '<br>';
+                              echo $data_pegawai->nama_pangkat . '<br>';
+                              echo $data_pegawai->nama_unit_kerja;
+                              echo '<hr>';
+                            }
+                          }
+                          ?>
+                        </address>
+                      </div>
+                      <div class="col-xs-6 text-right">
+                        <address>
+                          <strong>Nama Pegawai Pengikut:</strong><br>
+                          <?php
+                          foreach($pegawai_pengikut as $data_pegawai_pengikut){
+                            if ( $data_pegawai_pengikut->idPerjalananDinas == $data_perjalanan_dinas->idPerjalananDinas){
+                             foreach ($pegawai as $data_pegawai) {
+                              if ($data_pegawai->NIP == $data_pegawai_pengikut->idPegawaiPengikut) {
+                                echo $data_pegawai->nama_pegawai . '<br>';
+                                echo  $data_pegawai->nama_pangkat . ' / Gol ' . $data_pegawai->nama_golongan ;
+                                echo '<hr>';
+                              }
+                            }
+
+                          }
+                        }
+                        break;
+                      }
+                    };
+                    ?>
+                  </address>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-6">
+                  <address>
+                    <strong>Pembayaran :</strong><br>
+                    Transfer<br>
+                  </address>
+                </div>
+                <div class="col-xs-6 text-right">
+                  <address>
+                    <strong>Tanggal Perjalanan:</strong><br>
+                    <?php
+                    echo date_indo($data_perjalanan_dinas->tanggal_berangkat) ." <br> s/d <br>" . date_indo($data_perjalanan_dinas->tanggal_kembali) ;
+                    ?>
+                  </address>
+                </div>
+              </div>
+            </div>
+          </div>
+          <?php
+
+          ?>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <h3 class="panel-title"><strong>Detail Anggaran</strong></h3>
+                </div>
+                <div class="panel-body">
+                  <div class="table-responsive">
+                    <table class="table table-condensed" border="1">
+                      <thead>
+                        <tr>
+                          <td><strong>Item Biaya</strong></td>
+                          <td class="text-center"><strong>Harga</strong></td>
+                          <td class="text-center"><strong>Jumlah</strong></td>
+                          <td class="text-right"><strong>Totals</strong></td>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <!-- foreach ($order->lineItems as $line) or some such thing here -->
+                        <tr>
+                          <td>BS-200</td>
+                          <td class="text-center">$10.99</td>
+                          <td class="text-center">1</td>
+                          <td class="text-right">$10.99</td>
+                        </tr>
+                        <tr>
+                          <td>BS-400</td>
+                          <td class="text-center">$20.00</td>
+                          <td class="text-center">3</td>
+                          <td class="text-right">$60.00</td>
+                        </tr>
+                        <tr>
+                          <td>BS-1000</td>
+                          <td class="text-center">$600.00</td>
+                          <td class="text-center">1</td>
+                          <td class="text-right">$600.00</td>
+                        </tr>
+                        <tr>
+                          <td class="thick-line"></td>
+                          <td class="thick-line"></td>
+                          <td class="thick-line text-center"><strong>Subtotal</strong></td>
+                          <td class="thick-line text-right">$670.99</td>
+                        </tr>
+                        <tr>
+                          <td class="no-line"></td>
+                          <td class="no-line"></td>
+                          <td class="no-line text-center"><strong>Shipping</strong></td>
+                          <td class="no-line text-right">$15</td>
+                        </tr>
+                        <tr>
+                          <td class="no-line"></td>
+                          <td class="no-line"></td>
+                          <td class="no-line text-center"><strong>Total</strong></td>
+                          <td class="no-line text-right">$685.99</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<?php
+}
+?>
+
+
+<!-- end modal view -->
 </div>
 <!-- /.box-body -->
 </div>

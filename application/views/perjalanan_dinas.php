@@ -183,7 +183,7 @@
                       <div class="input-group-addon">
                         <i class="fa fa-calendar"></i>
                       </div>
-                      <input type="text" class="form-control pull-right" id="datepicker" name="tanggal_berangkat" placeholder="yyyy-mm-dd">
+                      <input type="text" class="form-control pull-right" id="tanggal_berangkat" name="tanggal_berangkat" placeholder="yyyy-mm-dd">
                     </div>
                   </div>
                   <div class="col-lg-6 col-sm-6">
@@ -192,7 +192,7 @@
                       <div class="input-group-addon">
                         <i class="fa fa-calendar"></i>
                       </div>
-                      <input type="text" class="form-control pull-right" id="datepicker" name="tanggal_kembali" placeholder="yyyy-mm-dd">
+                      <input type="text" class="form-control pull-right" id="tanggal_kembali" name="tanggal_kembali" placeholder="yyyy-mm-dd">
                     </div>
                   </div>
 
@@ -200,7 +200,7 @@
                 <div class="form-group">
                   <div class="col-lg-12">
                     <label> Lama Perjalanan </label>
-                    <input type="number" min="0"  name="lama_perjalanan" id="lama_perjalanan" class="form-control" placeholder="Lama Perjalanan" >
+                    <input type="number" min="0"  name="lama_perjalanan" disabled id="lama_perjalanan" class="form-control" placeholder="Lama Perjalanan" >
                   </div>
                 </div>
 
@@ -443,7 +443,7 @@
                 <div class="input-group-addon">
                   <i class="fa fa-calendar"></i>
                 </div>
-                <input type="text" class="form-control pull-right" id="tanggal_berangkat" name="tanggal_berangkat" placeholder="yyyy-mm-dd" value="<?= $data_perjalanan_dinas->tanggal_berangkat?>">
+                <input type="text" class="form-control datepicker" style=" z-index: 1600 !important;" id="tanggal_berangkat" name="tanggal_berangkat" placeholder="yyyy-mm-dd" value="<?= $data_perjalanan_dinas->tanggal_berangkat?>">
               </div>
             </div>
 
@@ -453,7 +453,7 @@
                 <div class="input-group-addon">
                   <i class="fa fa-calendar"></i>
                 </div>
-                <input type="text" class="form-control pull-right" id="tanggal_kembali" name="tanggal_kembali" placeholder="yyyy-mm-dd" value="<?= $data_perjalanan_dinas->tanggal_kembali?>">
+                <input type="text" class="form-control datepicker" id="tanggal_kembali" style=" z-index: 1600 !important;" name="tanggal_kembali" placeholder="yyyy-mm-dd" value="<?= $data_perjalanan_dinas->tanggal_kembali?>">
               </div>
             </div>
           </div>
@@ -461,7 +461,7 @@
           <div class="form-group">
             <div class="col-lg-12">
               <label> Lama Perjalanan </label>
-              <input type="number" min="0"  name="lama_perjalanan" id="lama_perjalanan" class="form-control" placeholder="Lama Perjalanan" value="<?= $data_perjalanan_dinas->lama_perjalanan?>" >
+              <input type="number" min="0"  name="lama_perjalanan" disabled id="lama_perjalanan" class="form-control" placeholder="Lama Perjalanan" value="<?= $data_perjalanan_dinas->lama_perjalanan?>" >
             </div>
           </div>
 
@@ -685,7 +685,7 @@ foreach ($perjalanan_dinas as $data_perjalanan_dinas) {
    
 
    <!-- jQuery 3 -->
-   <script async="" src="//www.google-analytics.com/analytics.js"></script>;
+   <!-- <script async="" src="//www.google-analytics.com/analytics.js"></script>; -->
    <script src="<?php echo base_url('assets/')?>bower_components/jquery/dist/jquery.min.js"></script>
 
    <!-- Bootstrap 3.3.7 -->
@@ -713,6 +713,8 @@ foreach ($perjalanan_dinas as $data_perjalanan_dinas) {
    <script src="<?php echo base_url('assets/')?>bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
    <script src="<?php echo base_url('assets/')?>bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
    <script src="<?php echo base_url('assets/')?>bower_components/sweetalert/js/sweetalert/sweetalert.min.js"></script>
+   <script src="<?php echo base_url('assets/')?>bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+   <script src="<?php echo base_url('assets/')?>bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
    <script >
     $(function () {
     //Initialize Select2 Elements
@@ -947,3 +949,28 @@ foreach ($perjalanan_dinas as $data_perjalanan_dinas) {
   return false;
 });
 </script>
+
+<script>
+  $('#tanggal_berangkat').change(function() {
+   // document.getElementById('tanggal_berangkat').value = $(this).val();
+    getLamaPerjalanan();
+ });
+  $('#tanggal_kembali').change(function() {
+   // document.getElementById('tanggal_kembali').value = $(this).val();
+    getLamaPerjalanan();
+ });
+
+  function getLamaPerjalanan() {
+
+    var tanggal_berangkat=new Date(document.getElementById('tanggal_berangkat').value);
+    var tanggal_kembali=new Date(document.getElementById('tanggal_kembali').value);
+         // time difference
+         var time_difference = Math.abs(tanggal_kembali.getTime() - tanggal_berangkat.getTime());
+
+         // days difference
+         var days_difference = Math.ceil(time_difference / (1000 * 3600 * 24));
+
+         // difference
+         document.getElementById('lama_perjalanan').value=days_difference;
+       }
+     </script>

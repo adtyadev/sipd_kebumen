@@ -190,8 +190,10 @@
                   <td><?php echo $data_pegawai->nama_unit_kerja?></td>
                   <td> 
                     <div class="btn-group">
-                      <button type="button" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i> View </button>
-                    </div> &nbsp;&nbsp;
+                      <a style="color: white" href="#modalViewData<?php echo $data_pegawai->NIP?>" data-toggle="modal"> 
+                        <button type="button" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i> View </button>
+                      </div> &nbsp;&nbsp;
+                    </a>
                     <div class="btn-group">
                       <a style="color: white" href="#modalEditData<?php echo $data_pegawai->NIP?>" data-toggle="modal"> 
                         <button type="button" class="btn btn-warning btn-sm">
@@ -210,6 +212,7 @@
                ?>
              </tbody>
            </table>
+           <!-- modal edit -->
            <?php
            foreach ($pegawai as $data_pegawai) {
             ?>
@@ -334,12 +337,79 @@
           <?php
         }
         ?>
-      </div>
-      <!-- /.box-body -->
+        <!-- End Modal Edit -->
+
+
+        <!-- modal view -->
+        <?php
+        foreach ($pegawai as $data_pegawai) {
+          ?>
+          <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="modalViewData<?php echo $data_pegawai->NIP?>" class="modal fade">
+            <div class="modal-dialog" style="width: 50%">
+              <div class="box box-primary">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                    <h3 class="modal-title"><?=$data_pegawai->nama_pegawai ?></h3>
+                  </div>
+                  <div class="modal-body">
+                   <div class="row">
+                    <div class="col-sm-12">
+                      <div class="form-group">
+                        <label style="font-weight: bold;">Nomor Induk Pegawai</label>
+                        <p><?=$data_pegawai->NIP?></p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label style="font-weight: bold;">Tempat Lahir</label>
+                        <p><?=$data_pegawai->tempat_lahir?></p>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label style="font-weight: bold;">Tanggal Lahir</label>
+                        <p><?= date_indo($data_pegawai->tanggal_lahir) ?></p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-4">
+                      <div class="form-group">
+                        <label style="font-weight: bold;">Pangkat</label>
+                        <p><?=$data_pegawai->nama_pangkat ?></p>
+                      </div>
+                    </div>
+                    <div class="col-sm-4">
+                      <div class="form-group">
+                        <label style="font-weight: bold;">Golongan</label>
+                        <p><?=$data_pegawai->nama_golongan ?></p>
+                      </div>
+                    </div>
+                    <div class="col-sm-4">
+                      <div class="form-group">
+                        <label style="font-weight: bold;">Unit Kerja</label>
+                        <p><?=$data_pegawai->nama_unit_kerja ?></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <?php
+      }
+      ?>
+      <!-- end of modal view -->
     </div>
-    <!-- /.box -->
+    <!-- /.box-body -->
   </div>
-  <!-- /.col -->
+  <!-- /.box -->
+</div>
+<!-- /.col -->
 </div>
 
 </section>
@@ -401,7 +471,9 @@
    <script src="<?php echo base_url('assets/')?>bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
    <script src="<?php echo base_url('assets/')?>bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
    <script src="<?php echo base_url('assets/')?>bower_components/sweetalert/js/sweetalert/sweetalert.min.js"></script>
-
+   <script src="<?php echo base_url('assets/')?>bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+   <!-- bootstrap datepicker -->
+   <script src="<?php echo base_url('assets/')?>bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 
    <script >
     $(function () {

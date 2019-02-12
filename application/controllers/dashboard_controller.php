@@ -11,12 +11,14 @@ class dashboard_controller extends CI_Controller{
   }
 
   function index() {
-    // $data['selesai']    = $this->DashboardModel->ambilSPPDSelesai()->row()->jumlah;
-    // $data['belumcair']  = $this->DashboardModel->ambilSPPDBelumCair()->row()->jumlah;
-    // $data['sdmpusat']   = $this->DashboardModel->ambilSPPDSDMPusat()->row()->jumlah;
-    // $data['sppd']       = $this->DashboardModel->ambilDataSPPD()->result();
-    // $this->load->view('dashboard', $data);
-    $this->load->view('dashboard');
+   $data['belum_cetak']    = $this->dashboard_model->getCountSPPD_belum_cetak()->row()->jumlah_belum_cetak;
+   $data['sudah_cetak']  = $this->dashboard_model->getCountSPPD_sudah_cetak()->row()->jumlah_sudah_cetak;
+   if (isset($this->dashboard_model->getCountSPJ_group_by_sppd()->row()->jumlah_sudah_spj)) {
+    $data['selesai_spj'] = $this->dashboard_model->getCountSPJ_group_by_sppd()->row()->jumlah_sudah_spj;
   }
+  else $data['selesai_spj']=0;
+  $this->load->view('dashboard', $data);
+
+}
 
 }
