@@ -262,7 +262,7 @@
         <td> 
             <?php foreach ($perjalanan_dinas as $data_perjalanan_dinas) {
                 if ($data_surat_tugas->idPerjalananDinas == $data_perjalanan_dinas->idPerjalananDinas){ 
-                    echo date_indo($data_perjalanan_dinas->tanggal_acara) . '<br>';
+                    echo $data_perjalanan_dinas->tanggal_acara . '<br>';
                 }
             }
             ?>    

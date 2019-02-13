@@ -56,20 +56,19 @@ class perjalanan_dinas_controller extends CI_Controller{
 			$idLokasiProvinsi=$this->input->post('idProvinsi');
 
 			$idGolongan=$this->perjalanan_dinas_model->getGolonganPegawai($NIP_pegawai_tugas)->row()->idGolongan;
-			$idBiayaPenginapan=$this->perjalanan_dinas_model->getBiayaPenginapan($idGolongan,$idLokasiProvinsi)->row()->idBiayaPenginapan;
-			if (isset($idBiayaPenginapan)) {
-				if(empty($idBiayaPenginapan))$idBiayaPenginapan=NULL;
+			
+			if (isset($this->perjalanan_dinas_model->getBiayaPenginapan($idGolongan,$idLokasiProvinsi)->row()->idBiayaPenginapan)) {
+				$idBiayaPenginapan=$this->perjalanan_dinas_model->getBiayaPenginapan($idGolongan,$idLokasiProvinsi)->row()->idBiayaPenginapan;
 			}
 
-
-			$idBiayaTransportasiMobil=$this->perjalanan_dinas_model->getBiayaTransportasiMobil($idTransportasi)->row()->idBiayaTransportasiMobil;
-			if (isset($idBiayaTransportasiMobil)) {
-				if (empty($idBiayaTransportasiMobil))$idBiayaTransportasiMobil=NULL;
+			
+			if (isset($this->perjalanan_dinas_model->getBiayaTransportasiMobil($idTransportasi)->row()->idBiayaTransportasiMobil)) {
+				$idBiayaTransportasiMobil=$this->perjalanan_dinas_model->getBiayaTransportasiMobil($idTransportasi)->row()->idBiayaTransportasiMobil;
 			}
 
-			$idBiayaTransportasiLain=$this->perjalanan_dinas_model->getBiayaTransportasiLain($idTransportasi,$idGolongan)->row()->idBiayaTransportasiLain;
-			if (isset($idBiayaTransportasiLain)) {
-				if (empty($idBiayaTransportasiLain))$idBiayaTransportasiLain=NULL;
+			
+			if (isset($this->perjalanan_dinas_model->getBiayaTransportasiLain($idTransportasi,$idGolongan)->row()->idBiayaTransportasiLain)) {
+				$idBiayaTransportasiLain=$this->perjalanan_dinas_model->getBiayaTransportasiLain($idTransportasi,$idGolongan)->row()->idBiayaTransportasiLain;
 			}
 
 			$jenis_kegiatan=$this->input->post('jenis_kegiatan');
@@ -77,9 +76,9 @@ class perjalanan_dinas_controller extends CI_Controller{
 			$jenis_kegiatan=$this->input->post('jenis_kegiatan');
 			$idLokasiProvinsi=$this->input->post('idProvinsi');
 			$jarak_perjalanan=$this->input->post('jarak_perjalanan');
-			$idBiayaHarian=$this->perjalanan_dinas_model->getBiayaHarian($idGolongan,$idLokasiProvinsi,$jarak_perjalanan,$jenis_kegiatan)->row()->idBiayaHarian;
-			if (isset($idBiayaHarian)) {
-				if(empty($idBiayaHarian))$idBiayaHarian=NULL;
+			
+			if (isset($this->perjalanan_dinas_model->getBiayaHarian($idGolongan,$idLokasiProvinsi,$jarak_perjalanan,$jenis_kegiatan)->row()->idBiayaHarian)) {
+				$idBiayaHarian=$this->perjalanan_dinas_model->getBiayaHarian($idGolongan,$idLokasiProvinsi,$jarak_perjalanan,$jenis_kegiatan)->row()->idBiayaHarian;
 			}
 
 
@@ -121,26 +120,26 @@ class perjalanan_dinas_controller extends CI_Controller{
 			foreach ($NIP_pegawai_pengikut as $data_NIP_pegawai_pengikut) {
 
 				$idGolonganPengikut=$this->perjalanan_dinas_model->getGolonganPegawai($NIP_pegawai_pengikut[$i])->row()->idGolongan;
-				$idBiayaTransportasiLainPengikut=$this->perjalanan_dinas_model->getBiayaTransportasiLain($idTransportasi,$idGolonganPengikut)->row()->idBiayaTransportasiLain;
+				
 
-				if (isset($idBiayaTransportasiLain)) {
-					if (empty($idBiayaTransportasiLain))$idBiayaTransportasiLainPengikut=NULL;
+				if (isset($this->perjalanan_dinas_model->getBiayaTransportasiLain($idTransportasi,$idGolonganPengikut)->row()->idBiayaTransportasiLain)) {
+					$idBiayaTransportasiLainPengikut=$this->perjalanan_dinas_model->getBiayaTransportasiLain($idTransportasi,$idGolonganPengikut)->row()->idBiayaTransportasiLain;
 				}
 
-				$idBiayaHarianPengikut=$this->perjalanan_dinas_model->getBiayaHarian($idGolonganPengikut,$idLokasiProvinsi,$jarak_perjalanan,$jenis_kegiatan)->row()->idBiayaHarian;
-				if (isset($idBiayaHarianPengikut)) {
-					if(empty($idBiayaHarianPengikut))$idBiayaHarianPengikut=NULL;
+				
+				if (isset($this->perjalanan_dinas_model->getBiayaHarian($idGolonganPengikut,$idLokasiProvinsi,$jarak_perjalanan,$jenis_kegiatan)->row()->idBiayaHarian)) {
+					$idBiayaHarianPengikut=$this->perjalanan_dinas_model->getBiayaHarian($idGolonganPengikut,$idLokasiProvinsi,$jarak_perjalanan,$jenis_kegiatan)->row()->idBiayaHarian;
 				}
 
-				$idBiayaTransportasiMobilPengikut=$this->perjalanan_dinas_model->getBiayaTransportasiMobil($idTransportasi)->row()->idBiayaTransportasiMobil;
-				if (isset($idBiayaTransportasiMobil)) {
-					if (empty($idBiayaTransportasiMobil))$idBiayaTransportasiMobilPengikut=NULL;
+				
+				if (isset($this->perjalanan_dinas_model->getBiayaTransportasiMobil($idTransportasi)->row()->idBiayaTransportasiMobil)) {
+					$idBiayaTransportasiMobilPengikut=$this->perjalanan_dinas_model->getBiayaTransportasiMobil($idTransportasi)->row()->idBiayaTransportasiMobil;
 				}
 
 
-				$idBiayaPenginapanPengikut=$this->perjalanan_dinas_model->getBiayaPenginapan($idGolonganPengikut,$idLokasiProvinsi)->row()->idBiayaPenginapan;
-				if (isset($idBiayaPenginapanPengikut)) {
-					if(empty($idBiayaPenginapanPengikut))$idBiayaPenginapanPengikut=NULL;
+				
+				if (isset($this->perjalanan_dinas_model->getBiayaPenginapan($idGolonganPengikut,$idLokasiProvinsi)->row()->idBiayaPenginapan)) {
+					$idBiayaPenginapanPengikut=$this->perjalanan_dinas_model->getBiayaPenginapan($idGolonganPengikut,$idLokasiProvinsi)->row()->idBiayaPenginapan;
 				}
 
 				$idBiayaTambahanPengikut=NULL;

@@ -142,7 +142,7 @@
                   </div>
                   <div id="alert-msg"></div>
                   <div class="form-group">
-                    <div class="col-lg-offset-10 col-lg-offset-10">
+                    <div class="col-lg-offset-10 col-lg-10">
                       <button type="submit" id="addButton" class="btn btn-primary" name="tambah" value="tambah">Kirim</button>
                     </div>
                   </div>

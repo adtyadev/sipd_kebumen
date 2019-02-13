@@ -3,6 +3,7 @@
 <head>
   <?php $this->load->view("_partials/head.php") ?>
   <title></title>
+  <meta name=”viewport” content=”width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no”>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
   <div class="wrapper">
@@ -267,7 +268,7 @@
     foreach ($surat_perintah_perjalanan_dinas as $data_surat_perintah_perjalanan_dinas) {
       ?>
       <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="modalEditData<?php echo $data_surat_perintah_perjalanan_dinas->idSPPD?>" class="modal fade">
-        <div class="modal-dialog" style="width: 60%">
+        <div class="modal-dialog" >
           <div class="modal-content">
             <div class="modal-header">
               <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
@@ -579,7 +580,7 @@ break;
 foreach ($surat_perintah_perjalanan_dinas as $data_surat_perintah_perjalanan_dinas) {
   ?>
   <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="modalViewData<?php echo $data_surat_perintah_perjalanan_dinas->idSPPD?>" class="modal fade">
-    <div class="modal-dialog" style="width: 50%">
+    <div class="modal-dialog" ">
       <div class="box box-primary">
         <div class="modal-content">
           <div class="modal-header">

@@ -2,6 +2,7 @@
 <html>
 <head>
   <?php $this->load->view("_partials/head.php") ?>
+  <meta name=”viewport” content=”width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no”>
   <title></title>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
@@ -945,11 +946,14 @@ foreach ($perjalanan_dinas as $data_perjalanan_dinas) {
         $('#alert-msg').html('<div class="alert alert-success">' + message.message + '</div>');
         location.reload();
       }
-      else{
+      else if (message.status == 0){
         $('#alert-msg').html('<div class="alert alert-danger">' + message.message + '</div>');
       }
-    }
-  });
+      else{
+       location.reload();
+     }
+   }
+ });
   return false;
 });
 </script>
