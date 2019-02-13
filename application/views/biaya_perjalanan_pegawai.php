@@ -559,7 +559,7 @@ break;
 </div> -->
 <div class="form-group">
   <div style="padding-left: 60%" class="col-lg-offset-3 col-lg-9">
-    <button type="submit" class="btn btn-primary" name="edit" value="edit">Update</button>
+    <button type="submit" disabled class="btn btn-primary" name="edit" value="edit">Update</button>
   </div>
 </div>
 </form>

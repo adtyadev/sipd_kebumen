@@ -520,7 +520,7 @@
 
         <div class="form-group">
           <div class="col-lg-offset-10 col-lg-offset-10">
-            <button type="submit" class="btn btn-primary" name="edit" value="edit">Update</button>
+            <button type="submit" disabled class="btn btn-primary" name="edit" value="edit">Update</button>
           </div>
         </div>
       </form>
@@ -942,14 +942,14 @@ foreach ($perjalanan_dinas as $data_perjalanan_dinas) {
     dataType: "JSON",
     success: function(message) {
       if (message.status == 1){
-       $('#alert-msg').html('<div class="alert alert-success">' + message.message + '</div>');
-       location.reload();
-     }
-     else{
-      $('#alert-msg').html('<div class="alert alert-danger">' + message.message + '</div>');
+        $('#alert-msg').html('<div class="alert alert-success">' + message.message + '</div>');
+        location.reload();
+      }
+      else{
+        $('#alert-msg').html('<div class="alert alert-danger">' + message.message + '</div>');
+      }
     }
-  }
-});
+  });
   return false;
 });
 </script>
@@ -957,11 +957,11 @@ foreach ($perjalanan_dinas as $data_perjalanan_dinas) {
 <script>
   $('#tanggal_berangkat').change(function() {
    // document.getElementById('tanggal_berangkat').value = $(this).val();
-    getLamaPerjalanan();
+   getLamaPerjalanan();
  });
   $('#tanggal_kembali').change(function() {
    // document.getElementById('tanggal_kembali').value = $(this).val();
-    getLamaPerjalanan();
+   getLamaPerjalanan();
  });
 
   function getLamaPerjalanan() {
@@ -973,6 +973,10 @@ foreach ($perjalanan_dinas as $data_perjalanan_dinas) {
 
          // days difference
          var days_difference = Math.ceil(time_difference / (1000 * 3600 * 24));
+
+         if (days_difference==0) {
+          days_difference++;
+        }
 
          // difference
          document.getElementById('lama_perjalanan').value=days_difference;

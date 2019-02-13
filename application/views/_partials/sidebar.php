@@ -2,7 +2,7 @@
   <!-- Sidebar user panel -->
   <div class="user-panel">
     <div class="pull-left image">
-      <img style=" max-width: 70px "  src="<?php echo base_url('assets/')?>dist/img/kebumen.png" class="img-circle" alt="User Image">
+      <img style=" max-width: 70px "  src="<?php echo base_url('assets/dist/img/kebumen.png')?>" class="img-circle" alt="User Image">
     </div>
     <div class="pull-left info">
       <p>DISKOMINFO</p>
