@@ -53,7 +53,7 @@
             ?>
           </div>
           <?php //echo validation_errors(); ?>
-          <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" id="modalTambahData" class="modal fade">
+          <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" id="modalTambahData" class="modal fade" >
             <div class="modal-dialog" style="width: 60%">
               <div class="box box-primary">
                 <div class="modal-content">
@@ -97,6 +97,7 @@
                           }
                           ?>
                           <!-- masih bisa menerima data yang sama, pegawai tugas dan pegawai pengikut. -->
+                          <!-- fixed by form validation -->
 
                         </select>
                       </div>
@@ -377,7 +378,6 @@
                     <?php 
                   }
                   ?>
-                  <!-- masih bisa menerima data yang sama, pegawai tugas dan pegawai pengikut. -->
                 </select>
               </div>
 
@@ -521,7 +521,8 @@
 
         <div class="form-group">
           <div class="col-lg-offset-10 col-lg-offset-10">
-            <button type="submit" disabled class="btn btn-primary" name="edit" value="edit">Update</button>
+            <button type="submit" disabled class="btn btn-primary" name="edit" value="edit">Update</button> 
+            <!-- Belum selesai -->
           </div>
         </div>
       </form>

@@ -5,8 +5,8 @@
       <img style=" max-width: 70px "  src="<?php echo base_url('assets/dist/img/kebumen.png')?>" class="img-circle" alt="User Image">
     </div>
     <div class="pull-left info">
-      <p>DISKOMINFO</p>
-      <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+      <p>DINAS KOMINFO</p>
+      <p> Kab KEBUMEN </p>
     </div>
   </div>
   <!-- search form -->
@@ -68,8 +68,12 @@
       </li>
       <li>
         <a href="<?php echo base_url('biaya_perjalanan_pegawai/index')?>">
-          <i class="fa fa-exchange"></i>Biaya Perjalanan pegawai</a>
+          <i class="fa fa-exchange"></i>  <span> Biaya Perjalanan pegawai </span></a>
         </li>
+<!--        <li>
+          <a href="<?php echo base_url('contoh_select2/index')?>">
+            <i class="fa fa-folder"></i>Contoh select 2_Elen</a>
+          </li>  -->
         <!-- <li><a href="https://adminlte.io/docs"><i class="fa fa-book"></i> <span>Documentation</span></a></li>
         <li class="header">LABELS</li>
         <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>

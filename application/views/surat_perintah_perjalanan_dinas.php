@@ -18,143 +18,143 @@
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper" style=" background-image: url('<?php echo base_url('assets')?>/dist/img/regal.png');
-                background-repeat: repeat;" >
-      <!-- Content Header (Page header) -->
-      <section class="content-header">
-        <h1>
-          Surat Perintah Perjalanan Dinas
-        </h1>
-        <ol class="breadcrumb">
-          <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-          <li class="active"> Surat Perintah Perjalanan Dinas</li>
-        </ol>
-      </section>
+    background-repeat: repeat;" >
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        Surat Perintah Perjalanan Dinas
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active"> Surat Perintah Perjalanan Dinas</li>
+      </ol>
+    </section>
 
-      <!-- Main content -->
+    <!-- Main content -->
 
-      <section class="content">
-        <div class="row">
-          <div class="col-xs-12">
-            <div class="box">
-              <div class="box-header">
-              </div>
-              <!-- /.box-header -->
-              <div class="box-body">
-                <table id="exampler" class="table table-bordered table-striped " style="width: 100%">
-                  <thead>
+    <section class="content">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="box">
+            <div class="box-header">
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <table id="exampler" class="table table-bordered table-striped " style="width: 100%">
+                <thead>
+                  <tr>
+                    <th>No</th>
+                    <th>Nama Pegawai Tugas</th>
+                    <th>Golongan</th>
+                    <th>Nomor SPPD</th>
+                    <th>Mata Anggaran</th>
+                    <th>Keterangan Lain</th>
+                    <th>Status Cetak</th>
+                    <th>Action</th>   
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php 
+                  $no=1;
+                  $temp_idPerjalananDinas='';
+                  $temp_idPegawaiTugas='';
+                  
+
+                  foreach ($surat_perintah_perjalanan_dinas as $data_surat_perintah_perjalanan_dinas) {
+                    ?>
                     <tr>
-                      <th>No</th>
-                      <th>Nama Pegawai Tugas</th>
-                      <th>Golongan</th>
-                      <th>Nomor SPPD</th>
-                      <th>Mata Anggaran</th>
-                      <th>Keterangan Lain</th>
-                      <th>Status Cetak</th>
-                      <th>Action</th>   
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php 
-                    $no=1;
-                    $temp_idPerjalananDinas='';
-                    $temp_idPegawaiTugas='';
-                    
-
-                    foreach ($surat_perintah_perjalanan_dinas as $data_surat_perintah_perjalanan_dinas) {
-                      ?>
-                      <tr>
-                        <td>
-                          <?php echo $no;?>
-                        </td>
-                        <td> 
-                          <?php
-                          foreach ($perjalanan_dinas as $data_perjalanan_dinas) {
-                            if ($data_surat_perintah_perjalanan_dinas->idPerjalananDinas == $data_perjalanan_dinas->idPerjalananDinas){ 
-                              $temp_idPerjalananDinas=$data_surat_perintah_perjalanan_dinas->idPerjalananDinas;
-                              $temp_idPegawaiTugas=$data_perjalanan_dinas->idPegawaiTugas;
-                              echo $data_perjalanan_dinas->nama_pegawai . '<br>';
-                              
-                              foreach($pegawai_pengikut as $data_pegawai_pengikut){
-                                if ( $data_pegawai_pengikut->idPerjalananDinas == $data_perjalanan_dinas->idPerjalananDinas){
-                                  echo $data_pegawai_pengikut->nama_pegawai . "<br>";
-                                  if (!isset($temp_idPegawaiPengikut)) {
-                                    $temp_idPegawaiPengikut[0]=$data_pegawai_pengikut->idPegawaiPengikut;
-                                  }
-                                  else {
-                                    array_push($temp_idPegawaiPengikut, $data_pegawai_pengikut->idPegawaiPengikut);
-                                  }
-                                }
-                              }
-                              break;
-                            }
-                          };
-                          ?>
-                        </td>
-
-                        <td>
-                          <?php foreach ($pegawai as $data_pegawai) {
-                            if ($data_pegawai->NIP == $temp_idPegawaiTugas) {
-                              echo $data_pegawai->nama_golongan . '<br>';
-                              //echo count($temp_idPegawaiPengikut);
-                              break;
-                            }
-
-                          }
-                          $cek_loop=0;
-                          $count_temp_idPegawaiPengikut=count($temp_idPegawaiPengikut);
-                          foreach ($pegawai as $data_pegawai) {
-                            if ($cek_loop==$count_temp_idPegawaiPengikut) {
-                              break;
-                            }
-                            for ($temp=0; $temp < $count_temp_idPegawaiPengikut ; $temp++) { 
-                              if ($data_pegawai->NIP == $temp_idPegawaiPengikut[$temp]) {
-                                echo $data_pegawai->nama_golongan . '<br>';
-                                $cek_loop++;;
-                              }
-                            }
-                          }
-                          unset($temp_idPegawaiPengikut)
-                          ?>
-                        </td>
-                        <td> <?php echo $data_surat_perintah_perjalanan_dinas->nomor_sppd; ?> </td>
-                        <td> 
-                          <?php echo $data_surat_perintah_perjalanan_dinas->mata_anggaran;
-                          ?>
-                        </td>
-                        <td> 
-                          <?php echo $data_surat_perintah_perjalanan_dinas->keterangan_lain_lain;
-                          ?>
-                        </td>
-                        <td>
-                          <div class="btn-group">
-                            <?php 
-
-                            if ($data_surat_perintah_perjalanan_dinas->status_cetak=="sudah") {
-                              ?>
-                              <button type="button" class="btn btn-success"> <?php echo $data_surat_perintah_perjalanan_dinas->status_cetak;?> </button>
-                              <?php
-                            }
-                            else{
-                              ?>
-                              <button type="button" class="btn btn"> <?php echo $data_surat_perintah_perjalanan_dinas->status_cetak;?></button> 
-                              <?php
-                            }
-
-                            ?>
-                          </button>
-                        </div> &nbsp;&nbsp;
+                      <td>
+                        <?php echo $no;?>
                       </td>
                       <td> 
+                        <?php
+                        foreach ($perjalanan_dinas as $data_perjalanan_dinas) {
+                          if ($data_surat_perintah_perjalanan_dinas->idPerjalananDinas == $data_perjalanan_dinas->idPerjalananDinas){ 
+                            $temp_idPerjalananDinas=$data_surat_perintah_perjalanan_dinas->idPerjalananDinas;
+                            $temp_idPegawaiTugas=$data_perjalanan_dinas->idPegawaiTugas;
+                            echo $data_perjalanan_dinas->nama_pegawai . '<br>';
+                            
+                            foreach($pegawai_pengikut as $data_pegawai_pengikut){
+                              if ( $data_pegawai_pengikut->idPerjalananDinas == $data_perjalanan_dinas->idPerjalananDinas){
+                                echo $data_pegawai_pengikut->nama_pegawai . "<br>";
+                                if (!isset($temp_idPegawaiPengikut)) {
+                                  $temp_idPegawaiPengikut[0]=$data_pegawai_pengikut->idPegawaiPengikut;
+                                }
+                                else {
+                                  array_push($temp_idPegawaiPengikut, $data_pegawai_pengikut->idPegawaiPengikut);
+                                }
+                              }
+                            }
+                            break;
+                          }
+                        };
+                        ?>
+                      </td>
+
+                      <td>
+                        <?php foreach ($pegawai as $data_pegawai) {
+                          if ($data_pegawai->NIP == $temp_idPegawaiTugas) {
+                            echo $data_pegawai->nama_golongan . '<br>';
+                              //echo count($temp_idPegawaiPengikut);
+                            break;
+                          }
+
+                        }
+                        $cek_loop=0;
+                        $count_temp_idPegawaiPengikut=count($temp_idPegawaiPengikut);
+                        foreach ($pegawai as $data_pegawai) {
+                          if ($cek_loop==$count_temp_idPegawaiPengikut) {
+                            break;
+                          }
+                          for ($temp=0; $temp < $count_temp_idPegawaiPengikut ; $temp++) { 
+                            if ($data_pegawai->NIP == $temp_idPegawaiPengikut[$temp]) {
+                              echo $data_pegawai->nama_golongan . '<br>';
+                              $cek_loop++;;
+                            }
+                          }
+                        }
+                        unset($temp_idPegawaiPengikut)
+                        ?>
+                      </td>
+                      <td> <?php echo $data_surat_perintah_perjalanan_dinas->nomor_sppd; ?> </td>
+                      <td> 
+                        <?php echo $data_surat_perintah_perjalanan_dinas->mata_anggaran;
+                        ?>
+                      </td>
+                      <td> 
+                        <?php echo $data_surat_perintah_perjalanan_dinas->keterangan_lain_lain;
+                        ?>
+                      </td>
+                      <td>
                         <div class="btn-group">
-                          <a href="<?php echo base_url('surat_perintah_perjalanan_dinas/cetakSuratPerintahPerjalananDinas/'.$data_surat_perintah_perjalanan_dinas->idSPPD)?>">
-                            <button type="button" class="btn btn-primary btn-sm"><i class="fa fa-print"></i> Print </button>
-                          </a>
-                        </div> &nbsp;&nbsp;
-                        <div class="btn-group">
-                          <a href="#modalEditData<?php echo $data_surat_perintah_perjalanan_dinas->idSPPD?>" data-toggle="modal" class="btn btn-warning btn-sm">
-                            <i class="fa fa-edit"></i> Edit
-                          </a>
-                        </div>&nbsp;&nbsp;
+                          <?php 
+
+                          if ($data_surat_perintah_perjalanan_dinas->status_cetak=="sudah") {
+                            ?>
+                            <button type="button" class="btn btn-success"> <?php echo $data_surat_perintah_perjalanan_dinas->status_cetak;?> </button>
+                            <?php
+                          }
+                          else{
+                            ?>
+                            <button type="button" class="btn btn"> <?php echo $data_surat_perintah_perjalanan_dinas->status_cetak;?></button> 
+                            <?php
+                          }
+
+                          ?>
+                        </button>
+                      </div> &nbsp;&nbsp;
+                    </td>
+                    <td> 
+                      <div class="btn-group">
+                        <a href="<?php echo base_url('surat_perintah_perjalanan_dinas/cetakSuratPerintahPerjalananDinas/'.$data_surat_perintah_perjalanan_dinas->idSPPD)?>">
+                          <button type="button" class="btn btn-primary btn-sm"><i class="fa fa-print"></i> Print </button>
+                        </a>
+                      </div> &nbsp;&nbsp;
+                      <div class="btn-group">
+                        <a href="#modalEditData<?php echo $data_surat_perintah_perjalanan_dinas->idSPPD?>" data-toggle="modal" class="btn btn-warning btn-sm">
+                          <i class="fa fa-edit"></i> Edit
+                        </a>
+                      </div>&nbsp;&nbsp;
 <!--                         <div class="btn-group">
                           <button type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Delete </button> 
                         </div>&nbsp;&nbsp; -->
@@ -338,67 +338,6 @@
       $(function () {
     //Initialize Select2 Elements
     $('.select2').select2()
-
-    //Datemask dd/mm/yyyy
-    $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
-    //Datemask2 mm/dd/yyyy
-    $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
-    //Money Euro
-    $('[data-mask]').inputmask()
-
-    //Date range picker
-    $('#reservation').daterangepicker()
-    //Date range picker with time picker
-    $('#reservationtime').daterangepicker({ timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A' })
-    //Date range as a button
-    $('#daterange-btn').daterangepicker(
-    {
-      ranges   : {
-        'Today'       : [moment(), moment()],
-        'Yesterday'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-        'Last 7 Days' : [moment().subtract(6, 'days'), moment()],
-        'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-        'This Month'  : [moment().startOf('month'), moment().endOf('month')],
-        'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-      },
-      startDate: moment().subtract(29, 'days'),
-      endDate  : moment()
-    },
-    function (start, end) {
-      $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
-    }
-    )
-
-    //Date picker
-    $('#datepicker').datepicker({
-      autoclose: true
-    })
-
-    //iCheck for checkbox and radio inputs
-    $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
-      checkboxClass: 'icheckbox_minimal-blue',
-      radioClass   : 'iradio_minimal-blue'
-    })
-    //Red color scheme for iCheck
-    $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
-      checkboxClass: 'icheckbox_minimal-red',
-      radioClass   : 'iradio_minimal-red'
-    })
-    //Flat red color scheme for iCheck
-    $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
-      checkboxClass: 'icheckbox_flat-green',
-      radioClass   : 'iradio_flat-green'
-    })
-
-    //Colorpicker
-    $('.my-colorpicker1').colorpicker()
-    //color picker with addon
-    $('.my-colorpicker2').colorpicker()
-
-    //Timepicker
-    $('.timepicker').timepicker({
-      showInputs: false
-    })
   })
 </script>
 

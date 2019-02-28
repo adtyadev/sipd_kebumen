@@ -522,6 +522,7 @@
 
 </body>
 </html>
+<!-- ajax for form validation input -->
 <script type="text/javascript">
   $('#addButton').click(function() {
 
@@ -551,7 +552,7 @@
  });
 </script>
 
-
+<!-- ajax for form validation edit -->
 <script type="text/javascript">
 
   var editButton = document.getElementsByClassName("btn btn-primary edit");
@@ -610,7 +611,6 @@
 
 
 <script>
-
   var url = window.location;
 // Will only work if string in href matches with location
 $('.treeview-menu a[href="'+ url +'"]').parent().addClass('active');

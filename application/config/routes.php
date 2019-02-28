@@ -80,4 +80,5 @@ $route['golongan/(:any)/(:any)'] = 'golongan_controller/$1/$2';
 $route['transportasi/(:any)'] = 'transportasi_controller/$1';
 $route['transportasi/(:any)/(:any)'] = 'transportasi_controller/$1/$2';
 
+// Catatan !
 // http://localhost/[nama_folder]/index.php/[controller]/[method dalam controller]/[parameter controtller], 

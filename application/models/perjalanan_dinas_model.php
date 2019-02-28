@@ -145,37 +145,38 @@ function getBiayaTransportasiLain($idTransportasi,$idGolongan){
 }
 
 function getBiayaHarian($idGolongan,$idLokasiProvinsi,$jarak_perjalanan,$jenis_kegiatan){
-
+// pusing lur
     if ((int)$jarak_perjalanan<2) {
        $jarak_perjalanan=1;   
    }
    elseif (2<=(int)$jarak_perjalanan AND (int)$jarak_perjalanan<=10) {
     $jarak_perjalanan=10;  
-}
-elseif (11<=(int)$jarak_perjalanan AND (int)$jarak_perjalanan<=20) {
-    $jarak_perjalanan=20;
-}
-elseif ((int)$jarak_perjalanan>20) {
-    $jarak_perjalanan=30;
-}
+    }
+    elseif (11<=(int)$jarak_perjalanan AND (int)$jarak_perjalanan<=20) {
+        $jarak_perjalanan=20;
+    }
+    elseif ((int)$jarak_perjalanan>20) {
+        $jarak_perjalanan=30;
+    }
 
-if ((int)$jarak_perjalanan==30) {
 
- if((int)$idLokasiProvinsi==34 ){
-    $wilayah="yogyakarta";
-} 
-elseif((int)$idLokasiProvinsi==33){
-    $wilayah="jawa_tengah";
-}
-elseif((int)$idLokasiProvinsi==31){
-    $wilayah="jakarta";
-}
-elseif((int)$idLokasiProvinsi==35 || (int)$idLokasiProvinsi==32 || (int)$idLokasiProvinsi==36){
-    $wilayah="jawa";
-}
-else{
-    $wilayah="luar_jawa";
-}
+    if ((int)$jarak_perjalanan==30) {
+
+     if((int)$idLokasiProvinsi==34 ){
+        $wilayah="yogyakarta";
+    } 
+    elseif((int)$idLokasiProvinsi==33){
+        $wilayah="jawa_tengah";
+    }
+    elseif((int)$idLokasiProvinsi==31){
+        $wilayah="jakarta";
+    }
+    elseif((int)$idLokasiProvinsi==35 || (int)$idLokasiProvinsi==32 || (int)$idLokasiProvinsi==36){
+        $wilayah="jawa";
+    }
+    else{
+        $wilayah="luar_jawa";
+    }
 
 $this->db->select('biaya_harian.nominal_biaya_harian, biaya_harian.idBiayaHarian');
 $this->db->from('biaya_harian');
