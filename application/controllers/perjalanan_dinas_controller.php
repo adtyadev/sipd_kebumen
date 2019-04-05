@@ -234,31 +234,31 @@ class perjalanan_dinas_controller extends CI_Controller{
 		$idPegawaiPengikut=$this->input->post('idPegawaiPengikut');
 
 		if ($modul=="kabupaten") {
-			echo "<option>-- Pilih Kabupaten --</option>";
+			echo "<option disabled>-- Pilih Kabupaten --</option>";
 			$data['kabupaten']=$this->perjalanan_dinas_model->getAllKabupaten($idDataLokasi)->result();
 			foreach ($data['kabupaten'] as $data_kabupaten ) {
 				$kabupaten=" ";
-				$kabupaten="<option value='$data_kabupaten->idKabupaten'> $data_kabupaten->nama_kabupaten </option>";
+				$kabupaten="<option class='c-kabupaten' value='$data_kabupaten->idKabupaten'> $data_kabupaten->nama_kabupaten </option>";
 				echo $kabupaten ;
 				
 			}
 		}
 		elseif ($modul=="kecamatan") {
-			echo "<option>-- Pilih kecamatan --</option>";
+			echo "<option disabled>-- Pilih kecamatan --</option>";
 			$data['kecamatan']=$this->perjalanan_dinas_model->getAllKecamatan($idDataLokasi)->result();
 			foreach ($data['kecamatan'] as $data_kecamatan ) {
 				$kecamatan=" ";
-				$kecamatan="<option value='$data_kecamatan->idKecamatan'> $data_kecamatan->nama_kecamatan </option>";
+				$kecamatan="<option class='c-kecamatan' value='$data_kecamatan->idKecamatan'> $data_kecamatan->nama_kecamatan </option>";
 				echo $kecamatan;
 			}
 			
 		}
 		elseif ($modul=="kelurahan") {
-			echo "<option>-- Pilih Kelurahan --</option>";
+			echo "<option disabled>-- Pilih Kelurahan --</option>";
 			$data['kelurahan']=$this->perjalanan_dinas_model->getAllKelurahan($idDataLokasi)->result();
 			foreach ($data['kelurahan'] as $data_kelurahan ) {
 				$kelurahan=" ";
-				$kelurahan="<option value='$data_kelurahan->idKelurahan'> $data_kelurahan->nama_kelurahan </option>";
+				$kelurahan="<option class='c-kelurahan' value='$data_kelurahan->idKelurahan'> $data_kelurahan->nama_kelurahan </option>";
 				echo $kelurahan;
 			}
 

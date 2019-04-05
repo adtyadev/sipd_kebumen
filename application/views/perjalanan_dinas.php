@@ -158,13 +158,13 @@
                     <div class="col-lg-3 col-sm-3">
                       <label>Kecamatan</label>
                       <select name="idKecamatan" id="idKecamatan" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" >
-                        <option>-- Pilih Kecamatan --</option>
+
                       </select>
                     </div>
                     <div class="col-lg-3 col-sm-3">
                       <label>Kelurahan</label>
                       <select name="idKelurahan" id="idKelurahan" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" >
-                        <option>-- Pilih Kelurahan --</option>
+
                       </select>
                     </div>
                   </div>
@@ -821,7 +821,11 @@ foreach ($perjalanan_dinas as $data_perjalanan_dinas) {
             idDataLokasi: value
           },
           success: function(respond){
-            $('#idKabupaten').html(respond);
+           $('#idKabupaten').html(respond);
+           $('#idKecamatan').attr("disabled","");
+           $('.c-kecamatan').remove();
+           $('#idKelurahan').attr("disabled","");
+           $('.c-kelurahan').remove();
              //alert(value);
            //  console.log(respond);
          }
@@ -842,7 +846,10 @@ foreach ($perjalanan_dinas as $data_perjalanan_dinas) {
             idDataLokasi: value
           },
           success: function(respond){
-            $('#idKecamatan').html(respond);
+            $('#idKecamatan').removeAttr("disabled","")
+           $('#idKecamatan').html(respond);
+           $('#idKelurahan').attr("disabled","");
+           $('.c-kelurahan').remove();
              //alert(value);
             //console.log(respond);
           }
@@ -863,6 +870,7 @@ foreach ($perjalanan_dinas as $data_perjalanan_dinas) {
           idDataLokasi: value
         },
         success: function(respond){
+           $('#idKelurahan').removeAttr("disabled","")
           $('#idKelurahan').html(respond);
              //alert(value);
            //  console.log(respond);
