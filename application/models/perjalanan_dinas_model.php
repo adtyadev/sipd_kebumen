@@ -21,7 +21,7 @@ class perjalanan_dinas_model extends CI_Model{
     }
 
     function getAllPerjalananDinas(){
-     $this->db->select('pegawai.nama_pegawai, lokasi_kelurahan.nama_kelurahan, perjalanan_dinas.kegiatan, transportasi.nama_transportasi, perjalanan_dinas.tanggal_berangkat, perjalanan_dinas.tanggal_kembali, perjalanan_dinas.lama_perjalanan, perjalanan_dinas.idPerjalananDinas, perjalanan_dinas.idPejabatPenandaTangan, perjalanan_dinas.idPegawaiTugas, perjalanan_dinas.alamat_spesifik_tujuan, perjalanan_dinas.idTransportasi');
+     $this->db->select('pegawai.nama_pegawai, lokasi_kelurahan.nama_kelurahan, perjalanan_dinas.idLokasi, perjalanan_dinas.kegiatan, transportasi.nama_transportasi, perjalanan_dinas.tanggal_berangkat, perjalanan_dinas.tanggal_kembali, perjalanan_dinas.lama_perjalanan, perjalanan_dinas.idPerjalananDinas, perjalanan_dinas.idPejabatPenandaTangan, perjalanan_dinas.idPegawaiTugas, perjalanan_dinas.alamat_spesifik_tujuan, perjalanan_dinas.idTransportasi');
      $this->db->FROM('perjalanan_dinas');
      $this->db->join('pegawai','perjalanan_dinas.idPegawaiTugas=pegawai.NIP');
      $this->db->join('lokasi_kelurahan','perjalanan_dinas.idLokasi = lokasi_kelurahan.idKelurahan');
@@ -58,6 +58,24 @@ function getAllProvinsi(){
     $this->db->from('lokasi_provinsi');
     return $this->db->get();
 }
+
+// function getAllKabupaten_data(){
+//     $this->db->select('*');
+//     $this->db->from('lokasi_kabupaten');
+//     return $this->db->get();
+// }
+
+// function getAllKecamatan_data(){
+//     $this->db->select('*');
+//     $this->db->from('lokasi_kecamatan');
+//     return $this->db->get();
+// }
+
+// function getAllKelurahan_data(){
+//     $this->db->select('*');
+//     $this->db->from('lokasi_kelurahan');
+//     return $this->db->get();
+// }
 
 function getAllKabupaten($idProvinsi){
     $this->db->distinct();

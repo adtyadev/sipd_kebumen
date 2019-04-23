@@ -18,6 +18,9 @@ class perjalanan_dinas_controller extends CI_Controller{
 		$data['pegawai_pengikut']=$this->perjalanan_dinas_model->getPegawaiPengikut()->result();
 		$data['pegawai']=$this->perjalanan_dinas_model->getAllPegawai()->result();
 		$data['provinsi']=$this->perjalanan_dinas_model->getAllProvinsi()->result();
+		//$data['kabupaten']=$this->perjalanan_dinas_model->getAllKabupaten_data()->result();
+		// $data['kecamatan']=$this->perjalanan_dinas_model->getAllKecamatan_data()->result();
+		// $data['kelurahan']=$this->perjalanan_dinas_model->getAllKelurahan_data()->result();
 		$data['transportasi']=$this->perjalanan_dinas_model->getAllTransportasi()->result();
 		$data['pejabat_penanda_tangan']=$this->perjalanan_dinas_model->getAllPejabatPenandaTangan()->result();
 		$this->load->view('perjalanan_dinas',$data);

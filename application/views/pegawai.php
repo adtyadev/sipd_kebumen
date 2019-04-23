@@ -37,6 +37,7 @@
             <a href="#modalTambahData" data-toggle="modal" class="btn btn-primary">
               <i class="fa fa-plus"></i> Tambah Data
             </a>
+            
             <?php
             if ($this->session->flashdata('message')) {
               ?>
@@ -84,7 +85,14 @@
                         <div class="input-group-addon">
                           <i class="fa fa-calendar"></i>
                         </div>
-                        <input type="text" name="tanggal_lahir" id="tanggal_lahir" class="form-control pull-right" id="datepicker" placeholder="yyyy/mm/dd">
+                        <input type="text" name="tanggal_lahir" id="tanggal_lahir" class="form-control pull-right" id="datepicker1" placeholder="yyyy-mm-dd">
+                        <div class="input-group date">
+                          <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                          </div>
+                          <!--  <input type="text" class="form-control pull-right" id="datepicker" > -->
+                          <input type="text" name="birthday" class="form-control pull-right" value="10-24-1984" />
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -473,19 +481,12 @@
    <script src="<?php echo base_url('assets/')?>bower_components/sweetalert/js/sweetalert/sweetalert.min.js"></script>
    <script src="<?php echo base_url('assets/')?>bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
    <!-- bootstrap datepicker -->
-   <script src="<?php echo base_url('assets/')?>bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
-
-   <script >
-    $(function () {
+<!--    <script src="<?php echo base_url('assets/')?>bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+-->
+<script >
+  $(function () {
     //Initialize Select2 Elements
     $('.select2').select2()
-
-    //Datemask dd/mm/yyyy
-    $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
-    //Datemask2 mm/dd/yyyy
-    $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
-    //Money Euro
-    $('[data-mask]').inputmask()
 
     //Date range picker
     $('#reservation').daterangepicker()
@@ -511,8 +512,8 @@
     )
 
     //Date picker
-    $('#datepicker').datepicker({
-      autoclose: true
+    $('.datepicker1').datepicker({
+      autoclose: false
     })
 
     //iCheck for checkbox and radio inputs
@@ -712,4 +713,39 @@ $('.sidebar-menu a[href="'+ url +'"]').parent().addClass('active');
 $('.sidebar-menu a').filter(function() {
   return this.href == url;
 }).parent().addClass('active');
+</script>
+
+
+
+
+
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+<script>
+  $(function() {
+    $('input[name="daterange"]').daterangepicker({
+      opens: 'left'
+    }, function(start, end, label) {
+      console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+    });
+  });
+</script>
+
+<script>
+  $(function() {
+    $('input[name="birthday"]').daterangepicker({
+      singleDatePicker: false,
+      showDropdowns: false,
+      minYear: 1901,
+      maxYear: parseInt(moment().format('YYYY'),10)
+    }, function(start, end, label) {
+      var years = moment().diff(start, 'years');
+    // alert("You are " + years + " years old!");
+    alert("value" + $('input[name="birthday"]').val())
+  });
+  });
 </script>

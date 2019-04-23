@@ -5,6 +5,7 @@ class login_controller extends CI_Controller{
 
   function __construct() {
     parent::__construct();
+    $this->load->model('login_model');
     $this->load->library('form_validation');
   }
   function index() {
@@ -19,8 +20,9 @@ class login_controller extends CI_Controller{
         $cekLogin = $this->login_model->adminLogin($idAdmin,$password)->row();
         if ($cekLogin == true ) {
           $session = array (
-            'idAdmin' => $cekLogin->idUser,
-            'nama_admin' => $cekLogin->nama_admin,
+            'idAdmin' => $cekLogin->id_admin,
+            'namaAdmin' => $cekLogin->nama_admin,
+            'jabatan' => $cekLogin->jabatan,
             'login' => 'yes'
           );
           $this->session->set_userdata($session);
