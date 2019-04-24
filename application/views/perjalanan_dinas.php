@@ -443,7 +443,7 @@
             <div class="col-lg-3 col-sm-3">
               <label>Kecamatan</label>
               <select name="idKecamatan" id="idKecamatan-edit" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" >
-               <option hidden="">-- Pilih Kecamatan --</option>
+              
                <?php 
 
                echo "<option disabled>-- Pilih Kecamatan --</option>";
@@ -466,7 +466,7 @@
           <div class="col-lg-3 col-sm-3">
             <label>Kelurahan</label>
             <select name="idKelurahan" id="idKelurahan-edit" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" >
-             <option hidden="">-- Pilih Kelurahan --</option>
+             
              <?php 
 
              echo "<option disabled>-- Pilih Kelurahan --</option>";
@@ -1108,6 +1108,8 @@ foreach ($perjalanan_dinas as $data_perjalanan_dinas) {
   return false;
 });
 </script>
+
+
 
 <script>
   $('#tanggal_berangkat').change(function() {
