@@ -21,7 +21,7 @@ class perjalanan_dinas_model extends CI_Model{
     }
 
     function getAllPerjalananDinas(){
-     $this->db->select('pegawai.nama_pegawai, lokasi_kelurahan.nama_kelurahan, perjalanan_dinas.idLokasi, perjalanan_dinas.kegiatan, transportasi.nama_transportasi, perjalanan_dinas.tanggal_berangkat, perjalanan_dinas.tanggal_kembali, perjalanan_dinas.lama_perjalanan, perjalanan_dinas.idPerjalananDinas, perjalanan_dinas.idPejabatPenandaTangan, perjalanan_dinas.idPegawaiTugas, perjalanan_dinas.alamat_spesifik_tujuan, perjalanan_dinas.idTransportasi');
+     $this->db->select('pegawai.nama_pegawai, lokasi_kelurahan.nama_kelurahan, perjalanan_dinas.idLokasi, perjalanan_dinas.kegiatan, perjalanan_dinas.jenis_kegiatan, perjalanan_dinas.jarak_perjalanan, transportasi.nama_transportasi, perjalanan_dinas.tanggal_berangkat, perjalanan_dinas.tanggal_kembali, perjalanan_dinas.lama_perjalanan, perjalanan_dinas.idPerjalananDinas, perjalanan_dinas.idPejabatPenandaTangan, perjalanan_dinas.idPegawaiTugas, perjalanan_dinas.alamat_spesifik_tujuan, perjalanan_dinas.idTransportasi');
      $this->db->FROM('perjalanan_dinas');
      $this->db->join('pegawai','perjalanan_dinas.idPegawaiTugas=pegawai.NIP');
      $this->db->join('lokasi_kelurahan','perjalanan_dinas.idLokasi = lokasi_kelurahan.idKelurahan');
@@ -32,10 +32,24 @@ class perjalanan_dinas_model extends CI_Model{
  }
 
  function getPegawaiPengikut(){
+    $this->db->distinct();
     $this->db->select('pegawai.nama_pegawai, punya_pegawai_pengikut.idPerjalananDinas, punya_pegawai_pengikut.idPegawaiPengikut');
     $this->db->FROM('punya_pegawai_pengikut');
     $this->db->join('pegawai','pegawai.NIP=punya_pegawai_pengikut.idPegawaiPengikut');
        // $this->db->WHERE('punya_pegawai_pengikut.idPerjalananDinas="perjalanan1"');
+    return $this->db->get();
+}
+
+function removePegawaiPengikut($idPerjalananDinas){
+    $this->db->where('idPerjalananDinas', $idPerjalananDinas);
+    $this->db->delete($this->_tablePunyaPegawaiPengikut);
+}
+
+ function pegawaiPengikut_idPerjalananDinas($idPerjalananDinas){
+    $this->db->select('pegawai.nama_pegawai, punya_pegawai_pengikut.idPerjalananDinas, punya_pegawai_pengikut.idPegawaiPengikut');
+    $this->db->FROM('punya_pegawai_pengikut');
+    $this->db->join('pegawai','pegawai.NIP=punya_pegawai_pengikut.idPegawaiPengikut');
+    $this->db->WHERE('punya_pegawai_pengikut.idPerjalananDinas="'.$idPerjalananDinas.'"');
     return $this->db->get();
 }
 
@@ -113,6 +127,12 @@ function addDataPunyaPegawaiPengikut($input){
     $this->db->insert($this->_tablePunyaPegawaiPengikut, $input);
 }
 
+function updateDataPunyaPegawaiPengikut( $input, $columnWhere1, $valueWhere1,$columnWhere2,$valueWhere2){
+    $this->db->where($columnWhere1, $valueWhere1);
+    $this->db->where($columnWhere2, $valueWhere2);
+    $this->db->update($this->_tablePunyaPegawaiPengikut, $input);
+}
+
 function addDataSPT($inputSPT){
     $this->db->insert($this->_tableSPT,$inputSPT);
 }
@@ -123,7 +143,7 @@ function addDataSPPD($inputSPPD){
 
 function updateDataPerjalananDinas( $input, $columnWhere, $valueWhere){
     $this->db->where($columnWhere, $valueWhere);
-    $this->db->update($this->_table, $input);
+    $this->db->update($this->_tablePerjalananDinas, $input);
 }
 
 function removeDataPerjalananDinas($columnWhere, $valueWhere) {

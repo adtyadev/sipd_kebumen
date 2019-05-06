@@ -328,16 +328,16 @@
           <div class="modal-content">
             <div class="modal-header">
               <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-              <h4 class="modal-title">Edit Data Perjalanan Dinas ( MASIH SALAH )</h4>
+              <h4 class="modal-title">Edit Data Perjalanan Dinas</h4>
             </div>
             <div class="modal-body">
-              <form class="form-horizontal" role="form" method="post" action="<?=base_url('perjalanan_dinas/updateDataPerjalananDinas/'.$data_perjalanan_dinas->idPerjalananDinas)?>">
+              <form class="form-horizontal edit" role="form" id="urlEdit<?=$data_perjalanan_dinas->idPerjalananDinas?>" method="post" action="<?=base_url('perjalanan_dinas/updateDataPerjalananDinas/'.$data_perjalanan_dinas->idPerjalananDinas)?>">
 
                 <div class="form-group">
 
                   <div class="col-lg-12">
                     <label >Pegawai yang ditugaskan</label> 
-                    <select name="pegawai_tugas" id="pegawai_tugas" class="form-control select2 select2-hidden-accessible"  style="width: 100%;" tabindex="-1" aria-hidden="true">
+                    <select name="pegawai_tugas" id="pegawai_tugas<?=$data_perjalanan_dinas->idPerjalananDinas?>" class="form-control select2 select2-hidden-accessible pegawai_tugas"  style="width: 100%;" tabindex="-1" aria-hidden="true">
                      <option disabled=""> PILIH PEGAWAI YANG DITUGASKAN</option>
                      <?php 
                      foreach ($pegawai as $data_pegawai) {
@@ -356,7 +356,7 @@
 
                 <div class="col-lg-12">
                   <label>Pegawai pengikut yang ditugaskan</label>
-                  <select name="pegawai_pengikut" id="pegawai_pengikut" class="form-control select2 select2-hidden-accessible" multiple="" data-placeholder="pilih pegawai pengikut" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                  <select name="pegawai_pengikut[]" id="pegawai_pengikut<?=$data_perjalanan_dinas->idPerjalananDinas?>" class="form-control select2 select2-hidden-accessible pegawai_pengikut" multiple="" data-placeholder="pilih pegawai pengikut" style="width: 100%;" tabindex="-1" aria-hidden="true">
                     <option disabled="">-- PILIH PEGAWAI PENGIKUT --</option>
                     <?php 
                     foreach ($pegawai as $data_pegawai) {
@@ -381,209 +381,232 @@
                 </select>
               </div>
 
-
-              <div class="col-lg-12">
-                <label> Kegiatan Perjalanan </label>
-                <input type="text" name="kegiatan_perjalanan" id="kegiatan_perjalanan" class="form-control" placeholder="Kegiatan perjalanan" value="<?php echo $data_perjalanan_dinas->kegiatan  ?>" >
-              </div>
-
-              <div class="col-lg-12 col-sm-12">
-               <label> Lokasi tujuan : </label>
+              <div class="form-group">
+                <div class="col-lg-12 col-sm-12">
+                  <div class="col-lg-6">
+                    <label> Kegiatan Perjalanan </label>
+                    <input type="text" name="kegiatan_perjalanan" id="kegiatan_perjalanan<?=$data_perjalanan_dinas->idPerjalananDinas?>" class="form-control kegiatan_perjalanan" placeholder="Kegiatan perjalanan" value="<?php echo $data_perjalanan_dinas->kegiatan?>">
+                  </div>
+                  <div class="col-lg-6">
+                    <label> Jenis Kegiatan </label>
+                    <select name="jenis_kegiatan" id="jenis_kegiatan<?=$data_perjalanan_dinas->jenis_kegiatan?>" class="form-control jenis_kegiatan" placeholder="Jenis Kegiatan" >
+                     <option disabled>---Pilih Jenis Kegiatan---</option>
+                     <?php 
+                     if ($data_perjalanan_dinas->jenis_kegiatan=="dinas") {
+                      echo "<option selected value='dinas'>Dinas</option>";
+                      echo "<option value='audit'>Audit</option>";
+                    } else {
+                     echo "<option  value='dinas'>Dinas</option>";
+                     echo "<option selected value='audit'>Audit</option>";
+                   }
+                   ?>
+                 </select>
+               </div>
              </div>
+           </div>
 
-             <?php 
-             $this->load->model("perjalanan_dinas_model");
-             ?>
-
-             <div class="col-lg-12">
-
-               <div class="col-lg-3 col-sm-3"> 
-                <label>Provinsi</label>
-                <select name="idProvinsi" id="idProvinsi-edit" class="form-control select2 select2-hidden-accessible" onchange="" style="width: 100%;" tabindex="-1" aria-hidden="true"  >
-                  <option hidden="">-- Pilih Provinsi --</option>
-                  <?php 
-
-                  foreach ($provinsi as $data_provinsi) {
-                    if ($data_provinsi->idProvinsi == substr($data_perjalanan_dinas->idLokasi, 0,2)) {  ?>
-                     <option value="<?php echo $data_provinsi->idProvinsi?>" selected > <?php echo $data_provinsi->nama_provinsi ?></option>
-                     <?php
-                     continue;
-                   }else { ?>
-                    <option value="<?php echo $data_provinsi->idProvinsi?>"> <?php echo  $data_provinsi->nama_provinsi ?></option>
-                    <?php
-                  }
-
-                }
-                ?>
-
-              </select>
-            </div>
-            <div class="col-lg-3 col-sm-3">
-              <label>Kabupaten</label>
-              <select name="idKabupaten" id="idKabupaten-edit" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" >
-                <?php 
-
-                echo "<option disabled>-- Pilih Kabupaten --</option>";
-                $data['kabupaten']=$this->perjalanan_dinas_model->getAllKabupaten(substr($data_perjalanan_dinas->idLokasi, 0,2))->result();
-                foreach ($data['kabupaten'] as $data_kabupaten ) {
-                  if ($data_kabupaten->idKabupaten == substr($data_perjalanan_dinas->idLokasi, 0,4 )) {
-                    $kabupaten=" ";
-                    $kabupaten="<option class='c-kabupaten' selected value='$data_kabupaten->idKabupaten'> $data_kabupaten->nama_kabupaten </option>";
-                  }
-                  else{
-                    $kabupaten=" ";
-                    $kabupaten="<option class='c-kabupaten' value='$data_kabupaten->idKabupaten'> $data_kabupaten->nama_kabupaten </option>";
-                  }
-                  echo $kabupaten ;
-
-                }
-                ?>
-              </select>
-            </div>
-            <div class="col-lg-3 col-sm-3">
-              <label>Kecamatan</label>
-              <select name="idKecamatan" id="idKecamatan-edit" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" >
-              
-               <?php 
-
-               echo "<option disabled>-- Pilih Kecamatan --</option>";
-               $data['kecamatan']=$this->perjalanan_dinas_model->getAllKecamatan(substr($data_perjalanan_dinas->idLokasi, 0,4))->result();
-               foreach ($data['kecamatan'] as $data_kecamatan ) {
-                if ($data_kecamatan->idKecamatan == substr($data_perjalanan_dinas->idLokasi, 0,6 )) {
-                  $kecamatan=" ";
-                  $kecamatan="<option class='c-kecamatan' selected value='$data_kecamatan->idKecamatan'> $data_kecamatan->nama_kecamatan </option>";
-                }
-                else{
-                  $kecamatan=" ";
-                  $kecamatan="<option class='c-kecamatan' value='$data_kecamatan->idKecamatan'> $data_kecamatan->nama_kecamatan </option>";
-                }
-                echo $kecamatan ;
-
-              }
-              ?>
-            </select>
+           <div class="col-lg-12">
+            <label> Jarak Perjalanan </label>
+            <input type="number" min="0"  name="jarak_perjalanan" id="jarak_perjalanan<?=$data_perjalanan_dinas->idPerjalananDinas?>" class="form-control jarak_perjalanan" placeholder="jarak_perjalanan" value="<?php echo $data_perjalanan_dinas->jarak_perjalanan  ?>">
           </div>
-          <div class="col-lg-3 col-sm-3">
-            <label>Kelurahan</label>
-            <select name="idKelurahan" id="idKelurahan-edit" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" >
-             
-             <?php 
 
-             echo "<option disabled>-- Pilih Kelurahan --</option>";
-             $data['kelurahan']=$this->perjalanan_dinas_model->getAllKelurahan(substr($data_perjalanan_dinas->idLokasi, 0,6))->result();
-             foreach ($data['kelurahan'] as $data_kelurahan ) {
-              if ($data_kelurahan->idKelurahan == $data_perjalanan_dinas->idLokasi) {
-                $kelurahan=" ";
-                $kelurahan="<option class='c-kelurahan' selected value='$data_kelurahan->idKelurahan'> $data_kelurahan->nama_kelurahan </option>";
+          <div class="col-lg-12 col-sm-12">
+           <label> Lokasi tujuan : </label>
+         </div>
+
+         <?php 
+         $this->load->model("perjalanan_dinas_model");
+         ?>
+
+         <div class="col-lg-12">
+
+           <div class="col-lg-3 col-sm-3"> 
+            <label>Provinsi</label>
+            <select name="idProvinsi" id="idProvinsi-edit<?=$data_perjalanan_dinas->idPerjalananDinas?>" class="form-control select2 select2-hidden-accessible provinsi" onchange="" style="width: 100%;" tabindex="-1" aria-hidden="true"  >
+              <option hidden="">-- Pilih Provinsi --</option>
+              <?php 
+
+              foreach ($provinsi as $data_provinsi) {
+                if ($data_provinsi->idProvinsi == substr($data_perjalanan_dinas->idLokasi, 0,2)) {  ?>
+                 <option value="<?php echo $data_provinsi->idProvinsi?>" selected > <?php echo $data_provinsi->nama_provinsi ?></option>
+                 <?php
+                 continue;
+               }else { ?>
+                <option value="<?php echo $data_provinsi->idProvinsi?>"> <?php echo  $data_provinsi->nama_provinsi ?></option>
+                <?php
+              }
+
+            }
+            ?>
+
+          </select>
+        </div>
+        <div class="col-lg-3 col-sm-3">
+          <label>Kabupaten</label>
+          <select name="idKabupaten" id="idKabupaten-edit<?=$data_perjalanan_dinas->idPerjalananDinas?>" class="form-control select2 select2-hidden-accessible kabupaten" style="width: 100%;" tabindex="-1" aria-hidden="true" >
+            <?php 
+
+            echo "<option disabled>-- Pilih Kabupaten --</option>";
+            $data['kabupaten']=$this->perjalanan_dinas_model->getAllKabupaten(substr($data_perjalanan_dinas->idLokasi, 0,2))->result();
+            foreach ($data['kabupaten'] as $data_kabupaten ) {
+              if ($data_kabupaten->idKabupaten == substr($data_perjalanan_dinas->idLokasi, 0,4 )) {
+                $kabupaten=" ";
+                $kabupaten="<option class='c-kabupaten' selected value='$data_kabupaten->idKabupaten'> $data_kabupaten->nama_kabupaten </option>";
               }
               else{
-                $kelurahan=" ";
-                $kelurahan="<option class='c-kelurahan' value='$data_kelurahan->idKelurahan'> $data_kelurahan->nama_kelurahan </option>";
+                $kabupaten=" ";
+                $kabupaten="<option class='c-kabupaten' value='$data_kabupaten->idKabupaten'> $data_kabupaten->nama_kabupaten </option>";
               }
-              echo $kelurahan ;
+              echo $kabupaten ;
 
             }
             ?>
           </select>
         </div>
-      </div>
+        <div class="col-lg-3 col-sm-3">
+          <label>Kecamatan</label>
+          <select name="idKecamatan" id="idKecamatan-edit<?=$data_perjalanan_dinas->idPerjalananDinas?>" class="form-control select2 select2-hidden-accessible kecamatan" style="width: 100%;" tabindex="-1" aria-hidden="true" >
 
+           <?php 
 
-
-      <div class="col-lg-12">
-        <label> Alamat lokasi </label>
-        <input type="text" name="alamat_lokasi" id="alamat_lokasi" class="form-control" placeholder="Alamat lokasi" value="<?= $data_perjalanan_dinas->alamat_spesifik_tujuan?> " >
-      </div>
-
-
-
-      <div class="col-lg-6 col-sm-6">
-        <label> Tanggal berangkat </label>
-        <div class="input-group date">
-          <div class="input-group-addon">
-            <i class="fa fa-calendar"></i>
-          </div>
-          <input type="text" class="form-control datepicker" style=" z-index: 1600 !important;" id="tanggal_berangkat" name="tanggal_berangkat" placeholder="yyyy-mm-dd" value="<?= $data_perjalanan_dinas->tanggal_berangkat?>">
-        </div>
-      </div>
-
-      <div class="col-lg-6 col-sm-6">
-        <label> Tanggal kembali </label>
-        <div class="input-group date">
-          <div class="input-group-addon">
-            <i class="fa fa-calendar"></i>
-          </div>
-          <input type="text" class="form-control datepicker" id="tanggal_kembali" style=" z-index: 1600 !important;" name="tanggal_kembali" placeholder="yyyy-mm-dd" value="<?= $data_perjalanan_dinas->tanggal_kembali?>">
-        </div>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <div class="col-lg-12">
-        <label> Lama Perjalanan </label>
-        <input type="number" min="0"  name="lama_perjalanan" disabled id="lama_perjalanan" class="form-control" placeholder="Lama Perjalanan" value="<?= $data_perjalanan_dinas->lama_perjalanan?>" >
-      </div>
-    </div>
-
-    <div class="form-group">
-      <div class="col-lg-12">
-        <label> Transportasi </label>
-        <select name="idTransportasi" id="idTransportasi" class="form-control" >
-          <option disabled="">-- PILIH TRANSPORTASI --</option>
-          <?php 
-          foreach ($transportasi as $data_transportasi) {
-            if ($data_transportasi->idTransportasi==$data_perjalanan_dinas->idTransportasi) {
-              echo "<option selected value=' $data_transportasi->idTransportasi'> $data_transportasi->nama_transportasi </option>";
-              continue;
+           echo "<option disabled>-- Pilih Kecamatan --</option>";
+           $data['kecamatan']=$this->perjalanan_dinas_model->getAllKecamatan(substr($data_perjalanan_dinas->idLokasi, 0,4))->result();
+           foreach ($data['kecamatan'] as $data_kecamatan ) {
+            if ($data_kecamatan->idKecamatan == substr($data_perjalanan_dinas->idLokasi, 0,6 )) {
+              $kecamatan=" ";
+              $kecamatan="<option class='c-kecamatan' selected value='$data_kecamatan->idKecamatan'> $data_kecamatan->nama_kecamatan </option>";
             }
-            ?>
-            <option value="<?php echo $data_transportasi->idTransportasi ?>"> <?php echo $data_transportasi->nama_transportasi ?></option>
-            <?php 
+            else{
+              $kecamatan=" ";
+              $kecamatan="<option class='c-kecamatan' value='$data_kecamatan->idKecamatan'> $data_kecamatan->nama_kecamatan </option>";
+            }
+            echo $kecamatan ;
+
           }
           ?>
-
         </select>
       </div>
-    </div>
+      <div class="col-lg-3 col-sm-3">
+        <label>Kelurahan</label>
+        <select name="idKelurahan" id="idKelurahan-edit<?=$data_perjalanan_dinas->idPerjalananDinas?>" class="form-control select2 select2-hidden-accessible kelurahan" style="width: 100%;" tabindex="-1" aria-hidden="true" >
 
+         <?php 
 
-    <div class="col-lg-12">
-      <label> Pejabat Penanda Tangan </label>
-      <select name="idPejabatPenandaTangan" id="idPejabatPenandaTangan" class="form-control" >
-       <option disabled="">-- PILIH PEJABAT PENANDA TANGAN --</option>
-       <?php 
-
-       foreach ($pejabat_penanda_tangan as $data_pejabat_penanda_tangan) {
-        $cek=true;
-        foreach ($pegawai as $data_pegawai) {
-          if ($data_pegawai->NIP==$data_pejabat_penanda_tangan->NIP) {
-            if ($data_pejabat_penanda_tangan->idPejabatPenandaTangan==$data_perjalanan_dinas->idPejabatPenandaTangan) {
-              echo "<option selected value='$data_pejabat_penanda_tangan->idPejabatPenandaTangan' > $data_pejabat_penanda_tangan->nama_pegawai>";
-              $cek=false;
-              break;
-            }
+         echo "<option disabled>-- Pilih Kelurahan --</option>";
+         $data['kelurahan']=$this->perjalanan_dinas_model->getAllKelurahan(substr($data_perjalanan_dinas->idLokasi, 0,6))->result();
+         foreach ($data['kelurahan'] as $data_kelurahan ) {
+          if ($data_kelurahan->idKelurahan == $data_perjalanan_dinas->idLokasi) {
+            $kelurahan=" ";
+            $kelurahan="<option class='c-kelurahan' selected value='$data_kelurahan->idKelurahan'> $data_kelurahan->nama_kelurahan </option>";
           }
-        }
-        if ($cek==FALSE) {
-          continue;
+          else{
+            $kelurahan=" ";
+            $kelurahan="<option class='c-kelurahan' value='$data_kelurahan->idKelurahan'> $data_kelurahan->nama_kelurahan </option>";
+          }
+          echo $kelurahan ;
+
         }
         ?>
-        <option value="<?php echo $data_pejabat_penanda_tangan->idPejabatPenandaTangan ?>"> <?php echo $data_pejabat_penanda_tangan->nama_pegawai ?></option>
-        <?php 
-      }
-
-      ?>
-    </select>
-  </div>
-
-  <div id="alert-msg"> </div>
-
-  <div class="form-group">
-    <div class="col-lg-offset-10 col-lg-offset-10">
-      <button type="submit" disabled class="btn btn-primary" name="edit" value="edit">Update</button> 
-      <!-- Belum selesai -->
+      </select>
     </div>
   </div>
+
+
+
+  <div class="col-lg-12">
+    <label> Alamat lokasi </label>
+    <input type="text" name="alamat_lokasi" id="alamat_lokasi<?=$data_perjalanan_dinas->idPerjalananDinas?>" class="form-control alamat_lokasi" placeholder="Alamat lokasi" value="<?= $data_perjalanan_dinas->alamat_spesifik_tujuan?> " >
+  </div>
+
+
+
+  <div class="col-lg-6 col-sm-6">
+    <label> Tanggal berangkat </label>
+    <div class="input-group date">
+      <div class="input-group-addon">
+        <i class="fa fa-calendar"></i>
+      </div>
+      <input type="text" class="form-control datepicker tanggal_berangkat" style=" z-index: 1600 !important;" id="tanggal_berangkat<?=$data_perjalanan_dinas->idPerjalananDinas?>" name="tanggal_berangkat" placeholder="yyyy-mm-dd" value="<?= $data_perjalanan_dinas->tanggal_berangkat?>">
+    </div>
+  </div>
+
+  <div class="col-lg-6 col-sm-6">
+    <label> Tanggal kembali </label>
+    <div class="input-group date">
+      <div class="input-group-addon">
+        <i class="fa fa-calendar"></i>
+      </div>
+      <input type="text" class="form-control datepicker tanggal_kembali" id="tanggal_kembali<?=$data_perjalanan_dinas->idPerjalananDinas?>" style=" z-index: 1600 !important;" name="tanggal_kembali" placeholder="yyyy-mm-dd" value="<?= $data_perjalanan_dinas->tanggal_kembali?>">
+    </div>
+  </div>
+</div>
+
+<div class="form-group">
+  <div class="col-lg-12">
+    <label> Lama Perjalanan </label>
+    <input type="number" min="0"  name="lama_perjalanan" disabled id="lama_perjalanan<?=$data_perjalanan_dinas->idPerjalananDinas?>" class="form-control lama_perjalanan" placeholder="Lama Perjalanan" value="<?= $data_perjalanan_dinas->lama_perjalanan?>" >
+  </div>
+</div>
+
+<div class="form-group">
+  <div class="col-lg-12">
+    <label> Transportasi </label>
+    <select name="idTransportasi" id="idTransportasi<?=$data_perjalanan_dinas->idPerjalananDinas?>" class="form-control idTransportasi" >
+      <option disabled="">-- PILIH TRANSPORTASI --</option>
+      <?php 
+      foreach ($transportasi as $data_transportasi) {
+        if ($data_transportasi->idTransportasi==$data_perjalanan_dinas->idTransportasi) {
+          echo "<option selected value='$data_transportasi->idTransportasi'> $data_transportasi->nama_transportasi </option>";
+          continue;
+        }
+        echo "<option value='$data_transportasi->idTransportasi'> $data_transportasi->nama_transportasi </option>";
+        ?>
+        <?php 
+      }
+      ?>
+
+    </select>
+  </div>
+</div>
+
+<div class="form-group">
+  <div class="col-lg-12">
+    <label> Pejabat Penanda Tangan </label>
+    <select name="idPejabatPenandaTangan" id="idPejabatPenandaTangan<?=$data_perjalanan_dinas->idPerjalananDinas?>" class="form-control pejabat_penanda_tangan" >
+     <option disabled="">-- PILIH PEJABAT PENANDA TANGAN --</option>
+     <?php 
+
+     foreach ($pejabat_penanda_tangan as $data_pejabat_penanda_tangan) {
+      $cek=true;
+      foreach ($pegawai as $data_pegawai) {
+        if ($data_pegawai->NIP==$data_pejabat_penanda_tangan->NIP) {
+          if ($data_pejabat_penanda_tangan->idPejabatPenandaTangan==$data_perjalanan_dinas->idPejabatPenandaTangan) {
+            echo "<option selected value='$data_pejabat_penanda_tangan->idPejabatPenandaTangan' > $data_pejabat_penanda_tangan->nama_pegawai>";
+            $cek=false;
+            break;
+          }
+        }
+      }
+      if ($cek==FALSE) {
+        continue;
+      }
+      ?>
+      <option value="<?php echo $data_pejabat_penanda_tangan->idPejabatPenandaTangan ?>"> <?php echo $data_pejabat_penanda_tangan->nama_pegawai ?></option>
+      <?php 
+    }
+
+    ?>
+  </select>
+</div>
+</div>
+
+<div class="alert-msg-edit"></div>
+<div class="form-group">
+  <div class="col-lg-offset-10 col-lg-offset-10">
+    <button type="submit"  class="btn btn-primary edit" id="editButton<?= $data_perjalanan_dinas->idPerjalananDinas ?>"  name="edit" value="edit">Update</button> 
+    <!-- Belum selesai -->
+  </div>
+</div>
 </form>
 </div>
 </div>
@@ -864,39 +887,39 @@ foreach ($perjalanan_dinas as $data_perjalanan_dinas) {
 <script>
 
 //function insert
-  $(function(){
-    $.ajaxSetup({
-      type : "POST",
-      url : "<?php echo base_url()?>perjalanan_dinas/getData",
-      cache:false,
-    }),
+$(function(){
+  $.ajaxSetup({
+    type : "POST",
+    url : "<?php echo base_url()?>perjalanan_dinas/getData",
+    cache:false,
+  }),
 
-    $('#idProvinsi').change(function(){
-      var value=$(this).val();
-      
-      if (value>0) {
-        $.ajax({
-          data:{
-            modul:'kabupaten',
-            idDataLokasi: value
-          },
-          success: function(respond){
-           $('#idKabupaten').html(respond);
-           $('#idKecamatan').attr("disabled","");
-           $('.c-kecamatan').remove();
-           $('#idKelurahan').attr("disabled","");
-           $('.c-kelurahan').remove();
+  $('#idProvinsi').change(function(){
+    var value=$(this).val();
+
+    if (value>0) {
+      $.ajax({
+        data:{
+          modul:'kabupaten',
+          idDataLokasi: value
+        },
+        success: function(respond){
+         $('#idKabupaten').html(respond);
+         $('#idKecamatan').attr("disabled","");
+         $('.c-kecamatan').remove();
+         $('#idKelurahan').attr("disabled","");
+         $('.c-kelurahan').remove();
              //alert(value);
            //  console.log(respond);
          }
 
        })
-      }
+    }
 
-    }),
+  }),
 
-    $('#idKabupaten').change(function(){
-      var value=$(this).val();
+  $('#idKabupaten').change(function(){
+    var value=$(this).val();
      // alert(value);
      if (value>0) {
         //alert("halo");
@@ -919,10 +942,10 @@ foreach ($perjalanan_dinas as $data_perjalanan_dinas) {
 
     }),
 
-    $('#idKecamatan').change(function(){
-      var value=$(this).val();
-      
-      if (value>0) {
+  $('#idKecamatan').change(function(){
+    var value=$(this).val();
+
+    if (value>0) {
        // alert(value);
        $.ajax({
         data:{
@@ -941,7 +964,7 @@ foreach ($perjalanan_dinas as $data_perjalanan_dinas) {
      
    })
 
-  })
+})
 </script>
 
 <script >
@@ -953,7 +976,7 @@ foreach ($perjalanan_dinas as $data_perjalanan_dinas) {
       cache:false,
     }),
 
-    $('#idProvinsi-edit').change(function(){
+    $('.form-control.select2.select2-hidden-accessible.provinsi').change(function(){
       var value=$(this).val();
       
       if (value>0) {
@@ -963,10 +986,10 @@ foreach ($perjalanan_dinas as $data_perjalanan_dinas) {
             idDataLokasi: value
           },
           success: function(respond){
-           $('#idKabupaten-edit').html(respond);
-           $('#idKecamatan-edit').attr("disabled","");
+           $('.form-control.select2.select2-hidden-accessible.kabupaten').html(respond);
+           $('.form-control.select2.select2-hidden-accessible.kecamatan').attr("disabled","");
            $('.c-kecamatan').remove();
-           $('#idKelurahan-edit').attr("disabled","");
+           $('.form-control.select2.select2-hidden-accessible.kelurahan').attr("disabled","");
            $('.c-kelurahan').remove();
              //alert(value);
            //  console.log(respond);
@@ -977,7 +1000,7 @@ foreach ($perjalanan_dinas as $data_perjalanan_dinas) {
 
     }),
 
-    $('#idKabupaten-edit').change(function(){
+    $('.form-control.select2.select2-hidden-accessible.kabupaten').change(function(){
       var value=$(this).val();
      // alert(value);
      if (value>0) {
@@ -988,9 +1011,9 @@ foreach ($perjalanan_dinas as $data_perjalanan_dinas) {
             idDataLokasi: value
           },
           success: function(respond){
-            $('#idKecamatan-edit').removeAttr("disabled","")
-            $('#idKecamatan-edit').html(respond);
-            $('#idKelurahan-edit').attr("disabled","");
+            $('.form-control.select2.select2-hidden-accessible.kecamatan').removeAttr("disabled","")
+            $('.form-control.select2.select2-hidden-accessible.kecamatan').html(respond);
+            $('.form-control.select2.select2-hidden-accessible.kelurahan').attr("disabled","");
             $('.c-kelurahan').remove();
              //alert(value);
             //console.log(respond);
@@ -1001,7 +1024,7 @@ foreach ($perjalanan_dinas as $data_perjalanan_dinas) {
 
     }),
 
-    $('#idKecamatan-edit').change(function(){
+    $('.form-control.select2.select2-hidden-accessible.kecamatan').change(function(){
       var value=$(this).val();
       
       if (value>0) {
@@ -1012,8 +1035,8 @@ foreach ($perjalanan_dinas as $data_perjalanan_dinas) {
           idDataLokasi: value
         },
         success: function(respond){
-         $('#idKelurahan-edit').removeAttr("disabled","")
-         $('#idKelurahan-edit').html(respond);
+         $('.form-control.select2.select2-hidden-accessible.kelurahan').removeAttr("disabled","")
+         $('.form-control.select2.select2-hidden-accessible.kelurahan').html(respond);
              //alert(value);
            //  console.log(respond);
          }
@@ -1067,6 +1090,7 @@ foreach ($perjalanan_dinas as $data_perjalanan_dinas) {
 </body>
 </html>
 
+
 <script type="text/javascript">
   $('#addButton').click(function() {
    var form_data = {
@@ -1109,7 +1133,80 @@ foreach ($perjalanan_dinas as $data_perjalanan_dinas) {
 });
 </script>
 
+<!-- Edit Modal -->
+<script type="text/javascript">
 
+  var editButton = document.getElementsByClassName("btn btn-primary edit");
+
+  $('.btn.btn-primary.edit').each(function(index) {
+
+    $(this).on("click", function(){
+      //alert("message?: DOMString");
+      var cek = document.getElementsByClassName("btn btn-primary edit");
+      console.log(cek);
+          // console.log(cek);
+          var pegawai_tugas_edit = document.getElementsByClassName("form-control select2 select2-hidden-accessible pegawai_tugas")[index].id;
+          var pegawai_pengikut_edit = document.getElementsByClassName("form-control select2 select2-hidden-accessible pegawai_pengikut")[index].id;
+          var kegiatan_perjalanan_edit = document.getElementsByClassName("form-control kegiatan_perjalanan")[index].id;
+          var jenis_kegiatan_edit = document.getElementsByClassName("form-control jenis_kegiatan")[index].id;
+          var jarak_perjalanan_edit = document.getElementsByClassName("form-control jarak_perjalanan")[index].id;
+          var idProvinsi_edit = document.getElementsByClassName("form-control select2 select2-hidden-accessible provinsi")[index].id;
+          var idKabupaten_edit = document.getElementsByClassName("form-control select2 select2-hidden-accessible kabupaten")[index].id;
+          var idKecamatan_edit = document.getElementsByClassName("form-control select2 select2-hidden-accessible kecamatan")[index].id;
+          var idKelurahan_edit = document.getElementsByClassName("form-control select2 select2-hidden-accessible kelurahan")[index].id;
+          var alamat_lokasi_edit = document.getElementsByClassName("form-control alamat_lokasi")[index].id;
+          var tanggal_berangkat_edit = document.getElementsByClassName("form-control tanggal_berangkat")[index].id;
+          var tanggal_kembali_edit = document.getElementsByClassName("form-control tanggal_kembali")[index].id;
+          var lama_perjalanan_edit = document.getElementsByClassName("form-control lama_perjalanan")[index].id;
+          var transportasi_edit = document.getElementsByClassName("form-control idTransportasi")[index].id;
+          var idPejabatPenandaTangan_edit = document.getElementsByClassName("form-control pejabat_penanda_tangan")[index].id;
+
+          var b = document.getElementsByClassName("form-horizontal edit")[index].id;
+          var url_edit = document.getElementById(b).action;
+/*          console.log(url_edit);
+console.log(nama_pegawai_edit);*/
+var form_data = {
+  pegawai_tugas: $('#'+pegawai_tugas_edit).val(),
+  pegawai_pengikut: $('#'+pegawai_pengikut_edit).val(),
+  kegiatan_perjalanan: $('#'+kegiatan_perjalanan_edit).val(),
+  jenis_kegiatan: $('#'+jenis_kegiatan_edit).val(),
+  jarak_perjalanan: $('#'+jarak_perjalanan_edit).val(),
+  idProvinsi: $('#'+idProvinsi_edit).val(),
+  idKabupaten: $('#'+idKabupaten_edit).val(),
+  idKecamatan: $('#'+idKecamatan_edit).val(),
+  idKelurahan: $('#'+idKelurahan_edit).val(),
+  alamat_lokasi: $('#'+alamat_lokasi_edit).val(),
+  tanggal_berangkat: $('#'+tanggal_berangkat_edit).val(),
+  tanggal_kembali: $('#'+tanggal_kembali_edit).val(),
+  lama_perjalanan: $('#'+lama_perjalanan_edit).val(),
+  idTransportasi: $('#'+transportasi_edit).val(),
+  idPejabatPenandaTangan: $('#'+idPejabatPenandaTangan_edit).val()
+};
+console.log(form_data);
+$.ajax({
+  url: url_edit,
+  type: 'POST',
+  data: form_data,
+  dataType: "JSON",
+  success: function(message) {
+    if (message.status == 1){
+     $('.alert-msg-edit').html('<div class="alert alert-success">' + message.message + '</div>');
+     location.reload();
+   }
+   else{
+    $('.alert-msg-edit').html('<div class="alert alert-danger">' + message.message + '</div>');
+  }
+}
+});
+return false;
+
+});
+  });
+  $('.modal.fade.edit').on('hidden.bs.modal', function () {
+    $('input[name=checkListItem').val('');
+    $( ".alert.alert-danger" ).remove();
+  })
+</script>
 
 <script>
   $('#tanggal_berangkat').change(function() {
