@@ -5,6 +5,7 @@ class surat_perintah_perjalanan_dinas_controller extends CI_Controller{
     function __construct() {
         parent::__construct();
         $this->load->model("surat_perintah_perjalanan_dinas_model");
+        $this->load->helper(array('url'));
         if ($this->session->userdata('login') != 'yes') {
             redirect(base_url());
         }
@@ -12,6 +13,12 @@ class surat_perintah_perjalanan_dinas_controller extends CI_Controller{
 
     function index(){
     	
+        $jumlah_data = $this->surat_perintah_perjalanan_dinas_model->getAllSuratPerintahPerjalananDinas()->num_rows();
+        $this->load->library('pagination');
+        $config['base_url'] = base_url().'surat_perintah_perjalanan_dinas/index';
+        $config['total_rows'] = $jumlah_data;
+        $config['per_page'] = 10;
+
     	$data['pegawai']=$this->surat_perintah_perjalanan_dinas_model->getAllPegawai()->result();
         $data['perjalanan_dinas']=$this->surat_perintah_perjalanan_dinas_model->getAllPerjalananDinas()->result();
         $data['pegawai_pengikut']=$this->surat_perintah_perjalanan_dinas_model->getPegawaiPengikut()->result();

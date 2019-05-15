@@ -49,9 +49,7 @@ class pegawai_model extends CI_Model
     function removeDataPegawai($columnWhere, $valueWhere) {
         $this->db->where($columnWhere, $valueWhere);
         $this->db->delete($this->_table);
+       //print_r($this->db->error()['code']);
+        return $this->db->error()['code'];
     }
-
-    // function addPegawai(){
-            // kosek
-    // }
 }

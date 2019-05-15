@@ -95,9 +95,19 @@ class pegawai_controller extends CI_Controller{
 		}
 
 		function removeDataPegawai($NIP){
-			$this->pegawai_model->removeDataPegawai('NIP', $NIP);
-			$this->session->set_flashdata('message', 'Data Sukses Dihabus');
-			redirect(base_url('pegawai/index'));
+			$error_code = $this->pegawai_model->removeDataPegawai('NIP', $NIP);
+			if ($error_code==0) {
+				$this->session->set_flashdata('message', 'Data Sukses Dihabus');
+				redirect(base_url('pegawai/index'));
+			}elseif($error_code==1451){
+				$this->session->set_flashdata('message_error', "Data tidak bisa dihapus [foreign_key]");
+				redirect(base_url('pegawai/index'));
+			}
+
+			 // $this->db->where('NIP', $NIP);
+    //     	$this->db->delete("pegawai");
+    //     	print_r($this->db->error()['code']);
+			
 		}
 
 		function ajaxDataPegawai(){

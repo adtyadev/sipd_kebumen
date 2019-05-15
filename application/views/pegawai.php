@@ -49,6 +49,17 @@
               </div>
               <?php
             }
+            else if ($this->session->flashdata('message_error')){
+               ?>
+              <br><br>
+              <div class="alert alert-danger clearfix">
+                <div class="noti-info">
+                  <a href="#"><?=$this->session->flashdata('message_error')?></a>
+                </div>
+              </div>
+              <?php
+            
+            }
             ?>
           </div>
           <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="modalTambahData" class="modal fade">
@@ -86,13 +97,13 @@
                           <i class="fa fa-calendar"></i>
                         </div>
                         <input type="text" name="tanggal_lahir" id="tanggal_lahir" class="form-control pull-right" id="datepicker1" placeholder="yyyy-mm-dd">
-                        <div class="input-group date">
+<!--                         <div class="input-group date">
                           <div class="input-group-addon">
                             <i class="fa fa-calendar"></i>
                           </div>
-                          <!--  <input type="text" class="form-control pull-right" id="datepicker" > -->
+                           <input type="text" class="form-control pull-right" id="datepicker" >
                           <input type="text" name="birthday" class="form-control pull-right" value="10-24-1984" />
-                        </div>
+                        </div> -->
                       </div>
                     </div>
                   </div>
@@ -170,7 +181,7 @@
           </div>
           <!-- /.box-header -->
           <div class="box-body">
-            <table id="exampler" class="table table-bordered table-striped" style="width: 100%">
+            <table id="exampler" class="display table table-bordered table-striped" style="width: 100%">
               <thead>
                 <tr>
                   <th>No</th>
@@ -210,7 +221,6 @@
                       </div>&nbsp;&nbsp;
                       <div class="btn-group">
                        <button type="button" class="btn btn-danger btn-sm" onclick="hapusData('<?php echo $data_pegawai->NIP?>')"><i class="fa fa-trash"></i>Delete</button> 
-
                      </div>&nbsp;&nbsp;
                    </td>
                  </tr>
@@ -586,10 +596,10 @@
       function (isConfirm) {
         if (isConfirm) {
           swal({
-            title             : "Dihapus!",
-            text              : "Data Sukses Dihapus.",
+            title             : "Removing",
+            text              : "Data Akan Dihapus.",
             timer             : 1500,
-            type              : "success",
+            type              : "warning",
             showConfirmButton : false
           }, function () {
             window.location.href = "<?php echo base_url()?>pegawai/removeDataPegawai/"+id;
