@@ -24,6 +24,7 @@ class transportasi_model extends CI_Model{
 	function removeDataTransportasi($columnWhere, $valueWhere) {
 		$this->db->where($columnWhere, $valueWhere);
 		$this->db->delete($this->_table);
+		return $this->db->error()['code'];
 	}
 }
 

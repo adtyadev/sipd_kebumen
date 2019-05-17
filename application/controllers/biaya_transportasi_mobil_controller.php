@@ -61,7 +61,7 @@ class biaya_transportasi_mobil_controller extends CI_Controller{
 			$idTransportasi=$this->input->post('idTransportasi');
 			$kilometer=$this->input->post('kilometer');
 			$mesin_cc=$this->input->post('mesin_cc');
-			$jenis_bbm=$this->input->post('jenis_bbm');
+			$jenis_bbm=$this->input->post('jenis_bbm_edit');
 			$nominal_biaya_mobil=$this->input->post('nominal_biaya_mobil');
 			$input = array(
 				'idTransportasi'=>$idTransportasi,
@@ -79,9 +79,16 @@ class biaya_transportasi_mobil_controller extends CI_Controller{
 	}
 
 	function removeDataBiayaTransportasiMobil($idBiayaTransportasiMobil){
-		$this->biaya_transportasi_mobil_model->removeDataBiayaTransportasiMobil('idBiayaTransportasiMobil', $idBiayaTransportasiMobil);
-		$this->session->set_flashdata('message', 'Data Sukses Dihapus');
-		redirect(base_url('biaya_transportasi_mobil/index'));
+
+		$error_code = $this->biaya_transportasi_mobil_model->removeDataBiayaTransportasiMobil('idBiayaTransportasiMobil', $idBiayaTransportasiMobil);
+		if ($error_code==0) {
+			$this->session->set_flashdata('message', 'Data Sukses Dihabus');
+			redirect(base_url('biaya_transportasi_mobil/index'));
+		} elseif ($error_code==1451) {
+			$this->session->set_flashdata('message_error', "Data tidak bisa dihapus [foreign_key]");
+			redirect(base_url('biaya_transportasi_mobil/index'));
+
+		}
 	}
 
 	function ajaxDataBiayaTransportasiMobil(){

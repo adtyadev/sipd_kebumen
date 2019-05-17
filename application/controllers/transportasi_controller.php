@@ -74,9 +74,14 @@ class transportasi_controller extends CI_Controller{
 	}
 
 	function removeDataTransportasi($idTransportasi){
-		$this->transportasi_model->removeDataTransportasi('idTransportasi', $idTransportasi);
-		$this->session->set_flashdata('message', 'Data Sukses Dihapus');
-		redirect(base_url('transportasi/index'));
+		$error_code = $this->transportasi_model->removeDataTransportasi('idTransportasi', $idTransportasi);
+		if ($error_code==0) {
+			$this->session->set_flashdata('message', 'Data Sukses Dihapus');
+			redirect(base_url('transportasi/index'));
+		} elseif ($error_code==1451) {
+			$this->session->set_flashdata('message_error', "Data tidak bisa dihapus [foreign_key]");
+			redirect(base_url('transportasi/index'));
+		}
 	}
 
 	function ajaxDataTransportasi(){

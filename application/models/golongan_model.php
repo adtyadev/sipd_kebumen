@@ -24,6 +24,7 @@ class golongan_model extends CI_Model{
 	function removeDataGolongan($where, $nilaiWhere) {
 		$this->db->where($where, $nilaiWhere);
 		$this->db->delete($this->_table);
+		return $this->db->error()['code'];
 	}
 }
 

@@ -39,6 +39,7 @@ class biaya_penginapan_model extends CI_Model{
 	function removeDataBiayaPenginapan($columnWhere, $valueWhere) {
 		$this->db->where($columnWhere, $valueWhere);
 		$this->db->delete($this->_table);
+		return $this->db->error()['code'];
 	}
 }
 

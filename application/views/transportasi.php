@@ -81,17 +81,29 @@
             </div>
           </div>
         </div>
-        <?php
-        if ($this->session->flashdata('message')) {
-          ?>
-          <div class="alert alert-success clearfix">
-            <div class="noti-info">
-              <a href="#"><?php echo $this->session->flashdata('message')?></a>
-            </div>
-          </div>
-          <?php
-        }
-        ?>
+         <?php
+            if ($this->session->flashdata('message')) {
+              ?>
+              <br><br>
+              <div class="alert alert-success clearfix">
+                <div class="noti-info">
+                  <a href="#"><?=$this->session->flashdata('message')?></a>
+                </div>
+              </div>
+              <?php
+            }
+            else if ($this->session->flashdata('message_error')){
+               ?>
+              <br><br>
+              <div class="alert alert-danger clearfix">
+                <div class="noti-info">
+                  <a href="#"><?=$this->session->flashdata('message_error')?></a>
+                </div>
+              </div>
+              <?php
+            
+            }
+            ?>
       </div>
 
       <div class="col-sm-10 col-lg-10 offset-md-3" ">
@@ -294,10 +306,10 @@
       function (isConfirm) {
         if (isConfirm) {
           swal({
-            title             : "Dihapus!",
-            text              : "Data Sukses Dihapus.",
+            title             : "Removing",
+            text              : "Data Akan Dihapus.",
             timer             : 1500,
-            type              : "success",
+            type              : "warning",
             showConfirmButton : false
           }, function () {
             window.location.href = "<?php echo base_url()?>transportasi/removeDataTransportasi/"+id;

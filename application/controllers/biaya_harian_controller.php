@@ -93,9 +93,14 @@ class biaya_harian_controller extends CI_Controller{
 	}
 
 	function removeDataBiayaHarian($idBiayaHarian){
-		$this->biaya_harian_model->removeDataBiayaHarian('idBiayaHarian', $idBiayaHarian);
-		$this->session->set_flashdata('message', 'Data Sukses Dihabus');
-		redirect(base_url('biaya_harian/index'));
+		$error_code = $this->biaya_harian_model->removeDataBiayaHarian('idBiayaHarian', $idBiayaHarian);
+		if ($error_code==0) {
+			$this->session->set_flashdata('message', 'Data Sukses Dihabus');
+			redirect(base_url('biaya_harian/index'));
+		} elseif ($error_code==1451) {
+			$this->session->set_flashdata('message_error', "Data tidak bisa dihapus [foreign_key]");
+			redirect(base_url('biaya_harian/index'));
+		}
 	}
 
 	function ajaxDataBiayaHarian(){

@@ -32,6 +32,7 @@ class biaya_transportasi_mobil_model extends CI_Model{
 	function removeDataBiayaTransportasiMobil($columnWhere, $valueWhere) {
 		$this->db->where($columnWhere, $valueWhere);
 		$this->db->delete($this->_table);
+		return $this->db->error()['code'];
 	}
 }
 

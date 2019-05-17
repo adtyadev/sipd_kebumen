@@ -77,9 +77,16 @@ class biaya_transportasi_lain_controller extends CI_Controller{
 	}
 
 	function removeDataBiayaTransportasiLain($idBiayaTransportasiLain){
-		$this->biaya_transportasi_lain_model->removeDataBiayaTransportasiLain('idBiayaTransportasiLain', $idBiayaTransportasiLain);
-		$this->session->set_flashdata('message', 'Data Sukses Dihabus');
-		redirect(base_url('biaya_transportasi_lain/index'));
+
+		$error_code = $this->biaya_transportasi_lain_model->removeDataBiayaTransportasiLain('idBiayaTransportasiLain', $idBiayaTransportasiLain);
+		if ($error_code==0) {
+			$this->session->set_flashdata('message', 'Data Sukses Dihabus');
+			redirect(base_url('biaya_transportasi_lain/index'));
+		} elseif ($error_code==1451) {
+			$this->session->set_flashdata('message_error', "Data tidak bisa dihapus [foreign_key]");
+			redirect(base_url('biaya_transportasi_lain/index'));
+
+		}
 	}
 
 	function ajaxDataBiayaTransportasiLain(){
