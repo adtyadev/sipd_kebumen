@@ -21,8 +21,11 @@ class pegawai_controller extends CI_Controller{
 	}
 
 	function addDataPegawai(){
-
-		$this->form_validation->set_rules('NIP','Nomor Induk Pegawai','required|numeric|exact_length[18]');
+		$data_pegawai['pegawai'] = $this->pegawai_model->getAllPegawai()->result();
+		$this->form_validation->set_rules('NIP','Nomor Induk Pegawai','required|numeric|exact_length[18]|is_unique[pegawai.NIP]',
+			array(
+				'is_unique'     => 'This %s already exists.'
+			));
 		$this->form_validation->set_rules('tempat_lahir','Tempat Lahir', 'required|alpha|max_length[25]');
 		$this->form_validation->set_rules('nama_pegawai', 'Nama Pegawai', 'trim|required|alpha_numeric_spaces|max_length[50]');
 		$this->form_validation->set_rules('tanggal_lahir', 'Tanggal Lahir', 'required|regex_match[/-/]');

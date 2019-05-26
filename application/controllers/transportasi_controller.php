@@ -21,7 +21,10 @@ class transportasi_controller extends CI_Controller{
 	}
 
 	function addDataTransportasi(){
-		$this->form_validation->set_rules('nama_transportasi', 'Nama Transportasi', 'required|max_length[15]');
+		$this->form_validation->set_rules('nama_transportasi', 'Nama Transportasi', 'required|max_length[15]|is_unique[transportasi.nama_transportasi]',
+			array(
+				'is_unique'     => 'This %s already exists.'
+			));
 		$this->form_validation->set_rules('jenis_transportasi', 'Jenis Transportasi','required|alpha|max_length[15]');
 		$this->form_validation->set_rules('keterangan','Keterangan Transportasi', 'required');
 

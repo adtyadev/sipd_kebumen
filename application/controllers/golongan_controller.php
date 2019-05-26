@@ -22,7 +22,10 @@ class golongan_controller extends CI_Controller{
 	}
 
 	function addDataGolongan(){
-		$this->form_validation->set_rules('nama_golongan', 'Nama Golongan', 'required');
+		$this->form_validation->set_rules('nama_golongan', 'Nama Golongan', 'required|is_unique[golongan.nama_golongan]',
+			array(
+				'is_unique'     => 'This %s already exists.'
+			));
 		if ($this->form_validation->run()==FALSE) {
 			echo json_encode(array('status'=>0, 'message' => validation_errors()));
 		}

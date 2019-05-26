@@ -1026,13 +1026,13 @@ foreach ($surat_perintah_perjalanan_dinas as $data_surat_perintah_perjalanan_din
               </td>
               <td class="text-center">x 
                 <?php
-                echo (INT)$data_pegawai_pengikut->lama_perjalanan;
+                echo (INT)$data_perjalanan_dinas->lama_perjalanan;
                 ?>
               </td>
               <td class="text-right">
                 <?php
-                echo " Rp " . number_format($data_pegawai_pengikut->nominal_biaya_harian* (INT)$data_pegawai_pengikut->lama_perjalanan, 0, '', '.')  . ',-';
-                $total_anggaran_pegawai+=( (INT)$data_pegawai_pengikut->nominal_biaya_harian * (INT)$data_pegawai_pengikut->lama_perjalanan);
+                echo " Rp " . number_format($data_pegawai_pengikut->nominal_biaya_harian* (INT)$data_perjalanan_dinas->lama_perjalanan, 0, '', '.')  . ',-';
+                $total_anggaran_pegawai+=( (INT)$data_pegawai_pengikut->nominal_biaya_harian * (INT)$data_perjalanan_dinas->lama_perjalanan);
                 ?>
               </td>
             </tr>
@@ -1072,10 +1072,7 @@ foreach ($surat_perintah_perjalanan_dinas as $data_surat_perintah_perjalanan_din
               echo " Rp " . number_format($data_pegawai_pengikut->nominal_biaya_penginapan, 0, '', '.') ; 
               ?>
             </td>
-            <td class="text-center">x 
-              <?php
-              echo (INT)$data_pegawai_pengikut->lama_perjalanan;
-              ?>
+            <td class="text-center">x -
             </td>
             <td class="text-right">
               <?php
