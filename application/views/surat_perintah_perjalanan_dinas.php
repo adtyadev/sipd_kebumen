@@ -33,6 +33,35 @@
     <!-- Main content -->
 
     <section class="content">
+
+      <div class="row">
+        <div class="col-xs-12"> 
+          <?php
+          if ($this->session->flashdata('message')) {
+            ?>
+            <br><br>
+            <div class="alert alert-success clearfix">
+              <div class="noti-info">
+                <a href="#"><?=$this->session->flashdata('message')?></a>
+              </div>
+            </div>
+            <?php
+          }
+          else if ($this->session->flashdata('message_error')){
+            ?>
+            <br><br>
+            <div class="alert alert-danger clearfix">
+              <div class="noti-info">
+                <a href="#"><?=$this->session->flashdata('message_error')?></a>
+              </div>
+            </div>
+            <?php
+            
+          }
+          ?>
+        </div>
+      </div>
+
       <div class="row">
         <div class="col-xs-12">
           <div class="box">

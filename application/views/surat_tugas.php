@@ -17,141 +17,170 @@
 		</aside>
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper" style=" background-image: url('<?php echo base_url('assets')?>/dist/img/regal.png');
-                background-repeat: repeat;" >
-			<!-- Content Header (Page header) -->
-			<section class="content-header">
-				<h1>
-					Surat Tugas
-				</h1>
-				<ol class="breadcrumb">
-					<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-					<li class="active">Surat Tugas</li>
-				</ol>
-			</section>
+		background-repeat: repeat;" >
+		<!-- Content Header (Page header) -->
+		<section class="content-header">
+			<h1>
+				Surat Tugas
+			</h1>
+			<ol class="breadcrumb">
+				<li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+				<li class="active">Surat Tugas</li>
+			</ol>
+		</section>
 
-			<!-- Main content -->
+		<!-- Main content -->
 
-			<section class="content">
-				<div class="row">
-					<div class="col-xs-12">
-						<div class="box">
-							<div class="box-header">
+		<section class="content">
+
+			<div class="row">
+				<div class="col-xs-12"> 
+					<?php
+					if ($this->session->flashdata('message')) {
+						?>
+						<br><br>
+						<div class="alert alert-success clearfix">
+							<div class="noti-info">
+								<a href="#"><?=$this->session->flashdata('message')?></a>
 							</div>
-							<!-- /.box-header -->
-							<div class="box-body">
-								<table id="exampler" class="table table-bordered table-striped" style="width: 100%">
-									<thead>
-										<tr>
-											<th>No</th>
-											<th>Nama Pegawai Tugas</th>
-											<th>Golongan</th>
-											<th>Nomor SPT</th>
-											<th>Kegiatan</th>
-											<th>Status Cetak</th>
-											<th>Action</th>   
-										</tr>
-									</thead>
-									<tbody>
-										<?php 
-										$no=1;
-										$temp_idPerjalananDinas='';
-										$temp_idPegawaiTugas='';
+						</div>
+						<?php
+					}
+					else if ($this->session->flashdata('message_error')){
+						?>
+						<br><br>
+						<div class="alert alert-danger clearfix">
+							<div class="noti-info">
+								<a href="#"><?=$this->session->flashdata('message_error')?></a>
+							</div>
+						</div>
+						<?php
+						
+					}
+					?>
+				</div>
+			</div>
 
-										foreach ($surat_tugas as $data_surat_tugas) {
-											?>
-											<tr>
-												<td>
-													<?php echo $no;?>
-												</td>
-												<td> 
-													<?php
-													foreach ($perjalanan_dinas as $data_perjalanan_dinas) {
-														if ($data_surat_tugas->idPerjalananDinas == $data_perjalanan_dinas->idPerjalananDinas){ 
-															$temp_idPerjalananDinas=$data_surat_tugas->idPerjalananDinas;
-															$temp_idPegawaiTugas=$data_perjalanan_dinas->idPegawaiTugas;
-															echo $data_perjalanan_dinas->nama_pegawai . '<br>';
-															foreach($pegawai_pengikut as $data_pegawai_pengikut){
-																if ( $data_pegawai_pengikut->idPerjalananDinas == $data_perjalanan_dinas->idPerjalananDinas){
-																	echo $data_pegawai_pengikut->nama_pegawai . "<br>";
-																	if (!isset($temp_idPegawaiPengikut)) {
-																		$temp_idPegawaiPengikut[0]=$data_pegawai_pengikut->idPegawaiPengikut;
-																	}
-																	else {
-																		array_push($temp_idPegawaiPengikut, $data_pegawai_pengikut->idPegawaiPengikut);
-																	}
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="box">
+						<div class="box-header">
+						</div>
+						<!-- /.box-header -->
+						<div class="box-body">
+							<table id="exampler" class="table table-bordered table-striped" style="width: 100%">
+								<thead>
+									<tr>
+										<th>No</th>
+										<th>Nama Pegawai Tugas</th>
+										<th>Golongan</th>
+										<th>Nomor SPT</th>
+										<th>Kegiatan</th>
+										<th>Status Cetak</th>
+										<th>Action</th>   
+									</tr>
+								</thead>
+								<tbody>
+									<?php 
+									$no=1;
+									$temp_idPerjalananDinas='';
+									$temp_idPegawaiTugas='';
+
+									foreach ($surat_tugas as $data_surat_tugas) {
+										?>
+										<tr>
+											<td>
+												<?php echo $no;?>
+											</td>
+											<td> 
+												<?php
+												foreach ($perjalanan_dinas as $data_perjalanan_dinas) {
+													if ($data_surat_tugas->idPerjalananDinas == $data_perjalanan_dinas->idPerjalananDinas){ 
+														$temp_idPerjalananDinas=$data_surat_tugas->idPerjalananDinas;
+														$temp_idPegawaiTugas=$data_perjalanan_dinas->idPegawaiTugas;
+														echo $data_perjalanan_dinas->nama_pegawai . '<br>';
+														foreach($pegawai_pengikut as $data_pegawai_pengikut){
+															if ( $data_pegawai_pengikut->idPerjalananDinas == $data_perjalanan_dinas->idPerjalananDinas){
+																echo $data_pegawai_pengikut->nama_pegawai . "<br>";
+																if (!isset($temp_idPegawaiPengikut)) {
+																	$temp_idPegawaiPengikut[0]=$data_pegawai_pengikut->idPegawaiPengikut;
+																}
+																else {
+																	array_push($temp_idPegawaiPengikut, $data_pegawai_pengikut->idPegawaiPengikut);
 																}
 															}
-															break;
 														}
-													};
-													?>
-												</td>
+														break;
+													}
+												};
+												?>
+											</td>
 
-												<td>
-													<?php foreach ($pegawai as $data_pegawai) {
-														if ($data_pegawai->NIP == $temp_idPegawaiTugas) {
-															echo $data_pegawai->nama_golongan . '<br>';
+											<td>
+												<?php foreach ($pegawai as $data_pegawai) {
+													if ($data_pegawai->NIP == $temp_idPegawaiTugas) {
+														echo $data_pegawai->nama_golongan . '<br>';
 															//echo count($temp_idPegawaiPengikut);
-															break;
-														}
+														break;
+													}
 
+												}
+												$cek_loop=0;
+												$count_temp_idPegawaiPengikut=count($temp_idPegawaiPengikut);
+												foreach ($pegawai as $data_pegawai) {
+													if ($cek_loop==$count_temp_idPegawaiPengikut) {
+														break;
 													}
-													$cek_loop=0;
-													$count_temp_idPegawaiPengikut=count($temp_idPegawaiPengikut);
-													foreach ($pegawai as $data_pegawai) {
-														if ($cek_loop==$count_temp_idPegawaiPengikut) {
-															break;
-														}
-														for ($temp=0; $temp < $count_temp_idPegawaiPengikut	; $temp++) { 
-															if ($data_pegawai->NIP == $temp_idPegawaiPengikut[$temp]) {
-																echo $data_pegawai->nama_golongan . '<br>';
-																$cek_loop++;;
-															}
-														}
-													}
-													unset($temp_idPegawaiPengikut)
-													?>
-												</td>
-												<td> <?php echo $data_surat_tugas->nomor_spt; ?> </td>
-												<td> 
-													<?php foreach ($perjalanan_dinas as $data_perjalanan_dinas) {
-														if ($data_surat_tugas->idPerjalananDinas == $data_perjalanan_dinas->idPerjalananDinas){ 
-															echo $data_perjalanan_dinas->kegiatan . '<br>';
+													for ($temp=0; $temp < $count_temp_idPegawaiPengikut	; $temp++) { 
+														if ($data_pegawai->NIP == $temp_idPegawaiPengikut[$temp]) {
+															echo $data_pegawai->nama_golongan . '<br>';
+															$cek_loop++;;
 														}
 													}
-													?>
-												</td>
-												<td>
-													<div class="btn-group">
-														<?php 
+												}
+												unset($temp_idPegawaiPengikut)
+												?>
+											</td>
+											<td> <?php echo $data_surat_tugas->nomor_spt; ?> </td>
+											<td> 
+												<?php foreach ($perjalanan_dinas as $data_perjalanan_dinas) {
+													if ($data_surat_tugas->idPerjalananDinas == $data_perjalanan_dinas->idPerjalananDinas){ 
+														echo $data_perjalanan_dinas->kegiatan . '<br>';
+													}
+												}
+												?>
+											</td>
+											<td>
+												<div class="btn-group">
+													<?php 
 
-														if ($data_surat_tugas->status_cetak=="sudah") {
-															?>
-															<button type="button" class="btn btn-success"> <?php echo $data_surat_tugas->status_cetak;?> </button>
-															<?php
-														}
-														else{
-															?>
-															<button type="button" class="btn btn"> <?php echo $data_surat_tugas->status_cetak;?></button> 
-															<?php
-														}
-
+													if ($data_surat_tugas->status_cetak=="sudah") {
 														?>
-														
+														<button type="button" class="btn btn-success"> <?php echo $data_surat_tugas->status_cetak;?> </button>
+														<?php
+													}
+													else{
+														?>
+														<button type="button" class="btn btn"> <?php echo $data_surat_tugas->status_cetak;?></button> 
+														<?php
+													}
 
-													</div> &nbsp;&nbsp;
-												</td>
-												<td> 
-													<div class="btn-group">
-														<a href="<?php echo base_url('surat_tugas/cetakSuratTugas/'.$data_surat_tugas->idSPT)?>">
-															<button type="button" class="btn btn-primary btn-sm" ><i class="fa fa-print"></i> Print </button>
-														</a>
-													</div> &nbsp;&nbsp;
-													<div class="btn-group">
-														<a href="#modalEditData<?php echo $data_surat_tugas->idSPT?>" data-toggle="modal" class="btn btn-warning btn-sm">
-															<i class="fa fa-edit"></i> Edit
-														</a>
-													</div>&nbsp;&nbsp;
+													?>
+													
+
+												</div> &nbsp;&nbsp;
+											</td>
+											<td> 
+												<div class="btn-group">
+													<a href="<?php echo base_url('surat_tugas/cetakSuratTugas/'.$data_surat_tugas->idSPT)?>">
+														<button type="button" class="btn btn-primary btn-sm" ><i class="fa fa-print"></i> Print </button>
+													</a>
+												</div> &nbsp;&nbsp;
+												<div class="btn-group">
+													<a href="#modalEditData<?php echo $data_surat_tugas->idSPT?>" data-toggle="modal" class="btn btn-warning btn-sm">
+														<i class="fa fa-edit"></i> Edit
+													</a>
+												</div>&nbsp;&nbsp;
 <!-- 													<div class="btn-group">
 														<button type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Delete </button> 
 													</div>&nbsp;&nbsp; -->
@@ -328,12 +357,12 @@
 </script>
 
 <script>
-  $(document).ready(function(){
-    $('#exampler').DataTable({
-      "scrollX":true,
-      "autoWidth":true
-    })
-  })
+	$(document).ready(function(){
+		$('#exampler').DataTable({
+			"scrollX":true,
+			"autoWidth":true
+		})
+	})
 
 	window.setTimeout(function() {
 		$(".alert").fadeTo(500, 0).slideUp(500, function(){
