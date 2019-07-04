@@ -185,7 +185,7 @@
                       <div class="input-group-addon">
                         <i class="fa fa-calendar"></i>
                       </div>
-                      <input type="text" class="form-control pull-right" id="tanggal_berangkat" name="tanggal_berangkat" placeholder="yyyy-mm-dd">
+                      <input type="date" class="form-control pull-right" id="tanggal_berangkat" name="tanggal_berangkat" placeholder="yyyy-mm-dd">
                     </div>
                   </div>
                   <div class="col-lg-6 col-sm-6">
@@ -194,7 +194,7 @@
                       <div class="input-group-addon">
                         <i class="fa fa-calendar"></i>
                       </div>
-                      <input type="text" class="form-control pull-right" id="tanggal_kembali" name="tanggal_kembali" placeholder="yyyy-mm-dd">
+                      <input type="date" class="form-control pull-right" id="tanggal_kembali" name="tanggal_kembali" placeholder="yyyy-mm-dd">
                     </div>
                   </div>
 

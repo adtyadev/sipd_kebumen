@@ -75,7 +75,7 @@
 
                       <div class="col-lg-12">
                        <label >NIP</label>
-                       <input type="text" name="NIP" id="NIP" class="form-control" placeholder="NIP" required>
+                       <input type="text" name="NIP" id="NIP" class="form-control" maxlength="18" placeholder="NIP" required>
                      </div>
                    </div>
                    <div class="form-group">
@@ -96,7 +96,7 @@
                         <div class="input-group-addon">
                           <i class="fa fa-calendar"></i>
                         </div>
-                        <input type="text" name="tanggal_lahir" id="tanggal_lahir" class="form-control pull-right" id="datepicker1" placeholder="yyyy-mm-dd">
+                        <input type="date" name="tanggal_lahir" id="tanggal_lahir" class="form-control pull-right" id="datepicker1" placeholder="yyyy-mm-dd">
 <!--                         <div class="input-group date">
                           <div class="input-group-addon">
                             <i class="fa fa-calendar"></i>

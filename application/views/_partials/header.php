@@ -9,7 +9,7 @@
 </a>
 
 <!-- Header Navbar: style can be found in header.less -->
-<nav class="navbar navbar-static-top" style="background: linear-gradient(to left,#1cba92,#2C5380);">
+<nav class="navbar navbar-static-top" style="background: linear-gradient(to left,#2af598,#2C5380);">
   <!-- background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%); -->
   <!-- background: linear-gradient(to left,#6a9113,#2C5364); -->
 

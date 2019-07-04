@@ -24,7 +24,7 @@
    <link rel="stylesheet" href="<?php echo base_url('assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css')?>">
    <!-- Sweetalert -->
    <link rel="stylesheet" href="<?php echo base_url('assets/bower_components/sweetalert/css/sweetalert/sweetalert.css')?>">
-
+   <link rel="stylesheet" href="<?php echo base_url('assets/bower_components/date/css/style.css')?>">
    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
