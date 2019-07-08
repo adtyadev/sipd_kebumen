@@ -109,7 +109,7 @@
                   </div>
 
                   <div class="form-group">
-                    <div class="col-lg-4 col-sm-4"> 
+<!--                     <div class="col-lg-4 col-sm-4"> 
                       <label>Pangkat</label>
                       <select name="idPangkat" id="idPangkat" class="form-control" required>
 
@@ -125,8 +125,8 @@
 
 
                       </select>
-                    </div>
-                    <div class="col-lg-4 col-sm-4">
+                    </div> -->
+                    <div class="col-lg-8 col-sm-8">
                       <label>Golongan</label>
                       <select name="idGolongan" id="idGolongan" class="form-control" required>
 
@@ -188,8 +188,8 @@
                   <th>NIP</th>
                   <th>Nama Pegawai</th>
                   <th>Golongan</th>
-                  <th>Pangkat</th>
-                  <th>Jabatan</th>
+                 <!--  <th>Pangkat</th> -->
+                  <!-- <th>Jabatan</th> -->
                   <th>Unit Kerja</th>   
                   <th>Action</th>
                 </tr>
@@ -204,8 +204,8 @@
                   <td><?php echo $data_pegawai->NIP?></td>
                   <td><?php echo $data_pegawai->nama_pegawai?></td>
                   <td><?php echo $data_pegawai->nama_golongan?></td>
-                  <td><?php echo $data_pegawai->nama_pangkat?></td>
-                  <td>Kepala Dinas</td>
+                 <!--  <td><?php echo $data_pegawai->nama_pangkat?></td> -->
+                 <!--  <td>Kepala Dinas</td> -->
                   <td><?php echo $data_pegawai->nama_unit_kerja?></td>
                   <td> 
                     <div class="btn-group">
@@ -275,7 +275,7 @@
                     </div>
 
                     <div class="form-group">
-                      <div class="col-lg-4 col-sm-4"> 
+                     <!--  <div class="col-lg-4 col-sm-4"> 
                         <label>Pangkat</label>
                         <select name="idPangkat<?= $data_pegawai->NIP ?>" id="idPangkat<?= $data_pegawai->NIP ?>" class="form-control idPangkat" value="<?php echo $data_pegawai->nama_pangkat ?>" required>
 
@@ -296,8 +296,8 @@
 
 
                         </select>
-                      </div>
-                      <div class="col-lg-4 col-sm-4">
+                      </div> -->
+                      <div class="col-lg-8 col-sm-8">
                         <label>Golongan</label>
                         <select name="idGolongan<?= $data_pegawai->NIP ?>" id="idGolongan<?= $data_pegawai->NIP ?>" class="form-control idGolongan" value="<?php echo $data_pegawai->nama_golongan ?>" required>
 
@@ -621,7 +621,7 @@
     nama_pegawai:$('#nama_pegawai').val(),
     tempat_lahir:$('#tempat_lahir').val(),
     tanggal_lahir:$('#tanggal_lahir').val(),
-    idPangkat:$('#idPangkat').val(),
+   // idPangkat:$('#idPangkat').val(),
     idGolongan:$('#idGolongan').val(),
     idUnitKerja:$('#idUnitKerja').val()
   };
@@ -660,7 +660,7 @@
           var nama_pegawai_edit = document.getElementsByClassName("form-control nama_pegawai")[index].id;
           var tempat_lahir_edit = document.getElementsByClassName("form-control tempat_lahir")[index].id;
           var tanggal_lahir_edit =document.getElementsByClassName("form-control tanggal_lahir")[index].id;
-          var idPangkat_edit = document.getElementsByClassName("form-control idPangkat")[index].id;
+         // var idPangkat_edit = document.getElementsByClassName("form-control idPangkat")[index].id;
           var idGolongan_edit = document.getElementsByClassName("form-control idGolongan")[index].id;
           var idUnitKerja_edit = document.getElementsByClassName("form-control idUnitKerja")[index].id;
           console.log(tanggal_lahir_edit);
@@ -674,7 +674,7 @@
           nama_pegawai: $('#'+nama_pegawai_edit).val(),
           tempat_lahir: $('#'+tempat_lahir_edit).val(),
           tanggal_lahir: $('#'+tanggal_lahir_edit).val(),
-          idPangkat: $('#'+idPangkat_edit).val(),
+         // idPangkat: $('#'+idPangkat_edit).val(),
           idGolongan: $('#'+idGolongan_edit).val(),
           idUnitKerja: $('#'+idUnitKerja_edit).val(),
         };

@@ -1,6 +1,6 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>SIPD</title>
+  <title>e-SIPD</title>
   <link rel="shortcut icon" type="image/x-icon" href="<?=base_url('assets/icon_image/surat2.png')?>" />
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">

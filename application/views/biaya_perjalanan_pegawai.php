@@ -609,8 +609,8 @@ foreach ($surat_perintah_perjalanan_dinas as $data_surat_perintah_perjalanan_din
                           foreach ($pegawai as $data_pegawai) {
                             if ($data_pegawai->NIP == $data_perjalanan_dinas->idPegawaiTugas) {
                               echo $data_pegawai->nama_pegawai . '<br>';
-                              echo $data_pegawai->nama_golongan . '<br>';
-                              echo $data_pegawai->nama_pangkat . '<br>';
+                              echo'Golongan '.$data_pegawai->nama_golongan . '<br>';
+                              // echo $data_pegawai->nama_pangkat . '<br>';
                               echo $data_pegawai->nama_unit_kerja;
                               echo '<hr>';
                               $nama_pegawai[0]=$data_pegawai->nama_pegawai;
@@ -629,7 +629,7 @@ foreach ($surat_perintah_perjalanan_dinas as $data_surat_perintah_perjalanan_din
                              foreach ($pegawai as $data_pegawai) {
                               if ($data_pegawai->NIP == $data_pegawai_pengikut->idPegawaiPengikut) {
                                 echo $data_pegawai->nama_pegawai . '<br>';
-                                echo  $data_pegawai->nama_pangkat . ' / Gol ' . $data_pegawai->nama_golongan ;
+                                echo 'Golongan ' . $data_pegawai->nama_golongan ;
                                 echo '<hr>';
                                 array_push($nama_pegawai, $data_pegawai->nama_pegawai);
                                 //echo $nama_pegawai[0] . $nama_pegawai[1];

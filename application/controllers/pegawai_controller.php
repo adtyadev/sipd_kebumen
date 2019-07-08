@@ -39,7 +39,8 @@ class pegawai_controller extends CI_Controller{
 			$nama_pegawai=$this->input->post('nama_pegawai');
 			$tempat_lahir=$this->input->post('tempat_lahir');
 			$tanggal_lahir=$this->input->post('tanggal_lahir');
-			$idPangkat=$this->input->post('idPangkat');
+			//$idPangkat=$this->input->post('idPangkat');
+			$idPangkat="p1";
 			$idGolongan=$this->input->post('idGolongan');
 			$idUnitKerja=$this->input->post('idUnitKerja');
 			$input = array(
@@ -79,7 +80,8 @@ class pegawai_controller extends CI_Controller{
 		 	$nama_pegawai=$this->input->post('nama_pegawai');
 		 	$tempat_lahir=$this->input->post('tempat_lahir');
 		 	$tanggal_lahir=$this->input->post('tanggal_lahir');
-		 	$idPangkat=$this->input->post('idPangkat');
+		 	//$idPangkat=$this->input->post('idPangkat');
+		 	$idPangkat="p1";
 		 	$idGolongan=$this->input->post('idGolongan');
 		 	$idUnitKerja=$this->input->post('idUnitKerja');
 		 	$input = array(

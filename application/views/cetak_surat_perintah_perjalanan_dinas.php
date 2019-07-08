@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="<?php echo base_url('assets')?>/bower_components/surat_sipd/css/surat_sipd.css">
 
   <script type="text/javascript">
-   //   window.print();
+     window.print();
  </script>
 </head>
 

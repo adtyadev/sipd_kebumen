@@ -173,8 +173,8 @@
                     <tr>
                       <td><?php echo $no ?></td>
                       <td><?php echo $data_biaya_transportasi_mobil->nama_transportasi?></td>
-                      <td><?php echo $data_biaya_transportasi_mobil->kilometer?></td>
-                      <td><?php echo $data_biaya_transportasi_mobil->mesin_cc?></td>
+                      <td><?php echo $data_biaya_transportasi_mobil->kilometer . " Km"?></td>
+                      <td><?php echo $data_biaya_transportasi_mobil->mesin_cc . " cc"?></td>
                       <td><?php echo $data_biaya_transportasi_mobil->jenis_bbm?></td>
                       <td><?php echo "Rp ". number_format($data_biaya_transportasi_mobil->nominal_biaya_mobil, 0, '', '.') .",-"?></td>
                       <td style="text-align: center">
